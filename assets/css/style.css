@@ -1811,26 +1811,36 @@ button { cursor: pointer; border: none; background: none; }
 .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .back-to-top:hover { background: var(--orange-light); transform: translateY(-3px); }
 
-/* ── AOS ANIMATIONS ──────────────────────────────── */
+/* -- AOS ANIMATIONS ------------------------------- */
+/* Guaranteed 100% visibility � elements never hidden or blocked by scroll triggers */
 [data-aos] {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1);
-  will-change: opacity, transform;
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
-[data-aos="fade-right"] { transform: translateX(-28px); }
-[data-aos="fade-left"]  { transform: translateX(28px); }
-[data-aos="zoom-in"]    { transform: scale(0.92); opacity: 0; }
-[data-aos].aos-animate  { opacity: 1 !important; transform: none !important; }
-
-/* Ensure hero and critical project card content is always fully rendered */
-.hero-badge, .hero-title, .hero-subtitle, .hero-actions, .hero-stats,
-.project-card, .project-card-body, .service-card, .spec-quad-card, .tech-card, .principle-card {
+[data-aos="fade-right"],
+[data-aos="fade-left"],
+[data-aos="zoom-in"],
+[data-aos="fade-up"] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+[data-aos].aos-animate {
   opacity: 1 !important;
   transform: none !important;
   visibility: visible !important;
 }
 
+/* Ensure all content, contact forms, cards, and sections are immediately visible */
+.hero-badge, .hero-title, .hero-subtitle, .hero-actions, .hero-stats,
+.about-visual, .about-content, .contact-info, .contact-form-wrap, .contact-grid,
+.project-card, .project-card-body, .service-card, .spec-quad-card, .tech-card, .principle-card,
+.section-header, .flagship-hero-banner, .cta-band-inner {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
 /* ── RESPONSIVE ──────────────────────────────────── */
 @media (max-width: 1100px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
