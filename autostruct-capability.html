@@ -12,26 +12,179 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    body { background: #0b1320; color: #e2e8f0; font-family: var(--font-body); }
-    .cap-hero { padding: 90px 0 50px; background: linear-gradient(180deg, #111e34 0%, #0b1320 100%); border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .cap-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,0.12); border: 1px solid rgba(0,229,255,0.4); padding: 5px 14px; border-radius: 100px; color: #00e5ff; font-family: var(--font-head); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
-    .cap-title { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; color: #ffffff; line-height: 1.15; margin-bottom: 16px; }
-    .cap-subtitle { font-size: 1.15rem; color: #94a3b8; max-width: 820px; line-height: 1.7; }
-    .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-    .cap-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; transition: transform 0.3s ease, border-color 0.3s ease; }
-    .cap-card:hover { transform: translateY(-4px); border-color: #00e5ff; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
-    .cap-card-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(0,229,255,0.15); color: #00e5ff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 18px; }
-    .cap-card h3 { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
-    .cap-card p { font-size: 0.88rem; color: #94a3b8; line-height: 1.6; }
-    .cap-card ul { margin-top: 14px; padding-left: 0; list-style: none; }
-    .cap-card ul li { font-size: 0.82rem; color: #cbd5e1; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-    .cap-card ul li i { color: #00e5ff; font-size: 0.75rem; }
-    .cap-cta { margin-top: 50px; background: linear-gradient(135deg, rgba(232,75,13,0.15) 0%, rgba(17,30,52,0.9) 100%); border: 1px solid rgba(232,75,13,0.35); border-radius: 16px; padding: 36px; text-align: center; }
-    .cap-back-nav { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(17,30,52,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
-    @media (max-width: 900px) { .cap-grid { grid-template-columns: 1fr; } }
+    body {
+      background: #060b14;
+      color: #e2e8f0;
+      font-family: var(--font-body);
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Fullscreen Matrix Background Canvas */
+    #page-matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.82;
+      display: block;
+    }
+
+    /* Ambient gradient overlay so text remains 100% readable over falling code */
+    .matrix-page-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 25%, rgba(6, 11, 20, 0.6) 0%, rgba(6, 11, 20, 0.88) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .cap-back-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 0;
+      background: rgba(11, 19, 32, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    }
+
+    .cap-hero {
+      position: relative;
+      z-index: 2;
+      padding: 70px 0 60px;
+    }
+
+    .cap-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.45);
+      padding: 6px 16px;
+      border-radius: 100px;
+      color: #00e5ff;
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+    }
+
+    .cap-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .cap-subtitle {
+      font-size: 1.15rem;
+      color: #c2c9d6;
+      max-width: 860px;
+      line-height: 1.7;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 45px;
+    }
+
+    .cap-card {
+      background: rgba(11, 19, 32, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      border-radius: 14px;
+      padding: 28px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .cap-card:hover {
+      transform: translateY(-5px);
+      border-color: #00e5ff;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 229, 255, 0.25);
+    }
+
+    .cap-card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(0, 229, 255, 0.15);
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      color: #00e5ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      margin-bottom: 18px;
+    }
+
+    .cap-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .cap-card p {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .cap-card ul {
+      margin-top: 14px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .cap-card ul li {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cap-card ul li i {
+      color: #00e5ff;
+      font-size: 0.75rem;
+    }
+
+    .cap-cta {
+      margin-top: 50px;
+      background: linear-gradient(135deg, rgba(232, 75, 13, 0.2) 0%, rgba(11, 19, 32, 0.95) 100%);
+      border: 1px solid rgba(232, 75, 13, 0.45);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 900px) {
+      .cap-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Fullscreen Falling Matrix Digital Canvas -->
+  <canvas id="page-matrix-canvas"></canvas>
+  <div class="matrix-page-overlay"></div>
 
   <!-- Top Sticky Navigation Bar -->
   <header class="cap-back-nav">
@@ -40,7 +193,7 @@
         <img src="assets/images/logo-navbar.png" alt="EDGEMARK" style="height:36px; width:auto;" />
         <span style="font-family:var(--font-head); font-weight:800; font-size:0.95rem; color:#fff; letter-spacing:0.05em;">EDGEMARK <span style="color:#00e5ff;">AUTOSTRUCT</span></span>
       </a>
-      <a href="index.html#services" class="btn btn-outline" style="font-size:0.8rem; padding:6px 16px;">
+      <a href="index.html#services" class="btn btn-outline" style="font-size:0.8rem; padding:6px 16px; border-color:rgba(0,229,255,0.4); color:#00e5ff;">
         <i class="fa-solid fa-arrow-left"></i> Return to Main Website
       </a>
     </div>
@@ -131,11 +284,11 @@
         <!-- 6: Interoperability Bridges -->
         <div class="cap-card">
           <div class="cap-card-icon"><i class="fa-solid fa-shuffle"></i></div>
-          <h3>Tekla <-> ETABS <-> SAFE Bridges</h3>
+          <h3>Tekla &harr; ETABS &harr; SAFE Bridges</h3>
           <p>Universal multi-software data exchanges that break vendor lock-in and enable seamless collaboration.</p>
           <ul>
             <li><i class="fa-solid fa-check"></i> Tekla Structural Designer to ETABS .CXL/.E2K</li>
-            <li><i class="fa-solid fa-check"></i> TSD floor plate extraction into CSI SAFE (Upcoming)</li>
+            <li><i class="fa-solid fa-check"></i> TSD floor plate extraction into CSI SAFE</li>
             <li><i class="fa-solid fa-check"></i> Multi-version stepdown downgraders</li>
             <li><i class="fa-solid fa-check"></i> CSiCol column envelope data pipeline</li>
           </ul>
@@ -151,12 +304,83 @@
         </p>
         <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
           <a href="index.html#contact" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Request a Software Demo</a>
-          <a href="mailto:wasleeyung@gmail.com" class="btn btn-outline"><i class="fa-solid fa-phone"></i> Direct Technical Inquiry</a>
+          <a href="mailto:wasleeyung@gmail.com" class="btn btn-outline" style="border-color:rgba(0,229,255,0.4); color:#00e5ff;"><i class="fa-solid fa-phone"></i> Direct Technical Inquiry</a>
         </div>
       </div>
 
     </div>
   </section>
+
+  <!-- Fullscreen Matrix Rain Animation Engine -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('page-matrix-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = 0, height = 0, columns = 0, drops = [], speeds = [];
+      const chars = '011001010111001010101011010010101XYZΔσμεθkN/m²ΣλETABS.SapModel.SetFrameLoad()def_calc_rebar_shear()=>0x4F8A;101010101010AutoStruct.run()Revit.CreateRebar()'.split('');
+      const fontSize = 14;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.max(1, Math.floor(width / fontSize));
+        drops = [];
+        speeds = [];
+        for (let i = 0; i < columns; i++) {
+          drops[i] = Math.random() * -60;
+          speeds[i] = 1.8 + Math.random() * 1.6;
+        }
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      let lastTime = 0;
+      const targetFps = 50;
+      const interval = 1000 / targetFps;
+
+      function draw(currentTime) {
+        requestAnimationFrame(draw);
+
+        if (currentTime - lastTime < interval) return;
+        lastTime = currentTime;
+
+        // Phosphor decay wash trail
+        ctx.fillStyle = 'rgba(6, 11, 20, 0.16)';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.font = `${fontSize}px "Fira Code", "Courier New", monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+
+          // Glowing leader vs cyan matrix body
+          if (Math.random() > 0.85) {
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#00f7ff';
+          } else {
+            ctx.fillStyle = '#00e5ff';
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = '#0099cc';
+          }
+
+          ctx.fillText(text, x, y);
+
+          if (y > height && Math.random() > 0.96) {
+            drops[i] = 0;
+          }
+          drops[i] += speeds[i];
+        }
+      }
+
+      requestAnimationFrame(draw);
+    })();
+  </script>
 
 </body>
 </html>
