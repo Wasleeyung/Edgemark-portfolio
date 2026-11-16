@@ -670,3 +670,4 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('%c Providing Cutting-Edge Solutions and Defining Strength with Precision. ', 
     'color:#1A2D4F; font-size:11px;');
 });
+
