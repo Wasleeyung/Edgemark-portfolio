@@ -46,6 +46,12 @@
        HERO SECTION
   ══════════════════════════════════════ -->
   <section class="hero" id="home">
+    <!-- Live Construction Site Background Slider -->
+    <div class="hero-slider">
+      <div class="hero-slide active" style="background-image: url('assets/images/construction-site-1.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/pt-site-rebar.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/pt-tendon-stressing-1.jpg');"></div>
+    </div>
     <div class="hero-bg-grid"></div>
     <div class="hero-bg-overlay"></div>
     <div class="hero-container">
@@ -216,6 +222,23 @@
           <p class="spec-lead">
             Advanced design of bonded and unbonded post-tensioned floor systems, delivering thin structural depths, crack-free durability, and expansive column-free spaces.
           </p>
+
+          <!-- Interactive PT Media Showcase Strip -->
+          <div class="spec-pt-media-strip">
+            <div class="spec-pt-thumb" title="Live On-Site Tendon Laying">
+              <img src="assets/images/pt-site-rebar.jpg" alt="Post Tension Tendon Laying On Site" />
+              <span class="pt-thumb-label"><i class="fa-solid fa-camera"></i> Site Laying</span>
+            </div>
+            <div class="spec-pt-thumb" title="Hydraulic Multi-Strand Jack Stressing">
+              <img src="assets/images/pt-tendon-stressing-1.jpg" alt="Post Tension Stressing Operation" />
+              <span class="pt-thumb-label"><i class="fa-solid fa-bolt"></i> Jack Stressing</span>
+            </div>
+            <div class="spec-pt-thumb" title="Anchorage Zone Burst Detailing">
+              <img src="assets/images/pt-tendon-stressing-2.jpg" alt="Anchorage Zone Reinforcement" />
+              <span class="pt-thumb-label"><i class="fa-solid fa-shield"></i> Anchorage</span>
+            </div>
+          </div>
+
           <ul class="spec-bullets">
             <li><i class="fa-solid fa-check"></i> CSI SAFE 3D tendon profile modeling, balancing 65–85% of sustained dead loads.</li>
             <li><i class="fa-solid fa-check"></i> Significant reduction in structural self-weight, cutting foundation pile counts and floor-to-floor heights.</li>
@@ -379,16 +402,16 @@
           <div class="service-icon">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
           </div>
-          <h3>Structural Reviews &amp; Appraisals</h3>
+          <h3>Structural Reviews, Appraisals &amp; NDT</h3>
           <p>
-            Independent structural integrity evaluations, peer reviews, forensic failure investigations, 
-            and load capacity appraisals for warehouses and operational commercial facilities.
+            Independent structural integrity evaluations, forensic crack investigations, on-site Non-Destructive Testing (NDT), 
+            and vibration analysis for long-span floors prone to dynamic footfall resonance.
           </p>
           <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> Structural Integrity Assessments</li>
-            <li><i class="fa-solid fa-check"></i> Peer Verification &amp; Second Opinions</li>
-            <li><i class="fa-solid fa-check"></i> Distress &amp; Crack Pattern Diagnostics</li>
-            <li><i class="fa-solid fa-check"></i> Retrofitting &amp; Underpinning Schemes</li>
+            <li><i class="fa-solid fa-check"></i> On-Site Non-Destructive Testing (NDT Hammer &amp; Crack Audits)</li>
+            <li><i class="fa-solid fa-check"></i> Long-Span Floor Vibration Analysis &amp; Acceleration Checks</li>
+            <li><i class="fa-solid fa-check"></i> Structural Integrity Assessments &amp; Load Capacity Audits</li>
+            <li><i class="fa-solid fa-check"></i> Retrofitting, Crack Remediation &amp; Underpinning Schemes</li>
           </ul>
         </div>
 
@@ -414,10 +437,12 @@
           <div class="service-icon">
             <i class="fa-solid fa-code"></i>
           </div>
+          <div class="service-subbranch-badge">
+            <i class="fa-solid fa-microchip"></i> EDGEMARK AutoStruct Solutions
+          </div>
           <h3>Building Automation &amp; AI Software Tools</h3>
           <p>
-            Developing specialized software applications, API pipelines, and trained AI MCP servers for AEC organizations — 
-            automating finite-element modeling, parametric rebar detailing, and computational structural design.
+            Operating through our specialized computational division, <strong>EDGEMARK AutoStruct Solutions</strong> develops custom software applications, API pipelines, and trained AI MCP servers for AEC organizations — automating finite-element modeling, parametric rebar detailing, and computational structural design.
           </p>
           <ul class="service-list">
             <li><i class="fa-solid fa-check"></i> Rebar Visualization &amp; Scheduling Tools</li>
@@ -425,6 +450,11 @@
             <li><i class="fa-solid fa-check"></i> Trained Structural Engineering AI MCP Server</li>
             <li><i class="fa-solid fa-check"></i> CSI ETABS OAPI &amp; SAFE Load Bridge Automations</li>
           </ul>
+          <div style="margin-top: 16px;">
+            <a href="autostruct-capability.html" class="btn btn-outline" style="font-size: 0.78rem; padding: 8px 16px; border-color: rgba(0, 229, 255, 0.4); color: #00e5ff;">
+              <i class="fa-solid fa-file-lines"></i> View AutoStruct Capability Statement
+            </a>
+          </div>
         </div>
 
         <div class="service-card" data-aos="fade-up" data-aos-delay="500">
@@ -640,17 +670,17 @@
         <!-- 02: 16 Storey Bourdillon -->
         <div class="project-card" data-category="highrise concrete" data-aos="fade-up" data-aos-delay="150">
           <div class="project-card-image-wrap">
-            <img src="assets/images/projects/bourdillon-render.png" alt="16 Storey Bourdillon Road Tower" class="project-card-photo" />
+            <img src="assets/images/projects/bourdillon-etabs-1.png" alt="16-Storey Bourdillon Tower with Piled Foundation Model" class="project-card-photo" />
             <div class="project-overlay">
-              <span class="project-tag">16 Storeys &bull; Ikoyi</span>
+              <span class="project-tag"><i class="fa-solid fa-layer-group"></i> 16 Storeys &bull; Piled Substructure</span>
             </div>
           </div>
           <div class="project-card-body">
             <h3>16-Storey Residential Tower</h3>
             <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Bourdillon Road, Ikoyi, Lagos</p>
-            <p>ETABS 3D analytical model of high-end residential structure incorporating Post-Tensioned (PT) floors and wind drift limits.</p>
+            <p>Full 3D finite element model incorporating Post-Tensioned (PT) floor systems, elevator core shear walls, and deep bored pile foundation substructure.</p>
             <div class="project-tech">
-              <span>ETABS</span><span>PT Slabs</span><span>CSI SAFE</span><span>Ikoyi Luxury</span>
+              <span>ETABS 3D Model</span><span>PT Slabs</span><span>Deep Piles</span><span>CSI SAFE</span>
             </div>
             <button class="project-card-btn" onclick="openProjectModal('bourdillon')">
               <span>View Case Study</span>
@@ -794,17 +824,17 @@
         <!-- 09: Industrial Warehouse & Inspection -->
         <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="500">
           <div class="project-card-image-wrap">
-            <img src="assets/images/projects/steel-portal-frame.png" alt="Steel Portal Frame Warehouse" class="project-card-photo" />
+            <img src="assets/images/ndt-hammer-test-1.png" alt="Non-Destructive Testing and Structural Defect Audit" class="project-card-photo" />
             <div class="project-overlay">
-              <span class="project-tag">Industrial &amp; Forensic</span>
+              <span class="project-tag"><i class="fa-solid fa-microscope"></i> Forensic NDT &amp; Defect Audit</span>
             </div>
           </div>
           <div class="project-card-body">
-            <h3>Portal Frame Warehouses &amp; Integrity Audit</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Kano &amp; Ilupeju, Lagos</p>
-            <p>Steel portal frame design in Kano plus comprehensive forensic structural integrity assessment of existing industrial warehouse facilities in Ilupeju, Lagos.</p>
+            <h3>Structural Integrity Audit &amp; NDT Testing</h3>
+            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Ilupeju Industrial Area, Lagos</p>
+            <p>On-site Non-Destructive Testing (NDT Schmidt hammer testing, ultrasonic pulse velocity, crack survey, and vibration audit) assessing distressed concrete &amp; steel frames.</p>
             <div class="project-tech">
-              <span>Portal Frames</span><span>Forensic Audit</span><span>Load Capacity</span><span>Ilupeju</span>
+              <span>NDT Testing</span><span>Crack Mapping</span><span>Forensic Audit</span><span>Vibration Analysis</span>
             </div>
             <button class="project-card-btn" onclick="openProjectModal('portal-warehouses')">
               <span>View Case Study</span>
@@ -815,19 +845,18 @@
 
         <!-- 10: AutoStruct ETABS Automation -->
         <div class="project-card project-card-automation" data-category="automation" data-aos="fade-up" data-aos-delay="550">
-          <div class="project-card-visual automation-bg">
-            <canvas class="card-matrix-canvas" id="proj-matrix-canvas-1"></canvas>
+          <div class="project-card-image-wrap">
+            <img src="assets/images/app-wind-dynamics-gui.png" alt="AutoStruct Wind Dynamics App GUI" class="project-card-photo" />
             <div class="project-overlay">
-              <span class="project-tag">Automation &bull; ETABS COM API</span>
+              <span class="project-tag"><i class="fa-solid fa-code"></i> AutoStruct &bull; ETABS Suite GUI</span>
             </div>
-            <div class="project-icon-large"><i class="fa-solid fa-robot"></i></div>
           </div>
           <div class="project-card-body">
             <h3>AutoStruct — ETABS Automation Suite</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK Proprietary Software</p>
-            <p>Python-powered automation hub communicating via COM API: automated model creation, wall-pier grouping, dynamic mode extraction, and wind profile generator.</p>
+            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
+            <p>Python-powered automation desktop app communicating via COM API: automated model creation, wall-pier grouping, dynamic mode extraction, and wind pressure calculations.</p>
             <div class="project-tech">
-              <span>Python</span><span>ETABS OAPI</span><span>Wind Dynamics</span><span>Tkinter</span>
+              <span>Python Desktop App</span><span>ETABS OAPI</span><span>Wind Dynamics</span><span>Tkinter GUI</span>
             </div>
             <button class="project-card-btn" onclick="openProjectModal('autostruct-suite')">
               <span>View Case Study</span>
@@ -836,21 +865,20 @@
           </div>
         </div>
 
-        <!-- 11: Automated Reinforcement Detailing -->
+        <!-- 11: Automated Reinforcement Detailing & Revit Extension -->
         <div class="project-card project-card-automation" data-category="automation" data-aos="fade-up" data-aos-delay="600">
-          <div class="project-card-visual rebar-bg">
-            <canvas class="card-matrix-canvas" id="proj-matrix-canvas-2"></canvas>
+          <div class="project-card-image-wrap">
+            <img src="assets/images/app-rebar-revit-gui.png" alt="Rebar Automation and Revit Detailing App GUI" class="project-card-photo" />
             <div class="project-overlay">
-              <span class="project-tag">Automation &bull; Rebar Pro</span>
+              <span class="project-tag"><i class="fa-solid fa-compass-drafting"></i> Revit &amp; Python Detailing GUI</span>
             </div>
-            <div class="project-icon-large"><i class="fa-solid fa-layer-group"></i></div>
           </div>
           <div class="project-card-body">
-            <h3>Automated Reinforcement Detailing</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK / AEC Industry</p>
-            <p>Intelligent algorithm translating structural analysis moments and shear into optimized rebar schedules, curtailment lengths, and bar bending schedules.</p>
+            <h3>Automated Reinforcement &amp; Revit Detailing</h3>
+            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
+            <p>Intelligent algorithm translating structural analysis moments and shear into optimized rebar schedules, curtailment lengths, and automated 3D Revit reinforcement.</p>
             <div class="project-tech">
-              <span>Python</span><span>RC Design</span><span>Rebar Visualization Tool</span><span>AutoCAD</span>
+              <span>Revit Add-In</span><span>RC Design</span><span>Rebar Visualization Tool</span><span>AutoCAD DXF</span>
             </div>
             <button class="project-card-btn" onclick="openProjectModal('rebar-detailing')">
               <span>View Case Study</span>
@@ -870,10 +898,10 @@
           </div>
           <div class="project-card-body">
             <h3>SAFE Foundation Load Automation</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK / AEC Industry</p>
+            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
             <p>Direct Python pipeline importing hundreds of axial, shear, and moment load combinations from ETABS support points into CSI SAFE with zero manual transfer error.</p>
             <div class="project-tech">
-              <span>Python</span><span>CSI SAFE API</span><span>ETABS API</span><span>Foundation Bridge</span>
+              <span>Python Engine</span><span>CSI SAFE API</span><span>ETABS API</span><span>Zero Transcription Fault</span>
             </div>
             <button class="project-card-btn" onclick="openProjectModal('safe-automation')">
               <span>View Case Study</span>
@@ -948,6 +976,28 @@
           <p>BS 8110, BS 6399, BS 8007, Eurocode 2/3, EN 1990/1991, NBC 2005, and ACI performance-based requirements.</p>
         </div>
 
+      </div>
+
+      <!-- COMING SOON INNOVATION BANNER -->
+      <div class="innovation-upcoming-card" data-aos="fade-up">
+        <div class="upcoming-badge">
+          <span class="pulse-dot"></span>
+          <span>COMING SOON &bull; NEXT-GEN AEC INTEROPERABILITY</span>
+        </div>
+        <div class="upcoming-content">
+          <div class="upcoming-icon"><i class="fa-solid fa-shuffle"></i></div>
+          <div class="upcoming-text">
+            <h3>Tekla Structural Designer Floor $\rightarrow$ CSI SAFE Direct Importation</h3>
+            <p>
+              Automated analytical bridge extracting complex floor geometries, panel boundary loads, and column/wall load reactions directly from Tekla Structural Designer into CSI SAFE for rigorous, code-compliant plate, slab, and punching shear design without manual re-modeling.
+            </p>
+          </div>
+          <div class="upcoming-tags">
+            <span><i class="fa-solid fa-code-fork"></i> TSD API</span>
+            <span><i class="fa-solid fa-layer-group"></i> SAFE 22 F2K</span>
+            <span><i class="fa-solid fa-bolt"></i> AutoStruct Bridge</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>

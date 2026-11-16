@@ -216,9 +216,33 @@ button { cursor: pointer; border: none; background: none; }
   align-items: center;
   overflow: hidden;
 }
+
+/* Background Construction Slider */
+.hero-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.8s ease-in-out, transform 6s ease-out;
+  filter: brightness(0.32) contrast(1.15);
+}
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .hero-bg-grid {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image:
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
@@ -227,8 +251,9 @@ button { cursor: pointer; border: none; background: none; }
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(232,75,13,0.12) 0%, transparent 65%),
-              radial-gradient(ellipse at 20% 80%, rgba(26,45,79,0.6) 0%, transparent 50%);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(17, 30, 52, 0.85) 0%, rgba(17, 30, 52, 0.65) 50%, rgba(17, 30, 52, 0.90) 100%),
+              radial-gradient(ellipse at 70% 50%, rgba(232,75,13,0.18) 0%, transparent 65%);
 }
 .hero-container {
   position: relative;
@@ -519,6 +544,50 @@ button { cursor: pointer; border: none; background: none; }
   line-height: 1.65;
   margin-bottom: 22px;
 }
+.spec-pt-media-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.spec-pt-thumb {
+  position: relative;
+  height: 85px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+.spec-pt-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.spec-pt-thumb:hover img {
+  transform: scale(1.08);
+}
+.pt-thumb-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(11, 19, 32, 0.85);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pt-thumb-label i {
+  color: var(--orange-light);
+  font-size: 0.65rem;
+}
 .spec-bullets {
   display: flex;
   flex-direction: column;
@@ -571,6 +640,22 @@ button { cursor: pointer; border: none; background: none; }
 .service-card-automation {
   border-color: rgba(0, 220, 255, 0.25);
   box-shadow: inset 0 0 20px rgba(0, 180, 255, 0.05);
+}
+.service-subbranch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-family: var(--font-head);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 .service-card-automation:hover {
   border-color: rgba(0, 220, 255, 0.5) !important;
@@ -1362,7 +1447,93 @@ button { cursor: pointer; border: none; background: none; }
   transform: translateX(4px);
 }
 
-/* ── TECH GRID ───────────────────────────────────── */
+/* ── INNOVATION UPCOMING CARD ───────────────────── */
+.innovation-upcoming-card {
+  margin-top: 50px;
+  background: linear-gradient(135deg, rgba(232, 75, 13, 0.12) 0%, rgba(17, 30, 52, 0.95) 100%);
+  border: 1px solid rgba(232, 75, 13, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+.upcoming-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232, 75, 13, 0.2);
+  border: 1px solid var(--orange);
+  padding: 4px 14px;
+  border-radius: 100px;
+  color: var(--orange-light);
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+.upcoming-badge .pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+.upcoming-content {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.upcoming-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: rgba(232, 75, 13, 0.18);
+  border: 1px solid rgba(232, 75, 13, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--orange-light);
+  flex-shrink: 0;
+}
+.upcoming-text {
+  flex: 1;
+  min-width: 280px;
+}
+.upcoming-text h3 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.upcoming-text p {
+  color: #c2c9d6;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.upcoming-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.upcoming-tags span {
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.upcoming-tags span i {
+  color: var(--orange-light);
+}
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

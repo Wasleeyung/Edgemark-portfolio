@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDGEMARK AutoStruct Solutions | Capability Statement</title>
+  <meta name="description" content="EDGEMARK AutoStruct Solutions — Computational engineering, custom software automation, AI MCP servers, and API integration for the AEC industry." />
+  <link rel="icon" type="image/png" href="assets/images/logo-navbar.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body { background: #0b1320; color: #e2e8f0; font-family: var(--font-body); }
+    .cap-hero { padding: 90px 0 50px; background: linear-gradient(180deg, #111e34 0%, #0b1320 100%); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .cap-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,0.12); border: 1px solid rgba(0,229,255,0.4); padding: 5px 14px; border-radius: 100px; color: #00e5ff; font-family: var(--font-head); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .cap-title { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; color: #ffffff; line-height: 1.15; margin-bottom: 16px; }
+    .cap-subtitle { font-size: 1.15rem; color: #94a3b8; max-width: 820px; line-height: 1.7; }
+    .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+    .cap-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; transition: transform 0.3s ease, border-color 0.3s ease; }
+    .cap-card:hover { transform: translateY(-4px); border-color: #00e5ff; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+    .cap-card-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(0,229,255,0.15); color: #00e5ff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 18px; }
+    .cap-card h3 { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
+    .cap-card p { font-size: 0.88rem; color: #94a3b8; line-height: 1.6; }
+    .cap-card ul { margin-top: 14px; padding-left: 0; list-style: none; }
+    .cap-card ul li { font-size: 0.82rem; color: #cbd5e1; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .cap-card ul li i { color: #00e5ff; font-size: 0.75rem; }
+    .cap-cta { margin-top: 50px; background: linear-gradient(135deg, rgba(232,75,13,0.15) 0%, rgba(17,30,52,0.9) 100%); border: 1px solid rgba(232,75,13,0.35); border-radius: 16px; padding: 36px; text-align: center; }
+    .cap-back-nav { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(17,30,52,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+    @media (max-width: 900px) { .cap-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="cap-back-nav">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <img src="assets/images/logo-navbar.png" alt="EDGEMARK" style="height:36px; width:auto;" />
+        <span style="font-family:var(--font-head); font-weight:800; font-size:0.95rem; color:#fff; letter-spacing:0.05em;">EDGEMARK <span style="color:#00e5ff;">AUTOSTRUCT</span></span>
+      </a>
+      <a href="index.html#services" class="btn btn-outline" style="font-size:0.8rem; padding:6px 16px;">
+        <i class="fa-solid fa-arrow-left"></i> Return to Main Website
+      </a>
+    </div>
+  </header>
+
+  <!-- Capability Header -->
+  <section class="cap-hero">
+    <div class="container">
+      <div class="cap-badge">
+        <i class="fa-solid fa-microchip"></i> Computational AEC Division
+      </div>
+      <h1 class="cap-title">
+        EDGEMARK <span style="color:#00e5ff;">AutoStruct Solutions</span><br />
+        <span style="font-size:0.7em; color:var(--orange-light); font-weight:700;">One-Page Capability Statement</span>
+      </h1>
+      <p class="cap-subtitle">
+        Bridging high-performance structural engineering mechanics with modern software architecture. We develop bespoke desktop suites, direct COM API controllers, Revit automation add-ins, and trained structural engineering AI Model Context Protocol (MCP) servers for consultancies and engineering organizations worldwide.
+      </p>
+
+      <!-- 6 Pillar Capabilities Grid -->
+      <div class="cap-grid">
+
+        <!-- 1: CSI ETABS Automation -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-cubes-stacked"></i></div>
+          <h3>CSI ETABS OAPI Automation</h3>
+          <p>Direct algorithmic control of CSI ETABS via COM API, eliminating hundreds of manual modeling and extraction hours.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Automated building geometry generation</li>
+            <li><i class="fa-solid fa-check"></i> Shear wall pier grouping &amp; assignment</li>
+            <li><i class="fa-solid fa-check"></i> Mode shape mass participation extraction</li>
+            <li><i class="fa-solid fa-check"></i> AutoStruct Wind Dynamics Solver (BS 6399 &amp; NBC)</li>
+          </ul>
+        </div>
+
+        <!-- 2: Revit Reinforcement -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+          <h3>Revit Reinforcement Automation</h3>
+          <p>Parametric Revit add-ins translating finite element design demands into fully modeled 3D rebar and compliant documentation.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Automated 2D &amp; 3D rebar modeling</li>
+            <li><i class="fa-solid fa-check"></i> Multi-span beam &amp; column detailing</li>
+            <li><i class="fa-solid fa-check"></i> Automatic section cuts and annotation tags</li>
+            <li><i class="fa-solid fa-check"></i> Curtailment &amp; bar-bending schedule export</li>
+          </ul>
+        </div>
+
+        <!-- 3: Trained AI MCP Server -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>Structural Engineering AI MCP Server</h3>
+          <p>Custom Model Context Protocol (MCP) servers embedding deep structural knowledge, building codes, and project history into AI workflows.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Code-aware engineering intelligence (BS 8110, EC2)</li>
+            <li><i class="fa-solid fa-check"></i> Automated sanity checks on drift &amp; P-Delta</li>
+            <li><i class="fa-solid fa-check"></i> Cross-tool interoperability with LLM agents</li>
+            <li><i class="fa-solid fa-check"></i> Zero hallucinations on structural mechanics</li>
+          </ul>
+        </div>
+
+        <!-- 4: Foundation Load Bridge -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-database"></i></div>
+          <h3>SAFE Foundation Load Bridge</h3>
+          <p>Eliminate human transcription errors by transferring thousands of column and wall base reactions directly from ETABS to SAFE.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Full load combo vector extraction (Fx, Fy, Fz, Mx, My, Mz)</li>
+            <li><i class="fa-solid fa-check"></i> Automated soil spring stiffness calculation</li>
+            <li><i class="fa-solid fa-check"></i> Pile cap and raft load generation</li>
+            <li><i class="fa-solid fa-check"></i> 100% equilibrium verification</li>
+          </ul>
+        </div>
+
+        <!-- 5: Rebar Visualization Tool -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+          <h3>Rebar Visualization Tool</h3>
+          <p>Modern desktop GUI tools converting engineering calculation sheets into interactive graphical cross-sections.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Real-time clear bar spacing conformity checks</li>
+            <li><i class="fa-solid fa-check"></i> Rigorous neutral axis depth estimation</li>
+            <li><i class="fa-solid fa-check"></i> Deep beam skin reinforcement rules</li>
+            <li><i class="fa-solid fa-check"></i> One-click vector DXF &amp; PNG export</li>
+          </ul>
+        </div>
+
+        <!-- 6: Interoperability Bridges -->
+        <div class="cap-card">
+          <div class="cap-card-icon"><i class="fa-solid fa-shuffle"></i></div>
+          <h3>Tekla <-> ETABS <-> SAFE Bridges</h3>
+          <p>Universal multi-software data exchanges that break vendor lock-in and enable seamless collaboration.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Tekla Structural Designer to ETABS .CXL/.E2K</li>
+            <li><i class="fa-solid fa-check"></i> TSD floor plate extraction into CSI SAFE (Upcoming)</li>
+            <li><i class="fa-solid fa-check"></i> Multi-version stepdown downgraders</li>
+            <li><i class="fa-solid fa-check"></i> CSiCol column envelope data pipeline</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Capability CTA -->
+      <div class="cap-cta">
+        <h2 style="font-family:var(--font-head); font-size:1.6rem; color:#fff; margin-bottom:10px;">Accelerate Your Engineering Workflows</h2>
+        <p style="color:#c2c9d6; max-width:650px; margin:0 auto 20px; font-size:0.95rem;">
+          Whether your consultancy needs custom finite element automations, bespoke Revit extensions, or a dedicated AI engineering server, EDGEMARK AutoStruct Solutions delivers proven computational precision.
+        </p>
+        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+          <a href="index.html#contact" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Request a Software Demo</a>
+          <a href="mailto:wasleeyung@gmail.com" class="btn btn-outline"><i class="fa-solid fa-phone"></i> Direct Technical Inquiry</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

@@ -92,6 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── HERO SLIDER (LIFE ON-SITE CONSTRUCTION) ────────────────── */
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  if (heroSlides.length > 1) {
+    let currentSlide = 0;
+    setInterval(() => {
+      heroSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % heroSlides.length;
+      heroSlides[currentSlide].classList.add('active');
+    }, 5500);
+  }
+
   /* ── SCROLL-TRIGGERED ANIMATIONS (AOS-like) */
   const animatedEls = document.querySelectorAll('[data-aos]');
   const aosObserver = new IntersectionObserver((entries) => {
@@ -327,20 +338,22 @@ document.addEventListener('DOMContentLoaded', () => {
     'bourdillon': {
       title: '16-Storey Residential Tower with PT Floors',
       location: 'Bourdillon Road, Ikoyi, Lagos',
-      tag: 'Luxury Highrise',
-      image: 'assets/images/projects/bourdillon-render.png',
+      tag: 'Luxury Highrise & Deep Piles',
+      image: 'assets/images/projects/bourdillon-etabs-1.png',
+      extraImages: ['assets/images/projects/bourdillon-render.png', 'assets/images/projects/bourdillon-etabs-2.png'],
       specs: [
         { label: 'Height / Floors', val: '16 Storeys' },
         { label: 'Floor Type', val: 'Post-Tensioned (PT)' },
         { label: 'Foundation', val: 'Deep Bored Piles' }
       ],
-      desc: 'High-end multi-storey residential development in prestigious Ikoyi. Engineered using CSI ETABS for 3D modal lateral load dissipation and CSI SAFE for long-span post-tensioned tendon profiling, deflection control, and punching shear resistance.',
+      desc: 'High-end multi-storey residential development in prestigious Ikoyi. Engineered using CSI ETABS for full 3D superstructure frame and deep pile foundation analysis, coupled with CSI SAFE for long-span post-tensioned tendon profiling, deflection control, and punching shear resistance.',
       highlights: [
+        'Integrated 3D structural model showing full superstructure connected with bored pile foundations and pile caps.',
         'Custom tendon layout profiles optimizing tendon drape and pre-compression across critical column strips.',
-        'Stringent inter-storey drift limits maintained under sustained Atlantic coastal wind gusts.',
+        'Stringent inter-storey drift limits verified to international serviceability criteria.',
         'Column load reaction consolidation feeding directly into foundation pile-cap layouts.'
       ],
-      tech: ['CSI ETABS', 'CSI SAFE', 'Post-Tensioned Concrete', 'Bored Piles', 'Ikoyi Coast']
+      tech: ['CSI ETABS 3D Model', 'Deep Piled Foundation', 'Post-Tensioned Concrete', 'CSI SAFE', 'Ikoyi Luxury']
     },
     'midrise-vi': {
       title: 'Mid-Rise Mixed-Use Commercial Complex',
@@ -454,44 +467,63 @@ document.addEventListener('DOMContentLoaded', () => {
       tech: ['Structural Steel', 'Wind Uplift', 'Moment Baseplates', 'Tekla', 'Lekki & Kano']
     },
     'portal-warehouses': {
-      title: 'Industrial Steel Portal Frames & Ilupeju Forensic Audit',
-      location: 'Kano & Ilupeju, Lagos State',
-      tag: 'Industrial & Forensic Audit',
-      image: 'assets/images/projects/steel-portal-frame.png',
+      title: 'Structural Integrity Appraisal & Non-Destructive Testing (NDT)',
+      location: 'Ilupeju Industrial Area, Lagos & Kano State',
+      tag: 'Forensic Audit & NDT Testing',
+      image: 'assets/images/ndt-hammer-test-1.png',
+      extraImages: ['assets/images/ndt-crack-inspection.png', 'assets/images/projects/steel-portal-frame.png', 'assets/images/projects/warehouse-inspection.png'],
       specs: [
-        { label: 'Industrial Span', val: 'Clear Span Portal' },
-        { label: 'Forensic Scope', val: 'Structural Integrity Appraisal' },
-        { label: 'Facility', val: 'Heavy Logistics Warehouse' }
+        { label: 'NDT Methods', val: 'Rebound Hammer & Crack Survey' },
+        { label: 'Defect Scope', val: 'Structural Cracks & Deflection' },
+        { label: 'Facility Type', val: 'Operational Industrial Logistics' }
       ],
-      desc: 'Dual engineering delivery: modern clear-span steel portal frame design for manufacturing in Kano, coupled with a thorough forensic structural integrity assessment of aging warehouse frames in Ilupeju, Lagos.',
+      desc: 'Comprehensive forensic structural integrity appraisal of distressed operational warehouse facilities. Includes on-site Non-Destructive Testing (NDT) with Schmidt hammer hardness rebound, photographic crack pattern mapping, long-span floor vibration evaluations, and remedial strengthening recommendations.',
       highlights: [
-        'In-situ nondestructive testing and ultrasonic crack diagnostics for existing warehouse trusses.',
-        'Hunched portal frame rafter optimization reducing steel weight per square metre by 18%.',
-        'Engineered remedial strengthening and column stiffener retrofits extending warehouse operational life.'
+        'On-site Non-Destructive Testing (NDT) quantifying compressive strength of existing structural concrete members.',
+        'Crack classification and mapping identifying active shear and flexural stress patterns across beams and columns.',
+        'Vibration and resonance evaluation of long-span floor slabs under dynamic moving loads.',
+        'Engineered remedial retrofitting and carbon-fiber/steel jacket strengthening schemes extending operational service life.'
       ],
-      tech: ['Steel Portal Frames', 'Forensic Audit', 'Nondestructive Testing', 'Retrofit Schemes']
+      tech: ['NDT Rebound Hammer', 'Crack Diagnostics', 'Vibration Analysis', 'Forensic Audit', 'Structural Retrofit']
     },
     'autostruct-suite': {
       title: 'AutoStruct — Computational ETABS Automation Suite',
-      location: 'EDGEMARK Proprietary Engineering Tool',
+      location: 'EDGEMARK AutoStruct Solutions',
       tag: 'AEC Software & COM API',
-      image: 'assets/images/projects/midrise-vi-model.png',
+      image: 'assets/images/app-wind-dynamics-gui.png',
+      extraImages: ['assets/images/projects/midrise-vi-model.png'],
       specs: [
-        { label: 'Language', val: 'Python / Tkinter' },
+        { label: 'Language', val: 'Python / Tkinter GUI' },
         { label: 'API Target', val: 'CSI ETABS OAPI' },
-        { label: 'Specialization', val: 'Wind Dynamics (BS 6399)' }
+        { label: 'Specialization', val: 'Wind Dynamics (BS 6399 & NBC)' }
       ],
-      desc: 'In-house software engineering innovation. An automated desktop suite communicating directly with ETABS via COM API, capable of generating building geometry, grouping shear wall piers, extracting modal frequencies, and applying automated wind pressure gradients.',
+      desc: 'EDGEMARK AutoStruct Solutions signature desktop software. An automated engineering suite communicating directly with ETABS via COM API, generating building geometry, grouping shear wall piers, extracting modal frequencies, and calculating wind pressure gradients with full graphical interface.',
       highlights: [
         'Universal COM API return parser solving version-specific return bugs in ETABS.',
         'Automated generation of code-compliant wind pressure profiles per BS 6399 and NBC 2005.',
         'Instant multi-run extraction saving up to 80% of engineer modeling time.'
       ],
-      tech: ['Python', 'ETABS OAPI', 'Tkinter UI', 'Wind Dynamics Engine', 'AEC Software']
+      tech: ['Python Desktop App', 'ETABS OAPI', 'Tkinter UI', 'Wind Dynamics Engine', 'AEC Software']
     },
     'rebar-detailing': {
-      title: 'Automated Reinforcement Detailing & Scheduling Engine',
-      location: 'EDGEMARK Internal & AEC Industry',
+      title: 'Automated Reinforcement Detailing & Revit Extension',
+      location: 'EDGEMARK AutoStruct Solutions',
+      tag: 'Revit Automation & RC Scheduling',
+      image: 'assets/images/app-rebar-revit-gui.png',
+      extraImages: ['assets/images/pt-tendon-stressing-1.jpg', 'assets/images/pt-site-rebar.jpg'],
+      specs: [
+        { label: 'Platform', val: 'Autodesk Revit & Python' },
+        { label: 'RC Standard', val: 'BS 8110 & Eurocode 2' },
+        { label: 'Output', val: 'Parametric 3D Rebar & BBS' }
+      ],
+      desc: 'Proprietary Revit automation extension and Python detailing engine. Converts finite-element design moments and shear demands into code-compliant rebar placement, lap curtailments, 3D parametric rebar models in Revit, and bar bending schedules.',
+      highlights: [
+        'Automates 2D/3D reinforcement layout, section annotations, and bar tags directly inside Autodesk Revit.',
+        'Optimizes bar curtailment lengths to minimize scrap waste from commercial 12m stock.',
+        'Seamless integration with Rebar Visualization Tool and automated calculation sheets.'
+      ],
+      tech: ['Autodesk Revit API', 'Python Engine', 'Rebar Visualization Tool', 'BBS Generation']
+    },
       tag: 'Rebar Pro Algorithms',
       image: 'assets/images/projects/4storey-rc-model.png',
       specs: [
