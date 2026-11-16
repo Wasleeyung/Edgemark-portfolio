@@ -1469,129 +1469,101 @@ button { cursor: pointer; border: none; background: none; }
   color: #ffffff;
   transform: translateX(4px);
 }
-
-/* ── INNOVATION UPCOMING CARD ───────────────────── */
-.innovation-upcoming-card {
-  margin-top: 50px;
-  background: linear-gradient(135deg, rgba(232, 75, 13, 0.12) 0%, rgba(17, 30, 52, 0.95) 100%);
-  border: 1px solid rgba(232, 75, 13, 0.35);
-  border-radius: var(--radius-lg);
-  padding: 32px 36px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-}
-.upcoming-badge {
-  display: inline-flex;
+/* -- FLASHY SIDE PILL TICKER (COMING SOON) -------- */
+.side-pill-ticker {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 998;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  background: rgba(11, 19, 32, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  border-radius: 100px;
+  padding: 8px 18px 8px 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  animation: floatPill 3.5s ease-in-out infinite;
+}
+.side-pill-ticker:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #00e5ff;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 28px rgba(0, 229, 255, 0.4);
+}
+@keyframes floatPill {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.pill-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: rgba(232, 75, 13, 0.2);
   border: 1px solid var(--orange);
-  padding: 4px 14px;
+  padding: 4px 10px;
   border-radius: 100px;
-  color: var(--orange-light);
-  font-family: var(--font-head);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
 }
-.upcoming-badge .pulse-dot {
-  width: 8px;
-  height: 8px;
+.pill-dot {
+  width: 7px;
+  height: 7px;
   background: var(--orange);
   border-radius: 50%;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.4s infinite;
 }
-.upcoming-content {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-.upcoming-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 14px;
-  background: rgba(232, 75, 13, 0.18);
-  border: 1px solid rgba(232, 75, 13, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  color: var(--orange-light);
-  flex-shrink: 0;
-}
-.upcoming-text {
-  flex: 1;
-  min-width: 280px;
-}
-.upcoming-text h3 {
+.pill-tag {
   font-family: var(--font-head);
-  font-size: 1.25rem;
+  font-size: 0.62rem;
   font-weight: 800;
-  color: #fff;
-  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+  color: var(--orange-light);
+  white-space: nowrap;
 }
-.upcoming-text p {
-  color: #c2c9d6;
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-.upcoming-tags {
+.pill-text-wrap {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
-.upcoming-tags span {
+.pill-title {
   font-family: var(--font-head);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.upcoming-tags span i {
-  color: var(--orange-light);
+.pill-title i {
+  font-size: 0.72rem;
 }
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+.pill-sub {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  white-space: nowrap;
 }
-.tech-card {
-  background: var(--gray-100);
-  border-radius: var(--radius);
-  padding: 32px 24px;
-  text-align: center;
-  border: 1px solid var(--gray-200);
-  transition: var(--transition);
+.pill-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 0 0 6px;
+  line-height: 1;
+  transition: color 0.2s ease;
 }
-.tech-card:hover {
-  background: var(--navy-dark);
-  color: var(--white);
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
+.pill-close:hover {
+  color: #ffffff;
 }
-.tech-icon {
-  font-size: 2.2rem;
-  color: var(--orange);
-  margin-bottom: 16px;
+@media (max-width: 600px) {
+  .side-pill-ticker {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    border-radius: 14px;
+    padding: 8px 12px;
+  }
 }
-.tech-card h4 {
-  font-family: var(--font-head);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 10px;
-  transition: color var(--transition);
-}
-.tech-card:hover h4 { color: var(--white); }
-.tech-card p { font-size: 0.85rem; color: var(--gray-600); line-height: 1.6; transition: color var(--transition); }
-.tech-card:hover p { color: rgba(255,255,255,0.65); }
 
 /* ── CTA BAND ────────────────────────────────────── */
 .cta-band {
