@@ -131,21 +131,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100);
 
   /* ── ANIMATED STAT COUNTERS ─────────────── */
-  const counters = document.querySelectorAll('.stat-number[data-target]');
+  const counters = document.querySelectorAll(".stat-number[data-target]");
   let countersStarted = false;
 
-  const heroSection = document.getElementById('home');
+  function runCounters() {
+    if (countersStarted) return;
+    countersStarted = true;
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute("data-target"));
+      animateCounter(counter, 0, target, 1800);
+    });
+  }
+
+  setTimeout(runCounters, 250);
+
+  const heroSection = document.getElementById("home");
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting && !countersStarted) {
-        countersStarted = true;
-        counters.forEach(counter => {
-          const target = parseInt(counter.getAttribute('data-target'));
-          animateCounter(counter, 0, target, 1800);
-        });
-      }
+      if (entry.isIntersecting) runCounters();
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.15 });
 
   if (heroSection) counterObserver.observe(heroSection);
 
