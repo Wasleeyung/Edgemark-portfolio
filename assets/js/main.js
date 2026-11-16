@@ -228,75 +228,90 @@ document.addEventListener('DOMContentLoaded', () => {
   style.textContent = `@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }`;
   document.head.appendChild(style);
 
-  /* ── CYBER MATRIX / BINARY / CODE GRAPHICS ── */
-  initMatrixAnimation('service-matrix-canvas', { speed: 1.6, density: 10, cyanAccent: true });
-  initMatrixAnimation('spec-matrix-canvas', { speed: 1.9, density: 9, cyanAccent: true });
-  initMatrixAnimation('proj-matrix-canvas-1', { speed: 1.8, density: 8, cyanAccent: true });
-  initMatrixAnimation('proj-matrix-canvas-2', { speed: 1.5, density: 9, cyanAccent: false });
-  initMatrixAnimation('proj-matrix-canvas-3', { speed: 1.7, density: 8, cyanAccent: true });
+  /* -- CYBER MATRIX / BINARY / CODE GRAPHICS -- */
+  function startAllMatrixCanvases() {
+    initMatrixAnimation('service-matrix-canvas', { speed: 2.2, density: 13, cyanAccent: true });
+    initMatrixAnimation('spec-matrix-canvas', { speed: 2.4, density: 12, cyanAccent: true });
+    initMatrixAnimation('proj-matrix-canvas-3', { speed: 2.2, density: 12, cyanAccent: true });
+  }
 
-  function initMatrixAnimation(canvasId, options = {}) {
-    const canvas = document.getElementById(canvasId);
+  startAllMatrixCanvases();
+  window.addEventListener('load', startAllMatrixCanvases);
+
+  function initMatrixAnimation(canvasId, options) {
+    options = options || {};
+    var canvas = document.getElementById(canvasId);
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    let width, height, columns, drops, speeds;
-
-    // Rich tech characters: binary streams, hex, structural notation, code operators
-    const chars = '0101011010011001010101011100010101XYZΔσμεθkN/m²ΣλETABS.SapModel.SetFrameLoad()def_calc_rebar_shear()=>0x4F8A;101010101010'.split('');
-    const fontSize = options.density ? options.density : 10;
+    var ctx = canvas.getContext('2d');
+    var width = 0, height = 0, columns = 0, drops = [], speeds = [];
+    var chars = '011001010111001010101011010010101XYZkN/m�ETABS.SapModel.SetFrameLoad()def_calc_rebar()=>0x4F8A;101010'.split('');
+    var fontSize = options.density || 12;
 
     function resize() {
-      const rect = canvas.getBoundingClientRect();
-      width = canvas.width = rect.width || canvas.offsetWidth || 300;
-      height = canvas.height = rect.height || canvas.offsetHeight || 200;
-      columns = Math.floor(width / fontSize);
+      var parent = canvas.parentElement;
+      width = canvas.width = parent ? (parent.offsetWidth || 340) : 340;
+      height = canvas.height = parent ? (parent.offsetHeight || 380) : 380;
+      columns = Math.max(1, Math.floor(width / fontSize));
       drops = [];
       speeds = [];
-      for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * -30;
-        speeds[i] = (options.speed || 1.5) * (0.85 + Math.random() * 0.9);
+      for (var i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -35;
+        speeds[i] = (options.speed || 2.0) * (0.8 + Math.random() * 0.8);
       }
     }
 
     resize();
-    window.addEventListener('resize', debounce(resize, 200));
+    setTimeout(resize, 250);
+    setTimeout(resize, 1000);
+    window.addEventListener('resize', debounce(resize, 150));
 
-    let lastTime = 0;
-    const targetFps = 45;
-    const interval = 1000 / targetFps;
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) resize();
+        });
+      }, { threshold: 0.05 });
+      observer.observe(canvas);
+    }
+
+    var lastTime = 0;
+    var targetFps = 50;
+    var interval = 1000 / targetFps;
 
     function draw(currentTime) {
       requestAnimationFrame(draw);
-
       if (currentTime - lastTime < interval) return;
       lastTime = currentTime;
 
-      // Dark translucent wash creates stream motion blur trails
-      ctx.fillStyle = 'rgba(10, 18, 32, 0.14)';
+      if (width === 0 || height === 0) {
+        resize();
+        return;
+      }
+
+      ctx.fillStyle = 'rgba(7, 14, 25, 0.16)';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.font = `${fontSize}px "Fira Code", "Courier New", monospace`;
+      ctx.font = fontSize + 'px "Fira Code", "Consolas", monospace';
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
+      for (var i = 0; i < drops.length; i++) {
+        var text = chars[Math.floor(Math.random() * chars.length)];
+        var x = i * fontSize;
+        var y = drops[i] * fontSize;
 
-        // Leading char glow (neon cyan or electric orange)
-        if (Math.random() > 0.82) {
-          ctx.fillStyle = options.cyanAccent ? '#b8fcff' : '#ffe4cc';
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = options.cyanAccent ? '#00f0ff' : '#ff7a29';
+        if (Math.random() > 0.8) {
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = '#00f7ff';
         } else {
-          ctx.fillStyle = options.cyanAccent ? '#00b4d8' : '#ff6200';
-          ctx.shadowBlur = 0;
+          ctx.fillStyle = options.cyanAccent ? '#00e5ff' : '#ff7a29';
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = options.cyanAccent ? '#0099cc' : '#ff4400';
         }
 
         ctx.fillText(text, x, y);
 
-        // Reset drops when leaving canvas with higher frequency
-        if (y > height && Math.random() > 0.96) {
+        if (y > height && Math.random() > 0.94) {
           drops[i] = 0;
         }
         drops[i] += speeds[i];
@@ -307,12 +322,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function debounce(fn, ms) {
-    let timer;
-    return (...args) => {
+    var timer;
+    return function() {
+      var args = arguments;
+      var context = this;
       clearTimeout(timer);
-      timer = setTimeout(() => fn.apply(this, args), ms);
+      timer = setTimeout(function() { fn.apply(context, args); }, ms);
     };
   }
+
 
   /* ── PROJECT CASE STUDY MODAL REPOSITORY ────── */
   const projectDatabase = {
