@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
       highlights: [
         'Integrated experimental wind tunnel data with numerical ETABS models to verify base overturning shear.',
         'Engineered suspended luxury swimming pool with dynamic water sloshing checks and hydrostatic pressure.',
-        'Implemented thin Post-Tensioned flat slabs allowing expansive column-free living layouts and reduced seismic mass.',
+        'Implemented thin Post-Tensioned flat slabs allowing expansive column-free living layouts, optimized self-weight, and minimal deflection.',
         'Conducted second-order P-Delta, modal mass participation (>90%), and deep pile-raft settlement checks.'
       ],
       tech: ['CSI ETABS', 'Boundary Wind Tunnel', 'PT Flat Slabs', 'Pile-Raft', 'Eurocode 2', 'BS 6399']
@@ -382,15 +382,18 @@ document.addEventListener('DOMContentLoaded', () => {
       title: '6m Deep Olympic-Size Swimming Pool & Hydraulic Retaining',
       location: 'National Sports Complex Parcel, Nigeria',
       tag: 'Hydraulic & Water-Retaining RC',
-      image: 'assets/images/projects/olympic-pool-model.png',
+      image: 'assets/images/projects/olympic-pool-fea.png',
+      extraImages: ['assets/images/projects/olympic-pool-section.png', 'assets/images/projects/olympic-pool-loads.png'],
       specs: [
-        { label: 'Depth', val: '6.0 Metres' },
+        { label: 'Pool Depth', val: '6.0 Metres' },
         { label: 'Load Cases Analyzed', val: '16 Combinations' },
-        { label: 'Standard', val: 'BS 8007 Liquid Retaining' }
+        { label: 'Engineering Standard', val: 'BS 8007 Liquid Retaining' }
       ],
       desc: 'Specialized deep hydraulic engineering. Designed to resist extreme differential lateral pressures including full hydrostatic water head with dry external backfill, empty pool with saturated high water-table soil pressure, and temporary construction stages.',
       highlights: [
-        'Formulated and computed 16 unique loading combinations both by rigorous hand mechanics and 3D FEA shell models.',
+        'Rigorous 3D Finite Element Analysis (FEA) shell modeling capturing base slab moments, wall shear, and corner stress concentrations.',
+        'Architectural and structural cross-section coordination detailing deep cantilever retaining walls with stepped wall thickness.',
+        '16 independent loading combinations evaluated for ultimate limit state (ULS) and serviceability limit state (SLS).',
         'Strict crack width limitation (<0.2mm) verified under flexural and direct thermal tension forces per BS 8007.',
         'Heavy cantilever base-slab moment connections detailed to withstand hydrostatic uplift floatation.'
       ],
@@ -468,8 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       tech: ['Steel Portal Frames', 'Forensic Audit', 'Nondestructive Testing', 'Retrofit Schemes']
     },
-    'structmax-suite': {
-      title: 'StructMax — Computational ETABS Automation Suite',
+    'autostruct-suite': {
+      title: 'AutoStruct — Computational ETABS Automation Suite',
       location: 'EDGEMARK Proprietary Engineering Tool',
       tag: 'AEC Software & COM API',
       image: 'assets/images/projects/midrise-vi-model.png',
@@ -545,6 +548,23 @@ document.addEventListener('DOMContentLoaded', () => {
     title.textContent = data.title;
     loc.textContent = data.location;
     desc.textContent = data.desc;
+
+    // Handle multi-image gallery thumbnails if available
+    const galleryStrip = document.getElementById('modal-gallery-strip');
+    if (galleryStrip) {
+      if (data.extraImages && data.extraImages.length > 0) {
+        const allImgs = [data.image, ...data.extraImages];
+        galleryStrip.innerHTML = allImgs.map((imgUrl, idx) => `
+          <button type="button" class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" onclick="document.getElementById('modal-hero-image').src='${imgUrl}'; document.querySelectorAll('.modal-thumb-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+            <img src="${imgUrl}" alt="Thumbnail ${idx + 1}" />
+          </button>
+        `).join('');
+        galleryStrip.style.display = 'flex';
+      } else {
+        galleryStrip.style.display = 'none';
+        galleryStrip.innerHTML = '';
+      }
+    }
 
     // Populate specs
     specsContainer.innerHTML = data.specs.map(s => `
