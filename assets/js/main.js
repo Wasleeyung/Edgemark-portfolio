@@ -974,7 +974,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         'Automated generation of code-compliant wind pressure profiles per BS 6399 and NBC 2005.',
 
-        'Instant multi-run extraction saving up to 80% of engineer modeling time.'
+        'Instant multi-run extraction saving up to 80% of engineer modeling time.',
+
+        'Algorithmic Corrupt Model Recovery: Dissects raw .e2k text and database tables to resurrect corrupted or lost ETABS models in minutes — eliminating days of tedious manual remodeling.'
 
       ],
 
