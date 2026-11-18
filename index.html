@@ -48,7 +48,12 @@
   <section class="hero" id="home">
     <!-- Live Construction Site Background Slider -->
     <div class="hero-slider">
-      <div class="hero-slide active" style="background-image: url('assets/images/construction-site-1.jpg');"></div>
+      <div class="hero-slide active" style="background-image: url('assets/images/hero/hero-slide-1.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-2.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-3.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-4.png');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-5.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/construction-site-1.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/pt-site-rebar.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/pt-tendon-stressing-1.jpg');"></div>
     </div>
@@ -834,8 +839,29 @@
 
         <!-- 09: Industrial Warehouse & Inspection -->
         <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="500">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/ndt-hammer-test-1.png" alt="Non-Destructive Testing and Structural Defect Audit" class="project-card-photo" />
+          <div class="project-card-image-wrap ndt-card-slider-wrap">
+            <div class="ndt-slider-track" id="ndtSliderTrack">
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-1.jpg" alt="NDT Rebound Hammer Testing on RC Column" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-2.jpg" alt="NDT Digital Testing Meter" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-3.jpg" alt="Concrete Rebound Hardness Test" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-4.jpg" alt="Structural Audit Field Measurement" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-5.jpg" alt="Column Defect Non-Destructive Survey" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-6.jpg" alt="NDT Surface Grid Preparation" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-1.jpg" alt="Structural Integrity Audit Report Photo" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-2.jpg" alt="Structural Defect Inspection" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-3.jpg" alt="Forensic Crack Pattern Mapping" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-4.jpg" alt="Structural Integrity Assessment Audit" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-5.jpg" alt="Structural Defect Mapping" class="project-card-photo" loading="lazy" /></div>
+              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-6.jpg" alt="NDT Audit Condition Survey" class="project-card-photo" loading="lazy" /></div>
+            </div>
+            <div class="ndt-slider-controls">
+              <button class="ndt-nav-btn ndt-prev" aria-label="Previous Slide" onclick="event.stopPropagation(); slideNdt(-1);"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="ndt-nav-btn ndt-next" aria-label="Next Slide" onclick="event.stopPropagation(); slideNdt(1);"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            <div class="ndt-slide-badge">
+              <span class="ndt-live-dot"></span>
+              <span id="ndtSlideCounter">1 / 12</span>
+            </div>
             <div class="project-overlay">
               <span class="project-tag"><i class="fa-solid fa-microscope"></i> Forensic NDT &amp; Defect Audit</span>
             </div>

@@ -187,23 +187,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── HERO SLIDER (LIFE ON-SITE CONSTRUCTION) ────────────────── */
-
   const heroSlides = document.querySelectorAll('.hero-slide');
-
   if (heroSlides.length > 1) {
-
     let currentSlide = 0;
-
     setInterval(() => {
-
-      heroSlides[currentSlide].classList.remove('active');
-
+      const prevSlide = currentSlide;
       currentSlide = (currentSlide + 1) % heroSlides.length;
-
+      heroSlides[prevSlide].classList.remove('active');
+      heroSlides[prevSlide].classList.add('prev');
       heroSlides[currentSlide].classList.add('active');
-
+      setTimeout(() => {
+        heroSlides[prevSlide].classList.remove('prev');
+      }, 1900);
     }, 5500);
-
   }
 
 
@@ -990,9 +986,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       tag: 'Forensic Audit & NDT Testing',
 
-      image: 'assets/images/ndt-hammer-test-1.png',
+      image: 'assets/images/ndt/ndt-slide-1.jpg',
 
-      extraImages: ['assets/images/ndt-crack-inspection.png', 'assets/images/projects/steel-portal-frame.png', 'assets/images/projects/warehouse-inspection.png'],
+      extraImages: ['assets/images/ndt/ndt-slide-2.jpg', 'assets/images/ndt/ndt-slide-3.jpg', 'assets/images/ndt/ndt-slide-4.jpg', 'assets/images/ndt/ndt-slide-5.jpg', 'assets/images/ndt/ndt-slide-6.jpg', 'assets/images/ndt/ndt-report-1.jpg', 'assets/images/ndt/ndt-report-2.jpg', 'assets/images/ndt/ndt-report-3.jpg', 'assets/images/ndt/ndt-report-4.jpg', 'assets/images/ndt/ndt-report-5.jpg', 'assets/images/ndt-hammer-test-1.png', 'assets/images/ndt-crack-inspection.png'],
 
       specs: [
 
@@ -1342,7 +1338,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     'color:#1A2D4F; font-size:11px;');
 
+
+  /* ── NDT CARD IMAGE SLIDER (SMOOTH HORIZONTAL SLIDE) ────────────────── */
+  const ndtTrack = document.getElementById('ndtSliderTrack');
+  const ndtCounter = document.getElementById('ndtSlideCounter');
+  let ndtIndex = 0;
+  const totalNdt = ndtTrack ? ndtTrack.children.length : 0;
+  let ndtTimer = null;
+
+  function updateNdtSlider() {
+    if (!ndtTrack) return;
+    ndtTrack.style.transform = `translateX(-${ndtIndex * 100}%)`;
+    if (ndtCounter) {
+      ndtCounter.textContent = `${ndtIndex + 1} / ${totalNdt}`;
+    }
+  }
+
+  window.slideNdt = function(direction) {
+    if (totalNdt <= 1) return;
+    ndtIndex = (ndtIndex + direction + totalNdt) % totalNdt;
+    updateNdtSlider();
+    resetNdtTimer();
+  };
+
+  function resetNdtTimer() {
+    if (ndtTimer) clearInterval(ndtTimer);
+    if (totalNdt > 1) {
+      ndtTimer = setInterval(() => {
+        ndtIndex = (ndtIndex + 1) % totalNdt;
+        updateNdtSlider();
+      }, 3200);
+    }
+  }
+
+  if (totalNdt > 1) {
+    resetNdtTimer();
+    const ndtWrap = document.querySelector('.ndt-card-slider-wrap');
+    if (ndtWrap) {
+      ndtWrap.addEventListener('mouseenter', () => {
+        if (ndtTimer) clearInterval(ndtTimer);
+      });
+      ndtWrap.addEventListener('mouseleave', () => {
+        resetNdtTimer();
+      });
+    }
+  }
+
 });
-
-
-
