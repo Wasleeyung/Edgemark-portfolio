@@ -2900,37 +2900,25 @@ button { cursor: pointer; border: none; background: none; }
 /* -- FLASHY SIDE PILL TICKER (COMING SOON) -------- */
 
 .side-pill-ticker {
-
   position: fixed;
-
   bottom: 28px;
-
   right: 28px;
-
-  z-index: 998;
-
+  z-index: 999;
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
-  background: rgba(11, 19, 32, 0.92);
-
-  backdrop-filter: blur(12px);
-
+  background: rgba(11, 22, 38, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 229, 255, 0.45);
-
-  border-radius: 100px;
-
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 229, 255, 0.25);
+  border-radius: 40px;
   padding: 8px 18px 8px 12px;
-
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.2);
-
-  transition: transform 0.3s ease, border-color 0.3s ease;
-
-  animation: floatPill 3.5s ease-in-out infinite;
-
+  max-width: 440px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(60px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .side-pill-ticker:hover {
@@ -3072,18 +3060,26 @@ button { cursor: pointer; border: none; background: none; }
 @media (max-width: 600px) {
 
   .side-pill-ticker {
-
-    bottom: 16px;
-
-    right: 16px;
-
-    left: 16px;
-
-    border-radius: 14px;
-
-    padding: 8px 12px;
-
-  }
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(11, 22, 38, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 229, 255, 0.25);
+  border-radius: 40px;
+  padding: 8px 18px 8px 12px;
+  max-width: 440px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(60px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 }
 
@@ -3711,31 +3707,43 @@ button { cursor: pointer; border: none; background: none; }
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  z-index: 5;
+  z-index: 10;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .project-card:hover .ndt-slider-controls {
-  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .ndt-nav-btn {
   pointer-events: auto;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(13, 23, 38, 0.88);
-  border: 1px solid rgba(255, 107, 43, 0.45);
+  background: rgba(13, 23, 38, 0.92);
+  border: 1.5px solid rgba(255, 107, 43, 0.65);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   transition: all 0.25s ease;
   backdrop-filter: blur(4px);
+  z-index: 11;
 }
 
 .ndt-nav-btn:hover {
@@ -3777,4 +3785,48 @@ button { cursor: pointer; border: none; background: none; }
 @keyframes pulseLiveDot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* ── TEKLA INLINE COMING-SOON BADGE (Automation Cards) ──────────── */
+.tekla-inline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  background: rgba(0, 229, 255, 0.07);
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #a8f7ff;
+  letter-spacing: 0.03em;
+  animation: teklaGlow 2.8s ease-in-out infinite alternate;
+}
+
+.tekla-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff55;
+  animation: pulseLiveDot 1.8s infinite;
+  flex-shrink: 0;
+}
+
+.tekla-badge-label em {
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+@keyframes teklaGlow {
+  from { box-shadow: 0 0 6px rgba(0,229,255,0.15); border-color: rgba(0,229,255,0.28); }
+  to   { box-shadow: 0 0 14px rgba(0,229,255,0.35); border-color: rgba(0,229,255,0.55); }
+}
+
+.side-pill-ticker.pill-visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }

@@ -946,6 +946,11 @@
               <span>View Case Study</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
+            <!-- Tekla Floors coming-soon inline ticker -->
+            <div class="tekla-inline-badge" title="Coming Next: Tekla Structural Designer Floor to CSI SAFE">
+              <span class="tekla-badge-dot"></span>
+              <span class="tekla-badge-label"><i class="fa-solid fa-bolt" style="color:#00e5ff; font-size:0.65em;"></i>&nbsp;Tekla Floors &rarr; CSI SAFE &nbsp;<em>coming soon</em></span>
+            </div>
           </div>
         </div>
 
@@ -1232,8 +1237,11 @@
     </div>
   </div>
 
+
+
   <!-- --------------------------------------
        FLASHY SIDE PILL: COMING SOON
+       (Dynamically scoped to show only when viewing Automation software segment)
   -------------------------------------- -->
   <aside class="side-pill-ticker" id="sidePillTicker" title="Next-Gen Feature Coming Soon">
     <div class="pill-pulse-ring"></div>
@@ -1245,7 +1253,7 @@
       <span class="pill-title"><i class="fa-solid fa-bolt" style="color:#00e5ff;"></i> Tekla Floors <i class="fa-solid fa-arrow-right"></i> CSI SAFE</span>
       <span class="pill-sub">Automated Plate &amp; Punching Shear Design</span>
     </div>
-    <button class="pill-close" onclick="document.getElementById('sidePillTicker').style.display='none'" aria-label="Dismiss">&times;</button>
+    <button class="pill-close" onclick="const p=document.getElementById('sidePillTicker'); p.classList.add('dismissed'); p.classList.remove('pill-visible');" aria-label="Dismiss">&times;</button>
   </aside>
 
   <script src="assets/js/main.js"></script>

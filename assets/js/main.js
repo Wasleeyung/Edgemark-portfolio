@@ -186,21 +186,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  /* ── HERO SLIDER (LIFE ON-SITE CONSTRUCTION) ────────────────── */
-  const heroSlides = document.querySelectorAll('.hero-slide');
-  if (heroSlides.length > 1) {
-    let currentSlide = 0;
-    setInterval(() => {
-      const prevSlide = currentSlide;
-      currentSlide = (currentSlide + 1) % heroSlides.length;
-      heroSlides[prevSlide].classList.remove('active');
-      heroSlides[prevSlide].classList.add('prev');
-      heroSlides[currentSlide].classList.add('active');
-      setTimeout(() => {
-        heroSlides[prevSlide].classList.remove('prev');
-      }, 1900);
-    }, 5500);
-  }
+  /* ── HERO SLIDER (LIVE CONSTRUCTION SITE) ────────────────── */
+  (function initHeroSlider() {
+    var heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    if (heroSlides.length < 2) return;
+    var idx = 0;
+    // Make sure first slide is active
+    heroSlides.forEach(function(s, i) { s.classList.toggle('active', i === 0); });
+    function advance() {
+      var prev = idx;
+      idx = (idx + 1) % heroSlides.length;
+      heroSlides[prev].classList.remove('active');
+      heroSlides[idx].classList.add('active');
+    }
+    setInterval(advance, 5500);
+  })();
 
 
 
@@ -466,191 +466,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -- CYBER MATRIX / BINARY / CODE GRAPHICS -- */
 
+  var matrixInitialised = {};
+
   function startAllMatrixCanvases() {
-
-    initMatrixAnimation('service-matrix-canvas', { speed: 2.2, density: 13, cyanAccent: true });
-
-    initMatrixAnimation('spec-matrix-canvas', { speed: 2.4, density: 12, cyanAccent: true });
-
-    initMatrixAnimation('proj-matrix-canvas-1', { speed: 2.2, density: 12, cyanAccent: true });
-    initMatrixAnimation('proj-matrix-canvas-2', { speed: 1.8, density: 12, cyanAccent: false });
-    initMatrixAnimation('proj-matrix-canvas-3', { speed: 2.2, density: 12, cyanAccent: true });
-
+    var configs = [
+      { id: 'service-matrix-canvas', opts: { speed: 2.2, density: 13, cyanAccent: true } },
+      { id: 'spec-matrix-canvas',    opts: { speed: 2.4, density: 12, cyanAccent: true } },
+      { id: 'proj-matrix-canvas-1',  opts: { speed: 2.2, density: 12, cyanAccent: true } },
+      { id: 'proj-matrix-canvas-2',  opts: { speed: 1.8, density: 12, cyanAccent: false } },
+      { id: 'proj-matrix-canvas-3',  opts: { speed: 2.2, density: 12, cyanAccent: true } },
+    ];
+    configs.forEach(function(c) {
+      if (!matrixInitialised[c.id] && document.getElementById(c.id)) {
+        initMatrixAnimation(c.id, c.opts);
+        matrixInitialised[c.id] = true;
+      }
+    });
   }
 
-
-
   startAllMatrixCanvases();
-
   window.addEventListener('load', startAllMatrixCanvases);
+  // Also retry after short delays in case cards are off-screen at load
+  setTimeout(startAllMatrixCanvases, 600);
+  setTimeout(startAllMatrixCanvases, 1800);
 
 
 
   function initMatrixAnimation(canvasId, options) {
-
     options = options || {};
-
     var canvas = document.getElementById(canvasId);
-
     if (!canvas) return;
 
-
-
     var ctx = canvas.getContext('2d');
-
     var width = 0, height = 0, columns = 0, drops = [], speeds = [];
-
     var chars = '011001010111001010101011010010101XYZkN/mETABS.SapModel.SetFrameLoad()def_calc_rebar()=>0x4F8A;101010'.split('');
-
     var fontSize = options.density || 12;
 
-
-
     function resize() {
-
       var parent = canvas.parentElement;
-
-      width = canvas.width = parent ? (parent.offsetWidth || 340) : 340;
-
-      height = canvas.height = parent ? (parent.offsetHeight || 380) : 380;
-
+      var rect = parent ? parent.getBoundingClientRect() : null;
+      width = canvas.width = Math.round(rect && rect.width > 0 ? rect.width : (canvas.clientWidth || 340));
+      height = canvas.height = Math.round(rect && rect.height > 0 ? rect.height : (canvas.clientHeight || 220));
       columns = Math.max(1, Math.floor(width / fontSize));
-
       drops = [];
-
       speeds = [];
-
       for (var i = 0; i < columns; i++) {
-
-        drops[i] = Math.random() * -35;
-
+        // Distribute drops vertically so code is visibly raining from frame 1
+        drops[i] = Math.random() * (height / fontSize);
         speeds[i] = (options.speed || 2.0) * (0.8 + Math.random() * 0.8);
-
       }
-
     }
-
-
 
     resize();
-
-    setTimeout(resize, 250);
-
-    setTimeout(resize, 1000);
-
+    setTimeout(resize, 150);
+    setTimeout(resize, 600);
+    setTimeout(resize, 1500);
     window.addEventListener('resize', debounce(resize, 150));
 
-
-
     if ('IntersectionObserver' in window) {
-
       var observer = new IntersectionObserver(function(entries) {
-
         entries.forEach(function(entry) {
-
           if (entry.isIntersecting) resize();
-
         });
-
       }, { threshold: 0.05 });
-
       observer.observe(canvas);
-
     }
 
-
-
     var lastTime = 0;
-
     var targetFps = 50;
-
     var interval = 1000 / targetFps;
 
-
-
     function draw(currentTime) {
-
       requestAnimationFrame(draw);
-
       if (currentTime - lastTime < interval) return;
-
       lastTime = currentTime;
 
-
-
       if (width === 0 || height === 0) {
-
         resize();
-
         return;
-
       }
 
-
-
-      ctx.fillStyle = 'rgba(7, 14, 25, 0.16)';
-
+      ctx.fillStyle = 'rgba(7, 14, 25, 0.18)';
       ctx.fillRect(0, 0, width, height);
-
-
 
       ctx.font = fontSize + 'px "Fira Code", "Consolas", monospace';
 
-
-
       for (var i = 0; i < drops.length; i++) {
-
         var text = chars[Math.floor(Math.random() * chars.length)];
-
         var x = i * fontSize;
-
         var y = drops[i] * fontSize;
 
-
-
-        if (Math.random() > 0.8) {
-
+        if (Math.random() > 0.82) {
           ctx.fillStyle = '#ffffff';
-
           ctx.shadowBlur = 12;
-
           ctx.shadowColor = '#00f7ff';
-
         } else {
-
-          ctx.fillStyle = options.cyanAccent ? '#00e5ff' : '#ff7a29';
-
+          ctx.fillStyle = options.cyanAccent ? '#00e5ff' : '#00ff66';
           ctx.shadowBlur = 6;
-
-          ctx.shadowColor = options.cyanAccent ? '#0099cc' : '#ff4400';
-
+          ctx.shadowColor = options.cyanAccent ? '#0099cc' : '#00cc55';
         }
-
-
 
         ctx.fillText(text, x, y);
 
-
-
-        if (y > height && Math.random() > 0.94) {
-
+        if (y > height && (Math.random() > 0.92 || y > height * 1.3)) {
           drops[i] = 0;
-
         }
-
         drops[i] += speeds[i];
-
       }
-
     }
 
-
-
     requestAnimationFrame(draw);
-
   }
-
-
 
   function debounce(fn, ms) {
 
@@ -1094,35 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
 
-      tag: 'Rebar Pro Algorithms',
 
-      image: 'assets/images/projects/4storey-rc-model.png',
-
-      specs: [
-
-        { label: 'Core Function', val: 'Rebar Bar Bending Schedules' },
-
-        { label: 'Input Source', val: 'FEA Moment/Shear Envelopes' },
-
-        { label: 'Output', val: 'AutoCAD DXF & Excel Schedules' }
-
-      ],
-
-      desc: 'Algorithmic reinforcement detailing engine that bridges finite element analysis output and production fabrication drawings. Converts raw moment envelopes directly into code-compliant bar arrangements, curtailment cut-offs, and BBS sheets.',
-
-      highlights: [
-
-        'Automated lap length and anchorage curtailment calculation per BS 8110 and Eurocode 2.',
-
-        'Minimizes steel wastage by optimizing bar cutting lengths from standard 12m commercial rebar stock.',
-
-        'Significantly reduces detailing drafting hours while preventing fabrication transcription errors.'
-
-      ],
-
-      tech: ['Python', 'RC Design Algorithms', 'Excel Rebar Pro', 'AutoCAD DXF', 'BBS Automation']
-
-    },
 
     'safe-automation': {
 
@@ -1381,6 +1279,37 @@ document.addEventListener('DOMContentLoaded', () => {
       ndtWrap.addEventListener('mouseleave', () => {
         resetNdtTimer();
       });
+    }
+    const prevBtn = document.querySelector('.ndt-nav-btn.ndt-prev');
+    const nextBtn = document.querySelector('.ndt-nav-btn.ndt-next');
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); window.slideNdt(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); window.slideNdt(1); });
+  }
+
+  /* ── COMING SOON BANNER (SCOPED TO AUTOMATION SEGMENT ONLY) ────────── */
+  const sidePill = document.getElementById('sidePillTicker');
+  if (sidePill) {
+    const automationTargets = document.querySelectorAll('.spec-card-matrix, .project-card-automation');
+    if (automationTargets.length > 0) {
+      function checkPillVisibility() {
+        if (sidePill.classList.contains('dismissed')) return;
+        let inView = false;
+        for (let i = 0; i < automationTargets.length; i++) {
+          const rect = automationTargets[i].getBoundingClientRect();
+          if (rect.top < window.innerHeight - 80 && rect.bottom > 80) {
+            inView = true;
+            break;
+          }
+        }
+        if (inView) {
+          sidePill.classList.add('pill-visible');
+        } else {
+          sidePill.classList.remove('pill-visible');
+        }
+      }
+      window.addEventListener('scroll', checkPillVisibility, { passive: true });
+      window.addEventListener('resize', checkPillVisibility, { passive: true });
+      checkPillVisibility();
     }
   }
 
