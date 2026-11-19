@@ -274,8 +274,13 @@
             <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Zero-error reaction vector extraction from ETABS directly into foundation SAFE models.</li>
             <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> <strong>Corrupt Model Salvage:</strong> Algorithmic text/database parsing recovering corrupted ETABS models in minutes — a task that once took engineers days of manual remodeling.</li>
           </ul>
-          <div class="spec-footer-badge" style="position:relative; z-index:2; border-color:rgba(0,229,255,0.3); color:#a8f7ff;">
-            <i class="fa-solid fa-bolt" style="color:#00e5ff;"></i> AutoStruct Suite &bull; Rebar Visualization Tool
+          <div style="position:relative; z-index:2; display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px;">
+            <div class="spec-footer-badge" style="border-color:rgba(0,229,255,0.3); color:#a8f7ff; margin:0;">
+              <i class="fa-solid fa-bolt" style="color:#00e5ff;"></i> AutoStruct Suite &bull; Rebar Visualization Tool
+            </div>
+            <a href="rebar-web-tool.html" style="background:rgba(0,229,255,0.15); border:1px solid #00e5ff; color:#00e5ff; font-size:12px; font-weight:700; padding:6px 14px; border-radius:999px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s ease;">
+              <i class="fa-solid fa-play"></i> Try Free Web Tool
+            </a>
           </div>
         </div>
 
@@ -921,10 +926,16 @@
             <div class="project-tech">
               <span>Revit Add-In</span><span>RC Design</span><span>Rebar Visualization Tool</span><span>AutoCAD DXF</span>
             </div>
-            <button class="project-card-btn" onclick="openProjectModal('rebar-detailing')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+              <button class="project-card-btn" style="flex:1; min-width:130px;" onclick="openProjectModal('rebar-detailing')">
+                <span>View Case Study</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <a href="rebar-web-tool.html" class="project-card-btn" style="flex:1; min-width:140px; background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; text-decoration:none; justify-content:center; display:inline-flex; align-items:center; gap:8px;">
+                <i class="fa-solid fa-play"></i>
+                <span>Free Web Demo</span>
+              </a>
+            </div>
           </div>
         </div>
 
