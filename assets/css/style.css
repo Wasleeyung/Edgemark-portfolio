@@ -3830,3 +3830,55 @@ button { cursor: pointer; border: none; background: none; }
   pointer-events: auto !important;
   transform: translateY(0) !important;
 }
+
+/* ── AUTHENTIC SOFTWARE BRAND LOGOS ────────────────────────── */
+.brand-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  min-width: 54px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover .brand-logo-wrap {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: rgba(0, 229, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 229, 255, 0.2);
+}
+
+.brand-software-logo {
+  max-height: 38px;
+  max-width: 130px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+}
+
+.brand-logo-wrap.duo-logos {
+  gap: 12px;
+  padding: 6px 14px;
+}
+
+.brand-logo-wrap.duo-logos .brand-software-logo {
+  max-height: 32px;
+}
+
+.brand-logo-wrap.mcp-logo-badge {
+  padding: 4px 8px;
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+.brand-software-logo.mcp-img {
+  max-height: 42px;
+  border-radius: 6px;
+}
