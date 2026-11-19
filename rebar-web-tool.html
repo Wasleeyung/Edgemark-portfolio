@@ -974,16 +974,6 @@
         botPositions.push({ x: startX + i * c2cPx, y: botY });
       }
 
-      // Draw Transverse secondary rebar (B2) sitting on top of main bars
-      ctx.fillStyle = '#fbbf24';
-      ctx.strokeStyle = '#fde68a';
-      botPositions.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y - rPx - 4, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      });
-
       // Draw Main Bottom Bars
       ctx.fillStyle = '#34d399';
       ctx.strokeStyle = '#6ee7b7';
