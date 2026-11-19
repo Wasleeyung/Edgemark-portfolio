@@ -3882,3 +3882,18 @@ button { cursor: pointer; border: none; background: none; }
   max-height: 42px;
   border-radius: 6px;
 }
+
+/* ── MCP SHOWCASE POLISH ────────────────────────────────────── */
+.tech-card-mcp:hover .mcp-card-graphic img {
+  transform: scale(1.05);
+  transition: transform 0.4s ease;
+}
+
+.mcp-showcase-box img {
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+.mcp-showcase-box:hover img {
+  transform: scale(1.02);
+  filter: brightness(1.08);
+}
