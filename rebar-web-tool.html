@@ -742,6 +742,10 @@
           <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-bars"></i> Double Curtain Rebar</div>
             <div class="control-row">
+              <span class="control-label">Total As,req (mm²):</span>
+              <input type="number" class="control-input" value="${state.wallAsReq}" step="100" min="100" max="500000" onchange="state.wallAsReq=+this.value; render();" />
+            </div>
+            <div class="control-row">
               <span class="control-label">Vertical Bar Size:</span>
               <select class="control-select" onchange="state.wallDia=+this.value; render();">
                 ${[12, 16, 20, 25, 32].map(d => `<option value="${d}" ${state.wallDia===d?'selected':''}>T${d}</option>`).join('')}
@@ -753,6 +757,7 @@
             </div>
             <div class="code-note">
               <strong>Curtain Detailing:</strong> 2 faces of reinforcement with transverse crossties connecting through the wall thickness.
+              As,req/face = Total As,req ÷ 2 (double curtain — each face carries 50%).
             </div>
           </div>
         `;
@@ -1115,9 +1120,10 @@
 
       // Metrics
       const singleArea = barArea(state.wallDia);
+      const asReqPerFace = state.wallAsReq / 2.0;
       const asProvPerM = 2.0 * (1000.0 / state.wallSpacing) * singleArea;
       const totalAsProv = 2.0 * (state.wallLw / state.wallSpacing) * singleArea;
-      const sTheo = state.wallAsReq > 0 ? (2.0 * singleArea * state.wallLw) / state.wallAsReq : 0;
+      const sTheo = asReqPerFace > 0 ? (singleArea * state.wallLw) / asReqPerFace : 0;
       const dcRatio = state.wallAsReq > 0 ? state.wallAsReq / totalAsProv : 0;
       const effCoreArea = tEff * 1000.0;
       const rhoEff = (asProvPerM / effCoreArea) * 100;
@@ -1129,19 +1135,24 @@
           <div class="metric-pill-sub">2 × T${state.wallDia} @ ${state.wallSpacing} mm c/c</div>
         </div>
         <div class="metric-pill">
-          <div class="metric-pill-label">Max Spacing / Face</div>
+          <div class="metric-pill-label">As,req / Face</div>
+          <div class="metric-pill-val" style="color:#f59e0b;">${asReqPerFace.toFixed(0)} mm²</div>
+          <div class="metric-pill-sub">50% of Total As,req (${state.wallAsReq.toFixed(0)} mm²)</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-pill-label">Theo. Spacing / Face</div>
           <div class="metric-pill-val" style="color:#38bdf8;">${sTheo.toFixed(0)} mm</div>
-          <div class="metric-pill-sub">s_theo (50% As,req per face)</div>
+          <div class="metric-pill-sub">s = (a_bar × Lw) ÷ As,req/face</div>
         </div>
         <div class="metric-pill">
           <div class="metric-pill-label">Total Panel As Prov.</div>
           <div class="metric-pill-val">${totalAsProv.toFixed(0)} mm²</div>
-          <div class="metric-pill-sub">${asProvPerM.toFixed(1)} mm²/m (Demand: ${state.wallAsReq.toFixed(0)})</div>
+          <div class="metric-pill-sub">${asProvPerM.toFixed(1)} mm²/m (both curtains)</div>
         </div>
         <div class="metric-pill">
           <div class="metric-pill-label">Capacity (D/C Ratio)</div>
           <div class="metric-pill-val" style="color:${dcRatio<=1.0?'#10b981':'#ef4444'};">${dcRatio.toFixed(3)}</div>
-          <div class="metric-pill-sub">${dcRatio<=1.0?'PASS (Safe)':'EXCEEDS DEMAND'}</div>
+          <div class="metric-pill-sub">${dcRatio<=1.0?'✅ PASS (Safe)':'❌ EXCEEDS DEMAND'}</div>
         </div>
       `;
     }
