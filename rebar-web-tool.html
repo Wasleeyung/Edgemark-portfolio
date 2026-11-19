@@ -442,6 +442,101 @@
       border-radius: 4px;
       border-left: 2px solid var(--accent-cyan);
     }
+
+    /* AI / Auto Recommendation Styles */
+    .suggest-box {
+      background: rgba(0, 229, 255, 0.04);
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .suggest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .suggest-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-auto-opt {
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid var(--accent-cyan);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    .btn-auto-opt:hover {
+      background: var(--accent-cyan);
+      color: #0b0f19;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+    .suggest-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .suggest-card {
+      background: #0d1524;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      padding: 7px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .suggest-card:hover {
+      background: rgba(0, 229, 255, 0.12);
+      border-color: var(--accent-cyan);
+      transform: translateX(2px);
+    }
+    .suggest-card.active {
+      border-color: #34d399;
+      background: rgba(52, 211, 153, 0.14);
+      box-shadow: 0 0 6px rgba(52, 211, 153, 0.25);
+    }
+    .suggest-card-spec {
+      font-size: 12px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .suggest-card-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    .suggest-card-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      white-space: nowrap;
+    }
+    .suggest-card-badge.exact {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -525,6 +620,7 @@
       b: 300,
       h: 1000,
       cover: 30,
+      beamAsReq: 1850,
       topCount: 2,
       topDia: 16,
       botCount: 4,
@@ -621,25 +717,221 @@
       return { d, layers, centroid, spacerDia };
     }
 
+    // AI & Engineering Recommendation Engines
+    function getBeamRecommendations(b, h, cover, linkDia, asReq) {
+      if (!asReq || asReq <= 0) return [];
+      const barSizes = [16, 20, 25, 32];
+      const candidates = [];
+      const wUsable = Math.max(0, b - 2 * (cover + linkDia));
+
+      barSizes.forEach(d => {
+        const ab = barArea(d);
+        const sMin = Math.max(d, 25.0);
+        const maxPerRow = Math.max(1, Math.floor((wUsable + sMin) / (d + sMin)));
+        const maxBars = maxPerRow * 2; // practical limit: up to 2 layers
+        const minCount = Math.max(2, Math.ceil(asReq / ab));
+
+        for (let n = minCount; n <= Math.min(minCount + 3, maxBars); n++) {
+          const prov = n * ab;
+          if (prov >= asReq) {
+            const dc = asReq / prov;
+            const layers = n <= maxPerRow ? 1 : 2;
+            candidates.push({
+              dia: d,
+              count: n,
+              asProv: Math.round(prov),
+              dc: dc,
+              layers: layers,
+              spec: `${n}T${d}`,
+              label: `${n}T${d} (${Math.round(prov)} mm²)`,
+              sub: `${layers} layer${layers > 1 ? 's' : ''} • max/row: ${maxPerRow}`,
+              badge: `D/C ${(dc).toFixed(2)}`
+            });
+          }
+        }
+      });
+
+      // Sort by highest D/C (most economical / closest to 1.0)
+      candidates.sort((a, b) => b.dc - a.dc || a.count - b.count);
+      const seenDia = new Set();
+      const unique = [];
+      for (const c of candidates) {
+        if (!seenDia.has(c.dia)) {
+          seenDia.add(c.dia);
+          unique.push(c);
+        }
+      }
+      return unique.slice(0, 3);
+    }
+
+    function getSlabRecommendations(asReq) {
+      if (!asReq || asReq <= 0) return [];
+      const barSizes = [10, 12, 16, 20, 25];
+      const spacings = [100, 125, 150, 175, 200, 225, 250, 300];
+      const candidates = [];
+
+      barSizes.forEach(d => {
+        const ab = barArea(d);
+        spacings.forEach(s => {
+          const prov = (1000.0 * ab) / s;
+          if (prov >= asReq) {
+            const dc = asReq / prov;
+            if (dc >= 0.70) {
+              candidates.push({
+                dia: d,
+                spacing: s,
+                asProv: Math.round(prov),
+                dc: dc,
+                spec: `T${d} @ ${s} c/c`,
+                label: `T${d} @ ${s} mm c/c`,
+                sub: `${Math.round(prov)} mm²/m provided`,
+                badge: `D/C ${(dc).toFixed(2)}`
+              });
+            }
+          }
+        });
+      });
+
+      candidates.sort((a, b) => b.dc - a.dc);
+      const seenDia = new Set();
+      const unique = [];
+      for (const c of candidates) {
+        if (!seenDia.has(c.dia)) {
+          seenDia.add(c.dia);
+          unique.push(c);
+        }
+      }
+      if (unique.length < 3) {
+        for (const c of candidates) {
+          if (!unique.some(u => u.dia === c.dia && u.spacing === c.spacing)) {
+            unique.push(c);
+            if (unique.length >= 3) break;
+          }
+        }
+      }
+      return unique.slice(0, 3);
+    }
+
+    function getWallRecommendations(lw, asReqTotal) {
+      if (!asReqTotal || asReqTotal <= 0 || !lw || lw <= 0) return [];
+      const barSizes = [12, 16, 20, 25, 32];
+      const spacings = [100, 125, 150, 175, 200, 225, 250, 300];
+      const candidates = [];
+
+      barSizes.forEach(d => {
+        const ab = barArea(d);
+        spacings.forEach(s => {
+          const provTotal = 2.0 * (lw / s) * ab;
+          if (provTotal >= asReqTotal) {
+            const dc = asReqTotal / provTotal;
+            if (dc >= 0.65) {
+              candidates.push({
+                dia: d,
+                spacing: s,
+                asProv: Math.round(provTotal),
+                dc: dc,
+                spec: `2 × T${d} @ ${s} c/c`,
+                label: `T${d} @ ${s} mm c/c (2EF)`,
+                sub: `${Math.round(provTotal)} mm² total provided`,
+                badge: `D/C ${(dc).toFixed(2)}`
+              });
+            }
+          }
+        });
+      });
+
+      candidates.sort((a, b) => b.dc - a.dc);
+      const seenDia = new Set();
+      const unique = [];
+      for (const c of candidates) {
+        if (!seenDia.has(c.dia)) {
+          seenDia.add(c.dia);
+          unique.push(c);
+        }
+      }
+      if (unique.length < 3) {
+        for (const c of candidates) {
+          if (!unique.some(u => u.dia === c.dia && u.spacing === c.spacing)) {
+            unique.push(c);
+            if (unique.length >= 3) break;
+          }
+        }
+      }
+      return unique.slice(0, 3);
+    }
+
+    function applyBeamOption(dia, count) {
+      state.botDia = dia;
+      state.botCount = count;
+      renderControls();
+      render();
+    }
+
+    function applySlabOption(dia, spacing) {
+      state.slabDia = dia;
+      state.slabSpacing = spacing;
+      renderControls();
+      render();
+    }
+
+    function applyWallOption(dia, spacing) {
+      state.wallDia = dia;
+      state.wallSpacing = spacing;
+      renderControls();
+      render();
+    }
+
     // Render Controls Sidebar
     function renderControls() {
       const panel = document.getElementById('controlsPanel');
       if (state.type === 'beam') {
+        const beamRecs = getBeamRecommendations(state.b, state.h, state.cover, state.linkDia, state.beamAsReq);
         panel.innerHTML = `
           <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-cube"></i> Section Geometry</div>
             <div class="control-row">
               <span class="control-label">Width b (mm):</span>
-              <input type="number" class="control-input" value="${state.b}" step="25" min="100" max="2000" onchange="state.b=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.b}" step="25" min="100" max="2000" onchange="state.b=+this.value; renderControls(); render();" />
             </div>
             <div class="control-row">
               <span class="control-label">Depth h (mm):</span>
-              <input type="number" class="control-input" value="${state.h}" step="50" min="150" max="3000" onchange="state.h=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.h}" step="50" min="150" max="3000" onchange="state.h=+this.value; renderControls(); render();" />
             </div>
             <div class="control-row">
               <span class="control-label">Clear Cover (mm):</span>
-              <input type="number" class="control-input" value="${state.cover}" step="5" min="15" max="80" onchange="state.cover=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.cover}" step="5" min="15" max="80" onchange="state.cover=+this.value; renderControls(); render();" />
             </div>
+            <div class="control-row">
+              <span class="control-label">Tension As,req (mm²):</span>
+              <input type="number" class="control-input" value="${state.beamAsReq}" step="50" min="100" max="25000" onchange="state.beamAsReq=+this.value; renderControls(); render();" />
+            </div>
+          </div>
+
+          <div class="panel-group">
+            <div class="panel-group-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Rebar Optimizer</div>
+            ${beamRecs.length > 0 ? `
+              <div class="suggest-box">
+                <div class="suggest-header">
+                  <span class="suggest-title"><i class="fa-solid fa-bolt"></i> Recommended Bars</span>
+                  <button class="btn-auto-opt" onclick="applyBeamOption(${beamRecs[0].dia}, ${beamRecs[0].count});">
+                    <i class="fa-solid fa-check"></i> Best Pick
+                  </button>
+                </div>
+                <div class="suggest-cards">
+                  ${beamRecs.map(r => `
+                    <div class="suggest-card ${state.botDia===r.dia && state.botCount===r.count ? 'active' : ''}" onclick="applyBeamOption(${r.dia}, ${r.count});">
+                      <div>
+                        <div class="suggest-card-spec">${r.spec} <span style="font-size:10px; color:#38bdf8; font-weight:normal;">(${r.asProv} mm²)</span></div>
+                        <div class="suggest-card-sub">${r.sub}</div>
+                      </div>
+                      <span class="suggest-card-badge ${r.dc >= 0.95 ? 'exact' : ''}">${r.badge}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : `
+              <div class="code-note">No standard combination fits within width $b$. Adjust beam width or demand.</div>
+            `}
           </div>
 
           <div class="panel-group">
@@ -653,10 +945,10 @@
             </div>
             <div class="control-row">
               <span class="control-label">Bottom (Tension):</span>
-              <select class="control-select" onchange="state.botDia=+this.value; render();">
+              <select class="control-select" onchange="state.botDia=+this.value; renderControls(); render();">
                 ${[12, 16, 20, 25, 32, 40].map(d => `<option value="${d}" ${state.botDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
-              <input type="number" class="control-input" style="width:65px;" value="${state.botCount}" min="1" max="24" onchange="state.botCount=+this.value; render();" />
+              <input type="number" class="control-input" style="width:65px;" value="${state.botCount}" min="1" max="24" onchange="state.botCount=+this.value; renderControls(); render();" />
             </div>
             <div class="preset-btns">
               <button class="btn-preset" onclick="state.botCount=4; renderControls(); render();">1 Layer (4T${state.botDia})</button>
@@ -671,7 +963,7 @@
             <div class="panel-group-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Shear Links</div>
             <div class="control-row">
               <span class="control-label">Link Size &amp; Legs:</span>
-              <select class="control-select" onchange="state.linkDia=+this.value; render();">
+              <select class="control-select" onchange="state.linkDia=+this.value; renderControls(); render();">
                 ${[8, 10, 12, 16].map(d => `<option value="${d}" ${state.linkDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
               <select class="control-select" style="width:75px;" onchange="state.linkLegs=+this.value; render();">
@@ -685,6 +977,7 @@
           </div>
         `;
       } else if (state.type === 'slab') {
+        const slabRecs = getSlabRecommendations(state.slabAsReq);
         panel.innerHTML = `
           <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-cube"></i> Slab Section Geometry</div>
@@ -698,21 +991,48 @@
             </div>
             <div class="control-row">
               <span class="control-label">As,req (mm²/m):</span>
-              <input type="number" class="control-input" value="${state.slabAsReq}" step="50" min="100" max="10000" onchange="state.slabAsReq=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.slabAsReq}" step="50" min="100" max="10000" onchange="state.slabAsReq=+this.value; renderControls(); render();" />
             </div>
+          </div>
+
+          <div class="panel-group">
+            <div class="panel-group-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Spacing Optimizer</div>
+            ${slabRecs.length > 0 ? `
+              <div class="suggest-box">
+                <div class="suggest-header">
+                  <span class="suggest-title"><i class="fa-solid fa-bolt"></i> Recommended Spacings</span>
+                  <button class="btn-auto-opt" onclick="applySlabOption(${slabRecs[0].dia}, ${slabRecs[0].spacing});">
+                    <i class="fa-solid fa-check"></i> Best Pick
+                  </button>
+                </div>
+                <div class="suggest-cards">
+                  ${slabRecs.map(r => `
+                    <div class="suggest-card ${state.slabDia===r.dia && state.slabSpacing===r.spacing ? 'active' : ''}" onclick="applySlabOption(${r.dia}, ${r.spacing});">
+                      <div>
+                        <div class="suggest-card-spec">${r.spec}</div>
+                        <div class="suggest-card-sub">${r.sub}</div>
+                      </div>
+                      <span class="suggest-card-badge ${r.dc >= 0.95 ? 'exact' : ''}">${r.badge}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : `
+              <div class="code-note">Adjust Target $A_{s,\\text{req}}$ to view practical spacing candidates.</div>
+            `}
           </div>
 
           <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-bars"></i> Main Bottom Rebar (B1)</div>
             <div class="control-row">
               <span class="control-label">Bar Diameter:</span>
-              <select class="control-select" onchange="state.slabDia=+this.value; render();">
+              <select class="control-select" onchange="state.slabDia=+this.value; renderControls(); render();">
                 ${[10, 12, 16, 20, 25].map(d => `<option value="${d}" ${state.slabDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
             </div>
             <div class="control-row">
               <span class="control-label">Spacing s (mm c/c):</span>
-              <input type="number" class="control-input" value="${state.slabSpacing}" step="25" min="75" max="400" onchange="state.slabSpacing=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.slabSpacing}" step="25" min="75" max="400" onchange="state.slabSpacing=+this.value; renderControls(); render();" />
             </div>
             <div class="preset-btns">
               <button class="btn-preset" onclick="state.slabH=300; state.slabDia=20; state.slabSpacing=150; renderControls(); render();">Case 1 (300 / T20@150)</button>
@@ -722,6 +1042,7 @@
           </div>
         `;
       } else if (state.type === 'wall') {
+        const wallRecs = getWallRecommendations(state.wallLw, state.wallAsReq);
         panel.innerHTML = `
           <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-cube"></i> Wall Geometry (Plan)</div>
@@ -731,7 +1052,7 @@
             </div>
             <div class="control-row">
               <span class="control-label">View Length Lw (mm):</span>
-              <input type="number" class="control-input" value="${state.wallLw}" step="100" min="600" max="2500" onchange="state.wallLw=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.wallLw}" step="100" min="600" max="2500" onchange="state.wallLw=+this.value; renderControls(); render();" />
             </div>
             <div class="control-row">
               <span class="control-label">Cover (mm):</span>
@@ -740,20 +1061,47 @@
           </div>
 
           <div class="panel-group">
+            <div class="panel-group-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Spacing &amp; Bar Optimizer</div>
+            ${wallRecs.length > 0 ? `
+              <div class="suggest-box">
+                <div class="suggest-header">
+                  <span class="suggest-title"><i class="fa-solid fa-bolt"></i> Recommended Curtains</span>
+                  <button class="btn-auto-opt" onclick="applyWallOption(${wallRecs[0].dia}, ${wallRecs[0].spacing});">
+                    <i class="fa-solid fa-check"></i> Best Pick
+                  </button>
+                </div>
+                <div class="suggest-cards">
+                  ${wallRecs.map(r => `
+                    <div class="suggest-card ${state.wallDia===r.dia && state.wallSpacing===r.spacing ? 'active' : ''}" onclick="applyWallOption(${r.dia}, ${r.spacing});">
+                      <div>
+                        <div class="suggest-card-spec">${r.spec}</div>
+                        <div class="suggest-card-sub">${r.sub}</div>
+                      </div>
+                      <span class="suggest-card-badge ${r.dc >= 0.95 ? 'exact' : ''}">${r.badge}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : `
+              <div class="code-note">Adjust Total $A_{s,\\text{req}}$ to view wall spacing candidates.</div>
+            `}
+          </div>
+
+          <div class="panel-group">
             <div class="panel-group-title"><i class="fa-solid fa-bars"></i> Double Curtain Rebar</div>
             <div class="control-row">
               <span class="control-label">Total As,req (mm²):</span>
-              <input type="number" class="control-input" value="${state.wallAsReq}" step="100" min="100" max="500000" onchange="state.wallAsReq=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.wallAsReq}" step="100" min="100" max="500000" onchange="state.wallAsReq=+this.value; renderControls(); render();" />
             </div>
             <div class="control-row">
               <span class="control-label">Vertical Bar Size:</span>
-              <select class="control-select" onchange="state.wallDia=+this.value; render();">
+              <select class="control-select" onchange="state.wallDia=+this.value; renderControls(); render();">
                 ${[12, 16, 20, 25, 32].map(d => `<option value="${d}" ${state.wallDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
             </div>
             <div class="control-row">
               <span class="control-label">Spacing c/c (mm):</span>
-              <input type="number" class="control-input" value="${state.wallSpacing}" step="25" min="100" max="350" onchange="state.wallSpacing=+this.value; render();" />
+              <input type="number" class="control-input" value="${state.wallSpacing}" step="25" min="100" max="350" onchange="state.wallSpacing=+this.value; renderControls(); render();" />
             </div>
             <div class="code-note">
               <strong>Curtain Detailing:</strong> 2 faces of reinforcement with transverse crossties connecting through the wall thickness.
@@ -909,6 +1257,7 @@
       const botArea = state.botCount * barArea(state.botDia);
       const rhoG = ((topArea + botArea) / (state.b * state.h)) * 100;
       const rhoD = (botArea / (state.b * beamRes.d)) * 100;
+      const dcRatio = state.beamAsReq > 0 ? state.beamAsReq / botArea : 0;
 
       document.getElementById('metricsStrip').innerHTML = `
         <div class="metric-pill">
@@ -917,9 +1266,14 @@
           <div class="metric-pill-sub">${beamRes.layers.length} Layer(s) • Centroid: ${(state.h - beamRes.d).toFixed(1)}mm</div>
         </div>
         <div class="metric-pill">
-          <div class="metric-pill-label">Tension Steel (As)</div>
+          <div class="metric-pill-label">Tension Steel (As,prov)</div>
           <div class="metric-pill-val" style="color:#34d399;">${botArea.toFixed(0)} mm²</div>
-          <div class="metric-pill-sub">${state.botCount}T${state.botDia} Provided</div>
+          <div class="metric-pill-sub">${state.botCount}T${state.botDia} (Demand: ${state.beamAsReq} mm²)</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-pill-label">Capacity (D/C Ratio)</div>
+          <div class="metric-pill-val" style="color:${dcRatio<=1.0?'#10b981':'#ef4444'};">${dcRatio.toFixed(3)}</div>
+          <div class="metric-pill-sub">${dcRatio<=1.0?'✅ PASS (Safe)':'❌ EXCEEDS DEMAND'}</div>
         </div>
         <div class="metric-pill">
           <div class="metric-pill-label">Gross Ratio ρg</div>
@@ -1017,9 +1371,14 @@
           <div class="metric-pill-sub">d = h - c - φ/2</div>
         </div>
         <div class="metric-pill">
-          <div class="metric-pill-label">As Provided (per metre)</div>
+          <div class="metric-pill-label">As Provided / m</div>
           <div class="metric-pill-val" style="color:#34d399;">${asProv.toFixed(1)} mm²/m</div>
-          <div class="metric-pill-sub">T${state.slabDia} @ ${state.slabSpacing} mm c/c</div>
+          <div class="metric-pill-sub">T${state.slabDia} @ ${state.slabSpacing} mm (Demand: ${state.slabAsReq})</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-pill-label">Capacity (D/C Ratio)</div>
+          <div class="metric-pill-val" style="color:${dcRatio<=1.0?'#10b981':'#ef4444'};">${dcRatio.toFixed(3)}</div>
+          <div class="metric-pill-sub">${dcRatio<=1.0?'✅ PASS (Safe)':'❌ EXCEEDS DEMAND'}</div>
         </div>
         <div class="metric-pill">
           <div class="metric-pill-label">Gross Ratio ρg</div>
@@ -1027,9 +1386,9 @@
           <div class="metric-pill-sub">${(rhoG/100).toFixed(5)}</div>
         </div>
         <div class="metric-pill">
-          <div class="metric-pill-label">Capacity (D/C Ratio)</div>
-          <div class="metric-pill-val" style="color:${dcRatio<=1.0?'#10b981':'#ef4444'};">${dcRatio.toFixed(3)}</div>
-          <div class="metric-pill-sub">${dcRatio<=1.0?'PASS (Safe)':'EXCEEDS DEMAND'}</div>
+          <div class="metric-pill-label">Effective Ratio ρd</div>
+          <div class="metric-pill-val" style="color:#a855f7;">${rhoD.toFixed(2)}%</div>
+          <div class="metric-pill-sub">As / (1000 × d)</div>
         </div>
       `;
     }
