@@ -990,45 +990,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    'revit-stepdown': {
-
-      title: 'Revit Version Stepdown Studio & Cloud BIM Downgrader',
-
-      location: 'EDGEMARK Cloud BIM Solutions',
-
-      tag: 'Cloud BIM & Binary Parser',
-
-      image: 'assets/images/brands/revit.svg',
-
-      extraImages: [],
-
-      specs: [
-
-        { label: 'Supported Inputs', val: 'Revit 2027, 2026, 2025, 2024, 2023' },
-
-        { label: 'Target Baselines', val: 'Revit 2023, 2022, 2021, 2020' },
-
-        { label: 'Scanner', val: 'Client-Side Binary OLE Parser' }
-
-      ],
-
-      desc: 'Proprietary Cloud BIM pipeline solving Autodesk Revit\'s backward-compatibility barrier. Enables engineering teams and contractors on older Revit installations to open, review, and coordinate high-version Revit models without forced software upgrade subscriptions.',
-
-      highlights: [
-
-        'Instant in-browser OLE binary parser inspecting Revit version, build number, and worksharing state in <50ms without server upload.',
-
-        'Preserves native walls, structural floors, columns, compound layers, and elevation levels across stepdown conversion.',
-
-        'Generates automated BIM Model Integrity Audit Certificates and Stepdown Delivery Kits.',
-
-        'Eliminates model lockouts and multi-firm coordination delays on major capital projects.'
-
-      ],
-
-      tech: ['Revit OLE Parser', 'Cloud BIM Engine', 'IFC Bridge', 'Model Conversion', 'Integrity Audit']
-
-    },
 
     'rebar-detailing': {
 

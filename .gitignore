@@ -1,0 +1,5 @@
+# Git ignore for EDGEMARK Portfolio Website
+RESOURCES/
+.vscode/
+*.tmp
+audit_assets.py
