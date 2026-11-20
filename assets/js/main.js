@@ -946,11 +946,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     'autostruct-suite': {
 
-      title: 'AutoStruct — Computational ETABS Automation Suite',
+      title: 'AutoStruct — Computational ETABS Engineering Suite (7 Modules)',
 
       location: 'EDGEMARK AutoStruct Solutions',
 
-      tag: 'AEC Software & COM API',
+      tag: 'AEC Desktop Suite & COM API',
 
       image: 'assets/images/app-wind-dynamics-gui.png',
 
@@ -958,29 +958,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
       specs: [
 
-        { label: 'Language', val: 'Python / Tkinter GUI' },
+        { label: 'Platform', val: 'Python 3.10+ / Tkinter GUI' },
 
-        { label: 'API Target', val: 'CSI ETABS OAPI' },
+        { label: 'API Target', val: 'CSI ETABS COM OAPI' },
 
-        { label: 'Specialization', val: 'Wind Dynamics (BS 6399 & NBC)' }
+        { label: 'Modules', val: '7 Master Engineering Engines' }
 
       ],
 
-      desc: 'EDGEMARK AutoStruct Solutions signature desktop software. An automated engineering suite communicating directly with ETABS via COM API, generating building geometry, grouping shear wall piers, extracting modal frequencies, and calculating wind pressure gradients with full graphical interface.',
+      desc: 'Master engineering control hub communicating directly with ETABS via COM API. Unifies 7 specialized modules: Dynamic Modal Analysis & ISO 10137/BS 6472 Human Comfort, BS 8110/BS 6399/BS 8004 Load Combinations Generator, Automated 15m Pile-Raft Modeler, Wall Pier Label Automation, Nonlinear P-Delta & Staged Construction Sequencer, STRUCTMOD Stiffness Modifier Manager, and Rigid Link Engine with Null Frame Load Correction.',
 
       highlights: [
 
-        'Universal COM API return parser solving version-specific return bugs in ETABS.',
+        'Modal & Human Comfort Suite: Extracts periods, frequencies, mass participation, torsional irregularity (flags >1.2), and evaluates ISO 10137 / BS 6472 acceleration benchmarks.',
 
-        'Automated generation of code-compliant wind pressure profiles per BS 6399 and NBC 2005.',
+        'BS Load Combos Generator: Auto-creates complete ULS & SLS combinations (gravity, wind ± reversals, soil, water, surcharge) with zero manual data entry.',
 
-        'Instant multi-run extraction saving up to 80% of engineer modeling time.',
+        '15m Distributed Pile Modeling: Reads reaction forces (F3), sizes 600mm piles, enforces >=1.5D anti-clash spacing, and assigns tip point springs automatically.',
 
-        'Algorithmic Corrupt Model Recovery: Dissects raw .e2k text and database tables to resurrect corrupted or lost ETABS models in minutes — eliminating days of tedious manual remodeling.'
+        'Wall Pier Bottom-Up Labeling: Scans vertical wall stacks by plan coordinate (X,Y) and assigns continuous P1..Pn pier labels across all stories.',
+
+        'Nonlinear P-Delta & Staged Construction: GUI for gravity P-Delta cases, wind lateral continuations, and floor-by-floor concrete curing/shrinkage sequences.',
+
+        'STRUCTMOD & Rigid Link Engine: SLS/ULS stiffness schedules with rollback protection, 6-DOF in-plane rigid links, and Null Frame load correction with auto .EDB backups.'
 
       ],
 
-      tech: ['Python Desktop App', 'ETABS OAPI', 'Tkinter UI', 'Wind Dynamics Engine', 'AEC Software']
+      tech: ['Python Desktop App', 'ETABS COM OAPI', 'Tkinter UI', 'Modal Analysis', 'Piled-Raft', 'P-Delta', 'Staged Construction']
+
+    },
+
+
+
+    'revit-stepdown': {
+
+      title: 'Revit Version Stepdown Studio & Cloud BIM Downgrader',
+
+      location: 'EDGEMARK Cloud BIM Solutions',
+
+      tag: 'Cloud BIM & Binary Parser',
+
+      image: 'assets/images/brands/revit.svg',
+
+      extraImages: [],
+
+      specs: [
+
+        { label: 'Supported Inputs', val: 'Revit 2027, 2026, 2025, 2024, 2023' },
+
+        { label: 'Target Baselines', val: 'Revit 2023, 2022, 2021, 2020' },
+
+        { label: 'Scanner', val: 'Client-Side Binary OLE Parser' }
+
+      ],
+
+      desc: 'Proprietary Cloud BIM pipeline solving Autodesk Revit\'s backward-compatibility barrier. Enables engineering teams and contractors on older Revit installations to open, review, and coordinate high-version Revit models without forced software upgrade subscriptions.',
+
+      highlights: [
+
+        'Instant in-browser OLE binary parser inspecting Revit version, build number, and worksharing state in <50ms without server upload.',
+
+        'Preserves native walls, structural floors, columns, compound layers, and elevation levels across stepdown conversion.',
+
+        'Generates automated BIM Model Integrity Audit Certificates and Stepdown Delivery Kits.',
+
+        'Eliminates model lockouts and multi-firm coordination delays on major capital projects.'
+
+      ],
+
+      tech: ['Revit OLE Parser', 'Cloud BIM Engine', 'IFC Bridge', 'Model Conversion', 'Integrity Audit']
 
     },
 
