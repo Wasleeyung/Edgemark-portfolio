@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoStruct ETABS Automation Suite | EDGEMARK Engineering Consulting Ltd.</title>
+  <meta name="description" content="Proprietary Python desktop automation suite connecting directly to CSI ETABS via COM OAPI. Featuring 7 master modules for dynamic modal analysis, BS load combos, pile generation, staged construction, and stiffness management." />
+  <link rel="icon" type="image/png" href="assets/images/logo-navbar.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body {
+      background: #08111e;
+      color: #e2e8f0;
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .suite-navbar {
+      background: rgba(8, 17, 30, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .suite-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .suite-brand img {
+      height: 38px;
+    }
+    .suite-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .suite-brand-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+    .suite-brand-title span {
+      color: #00e5ff;
+    }
+    .suite-brand-sub {
+      font-size: 0.72rem;
+      color: #64748b;
+      letter-spacing: 0.04em;
+    }
+    .suite-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .btn-nav-outline {
+      padding: 8px 16px;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 8px;
+      color: #a8f7ff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-nav-outline:hover {
+      background: rgba(0, 229, 255, 0.12);
+      border-color: #00e5ff;
+      color: #fff;
+    }
+    .suite-hero {
+      padding: 80px 24px 40px;
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .suite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: #00e5ff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .suite-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.6rem;
+      line-height: 1.2;
+      color: #ffffff;
+      margin: 0 0 18px;
+    }
+    .suite-title span {
+      color: #00e5ff;
+    }
+    .suite-lead {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 0 auto 30px;
+      max-width: 800px;
+    }
+    .suite-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .module-card {
+      background: #0e1a2b;
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: 14px;
+      padding: 28px;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .module-card:hover {
+      border-color: rgba(0, 229, 255, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+    .module-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .module-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .module-card ul li {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .module-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .module-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Suite Navbar -->
+  <header class="suite-navbar">
+    <a href="index.html" class="suite-brand">
+      <img src="assets/images/logo-navbar.png" alt="EDGEMARK" />
+      <div class="suite-brand-text">
+        <div class="suite-brand-title">EDGEMARK <span>AUTOSTRUCT</span></div>
+        <div class="suite-brand-sub">ETABS Engineering Automation Suite</div>
+      </div>
+    </a>
+    <div class="suite-nav-actions">
+      <a href="rebar-web-tool.html" class="btn-nav-outline">
+        <i class="fa-solid fa-shapes"></i> Rebar Tool
+      </a>
+      <a href="revit-stepdown-tool.html" class="btn-nav-outline" style="color:#34d399; border-color:rgba(52,211,153,0.35);">
+        <i class="fa-solid fa-bolt"></i> Revit Downgrader
+      </a>
+      <a href="index.html" class="btn-nav-outline">
+        <i class="fa-solid fa-arrow-left"></i> Back to Main Site
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="suite-hero">
+    <div class="suite-badge">
+      <i class="fa-solid fa-terminal"></i> Direct CSI ETABS COM OAPI Integration
+    </div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:20px; margin-bottom:18px; flex-wrap:wrap;">
+      <img src="assets/images/brands/etabs-logo.webp" alt="CSI ETABS Official Logo" title="CSI ETABS" style="height:44px; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(0,229,255,0.35));" />
+      <span style="color:rgba(0,229,255,0.3); font-size:1.4rem;">+</span>
+      <img src="assets/images/brands/python.svg" alt="Python Language" title="Python" style="height:36px;" />
+      <span style="color:rgba(0,229,255,0.3); font-size:1.4rem;">+</span>
+      <img src="assets/images/brands/safe.png" alt="CSI SAFE Official Logo" title="CSI SAFE" style="height:34px; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(0,255,170,0.35));" />
+    </div>
+    <h1 class="suite-title">
+      AutoStruct <span>ETABS Automation Suite</span>
+    </h1>
+    <p class="suite-lead">
+      A bespoke computational desktop engineering suite built entirely in Python. Eliminates tedious, manual finite-element modeling and extraction bottlenecks by interfacing directly with CSI ETABS via its COM Open API.
+    </p>
+  </section>
+
+  <!-- Main Container -->
+  <main class="suite-container">
+
+    <!-- Master Control Hub Banner -->
+    <div style="background: linear-gradient(135deg, rgba(0,229,255,0.08) 0%, rgba(14,26,43,0.95) 100%); border: 1px solid rgba(0,229,255,0.25); border-radius: 16px; padding: 32px 36px; margin-bottom: 50px; display:flex; align-items:flex-start; gap:24px; flex-wrap:wrap;">
+      <div style="flex:0 0 56px; height:56px; background:rgba(0,229,255,0.12); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.3);">
+        <i class="fa-solid fa-layer-group" style="color:#00e5ff; font-size:1.5rem;"></i>
+      </div>
+      <div style="flex:1; min-width:280px;">
+        <h3 style="color:#e2e8f0; font-size:1.2rem; font-weight:700; margin:0 0 8px;">Master Control Center (<code style="color:#00e5ff; font-size:0.95rem;">main.py</code>)</h3>
+        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.7; margin:0;">
+          A unified dark-mode GUI dashboard that connects to active ETABS 22 sessions. Displays live connection indicators, active model paths, and launches any of the 7 modules with automated safe-guarding and rollback error prevention.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <span class="module-tag" style="background:rgba(0,229,255,0.1); border-color:rgba(0,229,255,0.3); color:#a8f7ff;">Python 3.10+</span>
+          <span class="module-tag" style="background:rgba(0,229,255,0.1); border-color:rgba(0,229,255,0.3); color:#a8f7ff;">Tkinter Dark GUI</span>
+          <span class="module-tag" style="background:rgba(0,229,255,0.1); border-color:rgba(0,229,255,0.3); color:#a8f7ff;">ETABS 22 OAPI</span>
+          <span class="module-tag" style="background:rgba(0,229,255,0.1); border-color:rgba(0,229,255,0.3); color:#a8f7ff;">Live &amp; Headless Mode</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Modules Grid -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap:28px;">
+
+      <!-- Module 1: Modal Analysis & Comfort Suite -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(0,229,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-wave-square" style="color:#00e5ff; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#00e5ff;">Module 01</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">Modal Analysis &amp; Comfort Suite</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Dynamic modal extraction and human comfort assessment from live ETABS models — per ISO 10137:2007, BS 6472-1:2008, and BS EN 1998-1 (EC8).
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Building density: total mass (kg/tonnes), volume (m³), average density (kg/m³)</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Mass source correction: prevents double-counting Live load</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Natural periods T, cyclic frequencies f, circular frequencies ω, eigenvalues</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Mass participation ratios (UX, UY, UZ, RX, RY, RZ) + cumulative 90% check</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Torsional irregularity ratio T_torsion/T_sway — flags &gt; 1.2 (EC8) automatically</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>ISO 10137 / BS 6472 peak acceleration benchmarks — operating theatre to office</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Auto-generated HTML + text comfort reports; offline demo dataset included</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">ISO 10137</span>
+          <span class="module-tag">BS 6472</span>
+          <span class="module-tag">EC8 Compliance</span>
+        </div>
+      </div>
+
+      <!-- Module 2: BS Load Combinations Generator -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(255,107,53,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,107,53,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-scale-balanced" style="color:#ff6b35; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#ff6b35;">Module 02</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">BS Code Load Combinations Generator</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Automatically creates the full suite of Ultimate (ULS) and Serviceability (SLS) combinations in ETABS per BS 8110, BS 8004, BS 6399, and BS 8007.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:8px;"></i>Dead, Super Dead (Gk), Live (Qk), Wind X/Y with ± reversals</li>
+          <li><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:8px;"></i>Soil lateral pressure, hydrostatic water, variable surcharge</li>
+          <li><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:8px;"></i>ULS Linear Add + Envelope combinations auto-generated</li>
+          <li><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:8px;"></i>SLS serviceability combos for deflection and cracking checks</li>
+          <li><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:8px;"></i>Writes directly into active ETABS model via COM — zero manual data entry</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">BS 8110</span>
+          <span class="module-tag">BS 8004</span>
+          <span class="module-tag">BS 6399</span>
+          <span class="module-tag">BS 8007</span>
+        </div>
+      </div>
+
+      <!-- Module 3: Pile Generator -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(52,211,153,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(52,211,153,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-arrows-down-to-line" style="color:#34d399; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#34d399;">Module 03</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">Automated 15m Pile Modeling Tool</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Hybrid piled-raft foundation generator — reads live ETABS reaction forces and generates structurally sized, code-spaced piles directly into the model.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>D=600mm circular pile section (PILE_D600) auto-defined in ETABS</li>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>Reads real vertical reaction F3 from selected load combo</li>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>Concentrated piles under columns/walls + distributed across mat footprint</li>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>Strict spacing enforcement: ≥ 1.5D (≥ 0.90m) — zero clash, zero overlap</li>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>15m-deep pile elements drawn via AddByCoord into new Basement story</li>
+          <li><i class="fa-solid fa-check" style="color:#34d399; margin-right:8px;"></i>Point spring properties assigned to pile tips; view refreshed automatically</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">Piled-Raft</span>
+          <span class="module-tag">D600mm</span>
+          <span class="module-tag">Spring Stiffness</span>
+        </div>
+      </div>
+
+      <!-- Module 4: Wall Pier Label Automation -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(167,139,250,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(167,139,250,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-border-all" style="color:#a78bfa; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#a78bfa;">Module 04</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">Wall Pier Label Automation (Bottom-Up)</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Automatically identifies, groups, and assigns unique pier labels (P1 → Pn) to all vertical shear wall elements across every story from bottom to top.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:8px;"></i>Scans all wall Area objects across all stories automatically</li>
+          <li><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:8px;"></i>Groups walls into continuous vertical stacks by plan footprint (X, Y)</li>
+          <li><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:8px;"></i>Generates unique pier labels P1, P2… Pn per wall stack</li>
+          <li><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:8px;"></i>Creates labels in ETABS database, assigns to every wall element</li>
+          <li><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:8px;"></i>Refreshes viewport and displays summary assignment table</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">Shear Walls</span>
+          <span class="module-tag">Core Walls</span>
+          <span class="module-tag">Bottom-Up</span>
+        </div>
+      </div>
+
+      <!-- Module 5: Nonlinear P-Delta & Staged Construction -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(251,191,36,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(251,191,36,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-chart-line" style="color:#fbbf24; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#fbbf24;">Module 05</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">Nonlinear P-Delta &amp; Staged Construction</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Interactive GUI configurator for complete nonlinear analysis: gravity P-Delta base cases, wind lateral continuations, and story-by-story staged sequences.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:8px;"></i>Nonlinear static gravity P-Delta case (1.0G + 0.3Q or 1.2G + 1.2Q)</li>
+          <li><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:8px;"></i>P-Delta Wind lateral continuations: X+, X−, Y+, Y− auto-configured</li>
+          <li><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:8px;"></i>Story-by-story erection sequence (bottom-up) with concrete age per floor</li>
+          <li><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:8px;"></i>SDL finishes, Live load, and long-term creep/shrinkage stage (up to 5 years)</li>
+          <li><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:8px;"></i>Interactive per-story duration and age table — fully editable in GUI</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">P-Delta</span>
+          <span class="module-tag">Staged Construction</span>
+          <span class="module-tag">Creep &amp; Shrinkage</span>
+        </div>
+      </div>
+
+      <!-- Module 6: Stiffness Modifier Manager (STRUCTMOD) -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(236,72,153,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(236,72,153,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-sliders" style="color:#ec4899; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#ec4899;">Module 06</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">STRUCTMOD — Stiffness Modifier Manager</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Windows desktop app managing SLS/ULS stiffness modifier schedules across frame and shell members, with automated SLS model duplication from the active ULS model.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#ec4899; margin-right:8px;"></i>Editable frame and shell modifier schedules (beams, columns, walls, slabs)</li>
+          <li><i class="fa-solid fa-check" style="color:#ec4899; margin-right:8px;"></i>Applies modifiers directly to ETABS property definitions via COM API</li>
+          <li><i class="fa-solid fa-check" style="color:#ec4899; margin-right:8px;"></i>Auto rollback on write failure — existing values restored if error occurs</li>
+          <li><i class="fa-solid fa-check" style="color:#ec4899; margin-right:8px;"></i>Creates _sls.edb copy from open ULS model — prevents accidental overwrite</li>
+          <li><i class="fa-solid fa-check" style="color:#ec4899; margin-right:8px;"></i>Export modifier schedule as JSON preset or CSV for review</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">ULS / SLS</span>
+          <span class="module-tag">Stiffness Modifiers</span>
+          <span class="module-tag">Auto Rollback</span>
+        </div>
+      </div>
+
+      <!-- Module 7: Rigid Link Engine & Load Correction -->
+      <div class="module-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+          <div style="width:44px; height:44px; background:rgba(0,229,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.25); flex-shrink:0;">
+            <i class="fa-solid fa-link" style="color:#00e5ff; font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <div class="module-badge" style="color:#00e5ff;">Module 07</div>
+            <h4 style="color:#e2e8f0; font-size:1.05rem; font-weight:700; margin:0;">Rigid Link Engine &amp; Load Correction</h4>
+          </div>
+        </div>
+        <p style="color:#94a3b8; font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+          Two precision tools: a 6-DOF rigid link generator for horizontal in-plane connections, and a Null Frame load correction engine that fixes misassigned gravity loads.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Defines AUTO_RIGIDLINK 6-DOF fully rigid property automatically</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Strict filter — omits Null frames, dummy lines, and non-structural sections</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>In-plane only: Z_beam == Z_col enforcement, zero Z-axis links</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Null Frame load correction: transfers Live → Super Dead on Null sections</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Auto timestamped .EDB backup before every modification</li>
+          <li><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:8px;"></i>Dry-run mode: inspect load counts without touching model data</li>
+        </ul>
+        <div class="module-tags">
+          <span class="module-tag">Rigid Links</span>
+          <span class="module-tag">Load Correction</span>
+          <span class="module-tag">Dry-Run Safe</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Actions -->
+    <div style="text-align:center; margin-top:60px; padding:40px; background:#0c1626; border-radius:16px; border:1px solid rgba(0,229,255,0.15);">
+      <h3 style="color:#fff; font-size:1.4rem; margin:0 0 10px;">Ready to deploy or commission a custom ETABS module?</h3>
+      <p style="color:#94a3b8; font-size:0.95rem; margin:0 0 24px; max-width:600px; margin-left:auto; margin-right:auto;">
+        We build bespoke COM API pipelines and finite element automation engines tailored to your firm's design workflows.
+      </p>
+      <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <a href="index.html#contact" class="btn btn-primary" style="padding:12px 28px; text-decoration:none;">
+          <i class="fa-solid fa-envelope"></i> Commission Custom Module
+        </a>
+        <a href="rebar-web-tool.html" class="btn btn-outline" style="padding:12px 28px; text-decoration:none; color:#00e5ff; border-color:#00e5ff;">
+          <i class="fa-solid fa-shapes"></i> Try Free Rebar Suite
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="text-align:center; padding:30px; border-top:1px solid rgba(255,255,255,0.06); color:#64748b; font-size:0.8rem;">
+    &copy; 2026 EDGEMARK Engineering Consulting Ltd. All rights reserved.
+  </footer>
+
+</body>
+</html>

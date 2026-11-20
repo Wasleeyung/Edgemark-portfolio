@@ -28,7 +28,7 @@
         <li><a href="#specializations" class="nav-link">Specializations</a></li>
         <li><a href="#philosophy" class="nav-link">Design Philosophy</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#autostruct-suite" class="nav-link" style="color:#00e5ff; font-weight:600;"><i class="fa-solid fa-layer-group"></i> ETABS Suite</a></li>
+        <li><a href="etabs-suite.html" class="nav-link" style="color:#00e5ff; font-weight:700;"><i class="fa-solid fa-layer-group"></i> ETABS Suite</a></li>
         <li><a href="#expertise" class="nav-link">Flagship 49-Storey</a></li>
         <li><a href="#projects" class="nav-link">Portfolio</a></li>
         <li><a href="#tech" class="nav-link">Technology</a></li>
@@ -139,7 +139,7 @@
       <div class="about-grid">
         <div class="about-visual" data-aos="fade-right">
           <div class="about-logo-block">
-            <img src="assets/images/lawal-wasiu-portrait.jpg" alt="Lawal Wasiu Kayode — Principal Structural Engineer" class="about-logo-img about-portrait-img" />
+            <img src="assets/images/lawal-wasiu-my-picture.jpg" alt="Lawal Wasiu Kayode — Principal Structural Engineer" class="about-logo-img about-portrait-img" />
             <div class="about-logo-accent"></div>
           </div>
           <div class="about-cards">
@@ -648,248 +648,6 @@
   </section>
 
   <!-- ══════════════════════════════════════
-       AUTOSTRUCT ETABS SUITE SECTION
-  ══════════════════════════════════════ -->
-  <section class="section section-dark" id="autostruct-suite" style="padding: 100px 0; background: linear-gradient(180deg, #060d18 0%, #0b1320 100%);">
-    <div class="container">
-
-      <!-- Section Header -->
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Proprietary Software</div>
-        <h2 class="section-title light">AutoStruct <span class="accent">ETABS Engineering Suite</span></h2>
-        <p class="section-desc">
-          A bespoke Python desktop automation suite — built entirely from scratch — that connects directly to CSI ETABS via its COM OAPI interface. Engineered to eliminate repetitive manual modeling bottlenecks across the full structural design lifecycle.
-        </p>
-        <!-- Software logos -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:24px; margin-top:20px; flex-wrap:wrap;">
-          <img src="assets/images/brands/etabs-logo.webp" alt="CSI ETABS Official Logo" title="CSI ETABS" style="height:36px; width:auto; filter: drop-shadow(0 2px 8px rgba(0,229,255,0.3));" />
-          <img src="assets/images/brands/python.svg" alt="Python" title="Python" style="height:32px; width:auto;" />
-          <img src="assets/images/brands/safe.png" alt="CSI SAFE Official Logo" title="CSI SAFE" style="height:30px; width:auto; filter: drop-shadow(0 2px 8px rgba(0,255,170,0.3));" />
-        </div>
-      </div>
-
-      <!-- Master Hub Intro Banner -->
-      <div data-aos="fade-up" style="background: linear-gradient(135deg, rgba(0,229,255,0.07) 0%, rgba(11,19,32,0.97) 100%); border: 1px solid rgba(0,229,255,0.2); border-radius: 16px; padding: 32px 36px; margin-bottom: 56px; display:flex; align-items:flex-start; gap:24px; flex-wrap:wrap;">
-        <div style="flex:0 0 56px; height:56px; background:rgba(0,229,255,0.12); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.3);">
-          <i class="fa-solid fa-layer-group" style="color:#00e5ff; font-size:1.5rem;"></i>
-        </div>
-        <div style="flex:1; min-width:260px;">
-          <h3 style="color:#e2e8f0; font-size:1.15rem; font-weight:700; margin:0 0 8px;">ETABS Engineering Automation Hub — Master Control Center</h3>
-          <p style="color:#94a3b8; font-size:0.9rem; line-height:1.7; margin:0;">
-            A unified dark-mode GUI dashboard (<code style="color:#00e5ff; background:rgba(0,229,255,0.08); padding:1px 6px; border-radius:4px;">main.py</code>) that launches all 7 ETABS automation modules from a single control center. Connects to any running ETABS 22 instance via COM API, with live connection status, model path display, and module-specific sub-windows — no scripting knowledge required.
-          </p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-            <span style="background:rgba(0,229,255,0.1); border:1px solid rgba(0,229,255,0.3); color:#a8f7ff; font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:999px; letter-spacing:0.05em;">Python + Tkinter GUI</span>
-            <span style="background:rgba(0,229,255,0.1); border:1px solid rgba(0,229,255,0.3); color:#a8f7ff; font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:999px; letter-spacing:0.05em;">CSI ETABS COM OAPI</span>
-            <span style="background:rgba(0,229,255,0.1); border:1px solid rgba(0,229,255,0.3); color:#a8f7ff; font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:999px; letter-spacing:0.05em;">7 Modules</span>
-            <span style="background:rgba(0,229,255,0.1); border:1px solid rgba(0,229,255,0.3); color:#a8f7ff; font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:999px; letter-spacing:0.05em;">Windows Desktop App</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7 Module Cards Grid -->
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:28px;" data-aos="fade-up">
-
-        <!-- Module 1: Modal Analysis & Comfort Suite -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(0,229,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-wave-square" style="color:#00e5ff; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#00e5ff; letter-spacing:0.1em; text-transform:uppercase;">Module 01</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">Modal Analysis &amp; Comfort Suite</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Full dynamic modal extraction and human comfort assessment from live ETABS models — per ISO 10137:2007, BS 6472-1:2008, and BS EN 1998-1 (EC8).</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Building density: total mass (kg/t), volume (m³), avg density (kg/m³)</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Mass source correction — prevents double-counting Live load</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Natural periods T, cyclic frequencies f, circular frequencies ω, eigenvalues</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Mass participation ratios UX, UY, UZ, RX, RY, RZ + cumulative 90% check</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Torsional irregularity ratio T_torsion/T_sway — flags > 1.2 (EC8) automatically</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>ISO 10137 / BS 6472 peak acceleration benchmarks — operating theatre to office</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Auto-generated HTML + text comfort reports; offline demo dataset included</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">ISO 10137</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">BS 6472</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">EC8</span>
-          </div>
-        </div>
-
-        <!-- Module 2: BS Load Combinations Generator -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(255,107,53,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,107,53,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-scale-balanced" style="color:#ff6b35; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#ff6b35; letter-spacing:0.1em; text-transform:uppercase;">Module 02</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">BS Code Load Combinations Generator</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Automatically creates the complete ULS and SLS load combination suite in ETABS per BS 8110, BS 8004, BS 6399, and BS 8007 — without manual combo entry.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:7px;"></i>Dead, Super Dead (Gk), Live (Qk), Wind X/Y ± reversals</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:7px;"></i>Soil lateral pressure, hydrostatic water, variable surcharge</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:7px;"></i>ULS Linear Add + Envelope combinations auto-generated</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:7px;"></i>SLS serviceability combos for deflection and cracking checks</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ff6b35; margin-right:7px;"></i>Writes directly into active ETABS model via COM — zero manual entry</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">BS 8110</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">BS 8004</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">BS 6399</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">BS 8007</span>
-          </div>
-        </div>
-
-        <!-- Module 3: Pile Generator -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(52,211,153,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(52,211,153,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-arrows-down-to-line" style="color:#34d399; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#34d399; letter-spacing:0.1em; text-transform:uppercase;">Module 03</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">Automated 15m Pile Modeling Tool</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Hybrid piled-raft foundation generator — reads live ETABS reaction forces and places structurally sized, code-spaced piles directly into the model automatically.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>D=600mm circular pile section (PILE_D600) auto-defined in ETABS</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>Reads real vertical reaction F3 from selected load combo</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>Concentrated piles under columns/walls + distributed across mat footprint</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>Strict spacing enforcement: ≥ 1.5D (≥ 0.90m) — zero clash, zero overlap</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>15m-deep pile elements drawn via AddByCoord into new Basement story</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#34d399; margin-right:7px;"></i>Point spring properties assigned to pile tips; view refreshed automatically</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Piled-Raft</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">D600mm</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Spring Stiffness</span>
-          </div>
-        </div>
-
-        <!-- Module 4: Wall Pier Label Automation -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(167,139,250,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(167,139,250,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-border-all" style="color:#a78bfa; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#a78bfa; letter-spacing:0.1em; text-transform:uppercase;">Module 04</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">Wall Pier Label Automation</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Automatically identifies, groups, and assigns unique pier labels (P1 → Pn) to all vertical shear wall elements across every story — from bottom to top — in seconds.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:7px;"></i>Scans all wall Area objects across all stories automatically</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:7px;"></i>Groups walls into continuous vertical stacks by plan footprint (X, Y)</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:7px;"></i>Generates unique pier labels P1, P2… Pn per wall stack</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:7px;"></i>Creates labels in ETABS database, assigns to every wall element</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#a78bfa; margin-right:7px;"></i>Refreshes viewport and displays summary assignment table</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Shear Walls</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Core Walls</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Bottom-Up</span>
-          </div>
-        </div>
-
-        <!-- Module 5: Nonlinear P-Delta & Staged Construction -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(251,191,36,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(251,191,36,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-chart-line" style="color:#fbbf24; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#fbbf24; letter-spacing:0.1em; text-transform:uppercase;">Module 05</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">Nonlinear P-Delta &amp; Staged Construction</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">GUI configurator for complete nonlinear analysis setup — P-Delta gravity base cases, wind lateral continuations, and full story-by-story staged construction sequencing.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:7px;"></i>Nonlinear static gravity P-Delta case (1.0G + 0.3Q or 1.2G + 1.2Q)</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:7px;"></i>P-Delta Wind lateral continuations: X+, X−, Y+, Y− auto-configured</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:7px;"></i>Story-by-story erection sequence (bottom-up) with concrete age per floor</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:7px;"></i>SDL finishes, Live load, and long-term creep/shrinkage stage (up to 5 years)</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#fbbf24; margin-right:7px;"></i>Interactive per-story duration and age table — fully editable in GUI</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">P-Delta</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Staged Construction</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Creep &amp; Shrinkage</span>
-          </div>
-        </div>
-
-        <!-- Module 6: Stiffness Modifier Manager (STRUCTMOD) -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(236,72,153,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(236,72,153,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-sliders" style="color:#ec4899; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#ec4899; letter-spacing:0.1em; text-transform:uppercase;">Module 06</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">STRUCTMOD — Stiffness Modifier Manager</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Desktop app for managing SLS/ULS stiffness modifier schedules across frame and shell members, with automatic SLS model duplication from the active ULS model.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ec4899; margin-right:7px;"></i>Editable frame and shell modifier schedules (beams, columns, walls, slabs)</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ec4899; margin-right:7px;"></i>Applies modifiers directly to ETABS property definitions via COM API</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ec4899; margin-right:7px;"></i>Auto rollback on write failure — existing values restored if error occurs</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ec4899; margin-right:7px;"></i>Creates _sls.edb copy from open ULS model — prevents accidental overwrite</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#ec4899; margin-right:7px;"></i>Export modifier schedule as JSON preset or CSV for review</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">ULS / SLS</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Stiffness Modifiers</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Auto Rollback</span>
-          </div>
-        </div>
-
-        <!-- Module 7: Rigid Link Engine + Load Null Frame Correction -->
-        <div style="background:#0e1a2b; border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; transition:transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(0,229,255,0.15)'; this.style.transform='translateY(0)'">
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
-            <div style="width:44px; height:44px; background:rgba(0,229,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,229,255,0.25); flex-shrink:0;">
-              <i class="fa-solid fa-link" style="color:#00e5ff; font-size:1.1rem;"></i>
-            </div>
-            <div>
-              <div style="font-size:0.65rem; font-weight:800; color:#00e5ff; letter-spacing:0.1em; text-transform:uppercase;">Module 07</div>
-              <h4 style="color:#e2e8f0; font-size:1rem; font-weight:700; margin:0;">Rigid Link Engine &amp; Load Correction</h4>
-            </div>
-          </div>
-          <p style="color:#94a3b8; font-size:0.85rem; line-height:1.65; margin-bottom:14px;">Two precision tools: a 6-DOF rigid link generator for horizontal in-plane connections, and a Null Frame load correction engine that fixes misassigned gravity loads.</p>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px;">
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Defines AUTO_RIGIDLINK 6-DOF fully rigid property automatically</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Strict filter — omits Null frames, dummy lines, and non-structural sections</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>In-plane only: Z_beam == Z_col enforcement, zero Z-axis links</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Null Frame load correction: transfers Live → Super Dead on Null sections</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Auto timestamped .EDB backup before every modification</li>
-            <li style="color:#cbd5e1; font-size:0.82rem;"><i class="fa-solid fa-check" style="color:#00e5ff; margin-right:7px;"></i>Dry-run mode: inspect load counts without touching model data</li>
-          </ul>
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Rigid Links</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Load Correction</span>
-            <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08);">Dry-Run Safe</span>
-          </div>
-        </div>
-
-      </div><!-- end modules grid -->
-
-      <!-- Bottom CTA -->
-      <div data-aos="fade-up" style="text-align:center; margin-top:52px;">
-        <p style="color:#64748b; font-size:0.85rem; margin-bottom:20px;">All modules connect to live ETABS 22 instances via CSI COM API &bull; Windows desktop application &bull; Python 3.10+</p>
-        <a href="#contact" class="btn btn-primary" style="margin-right:14px;"><i class="fa-solid fa-envelope"></i> Commission a Custom Module</a>
-        <a href="rebar-web-tool.html" class="btn btn-outline"><i class="fa-solid fa-shapes"></i> Try the Free Rebar Suite</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
        PROJECTS / PORTFOLIO
   ══════════════════════════════════════ -->
   <section class="projects section section-dark" id="projects">
@@ -1152,7 +910,7 @@
                 <span>View Case Study</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
-              <a href="#autostruct-suite" class="project-card-btn" style="flex:1; min-width:140px; background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; text-decoration:none; justify-content:center; display:inline-flex; align-items:center; gap:8px;">
+              <a href="etabs-suite.html" class="project-card-btn" style="flex:1; min-width:140px; background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; text-decoration:none; justify-content:center; display:inline-flex; align-items:center; gap:8px;">
                 <i class="fa-solid fa-layer-group"></i>
                 <span>Explore 7 Modules</span>
               </a>
