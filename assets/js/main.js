@@ -1078,17 +1078,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     'safe-automation': {
 
-      title: 'CSI SAFE Foundation Load Bridge Importer',
+      title: 'Tekla Structural Designer to CSI SAFE Foundation Load Bridge',
 
       location: 'EDGEMARK Internal & AEC Industry',
 
-      tag: 'Foundation Data Bridge',
+      tag: 'TSD to SAFE Foundation Bridge',
 
       image: 'assets/images/projects/hotel-x-model.png',
 
       specs: [
 
-        { label: 'Automation Bridge', val: 'ETABS Reactions -> SAFE' },
+        { label: 'Automation Bridge', val: 'Tekla TSD Reactions -> CSI SAFE' },
 
         { label: 'Load Cases Handled', val: 'All Gravity, Lateral & Combos' },
 
@@ -1096,19 +1096,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ],
 
-      desc: 'Seamless computational pipeline that automatically harvests reaction vectors (Fz, Fx, Fy, Mx, My, Mz) across all load combinations from ETABS support nodes and programmatically generates support points and loads inside CSI SAFE.',
+      desc: 'Seamless computational pipeline that automatically harvests reaction vectors (Fz, Fx, Fy, Mx, My, Mz) across all load combinations from Tekla Structural Designer support nodes and programmatically generates support points and loads inside CSI SAFE for foundation design.',
 
       highlights: [
 
-        'Eliminates manual entry of hundreds of column base loads for multi-storey foundation designs.',
+        'Eliminates manual entry of hundreds of column and wall base reactions for multi-storey foundation designs.',
 
-        'Auto-verifies equilibrium between ETABS base shears and SAFE foundation applied loads.',
+        'Direct extraction from Tekla Structural Designer (TSD Open API) into CSI SAFE with zero transcription error.',
+
+        'Auto-verifies equilibrium between Tekla base reactions and CSI SAFE foundation applied loads.',
 
         'Accelerates pile-cap and raft footing design turnaround from days to minutes.'
 
       ],
 
-      tech: ['Python', 'CSI SAFE API', 'ETABS OAPI', 'Foundation Engineering', 'Workflow Automation']
+      tech: ['Python', 'Tekla TSD Open API', 'CSI SAFE API', 'Foundation Engineering', 'Workflow Automation']
 
     }
 
