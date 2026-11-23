@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="teklaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#005599"/>
+      <stop offset="100%" stop-color="#001f3f"/>
+    </linearGradient>
+    <linearGradient id="chevGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#0077cc"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="2" y="2" width="56" height="56" rx="10" fill="url(#teklaGrad)" stroke="#00aaff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <!-- Trimble / Tekla Geometric Steel Chevron Shapes -->
+  <g transform="translate(10, 11) scale(0.48)">
+    <polygon points="24.74,0.05 72.52,27.64 65.18,55.05 100,55.05 114.74,0.05 24.74,0.05" fill="#00e5ff"/>
+    <polygon points="60.88,32.46 13.4,5.05 0,55.05 54.82,55.05 60.88,32.46" fill="#38bdf8"/>
+    <polygon points="7.32,65.05 52.63,65.05 46.66,87.76 7.32,65.05" fill="#ffffff"/>
+  </g>
+  <!-- Typography -->
+  <text x="70" y="26" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9.5" font-weight="800" fill="#00e5ff" letter-spacing="2">TRIMBLE</text>
+  <text x="70" y="47" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="19" font-weight="900" fill="#ffffff" letter-spacing="0.5">TEKLA</text>
+</svg>

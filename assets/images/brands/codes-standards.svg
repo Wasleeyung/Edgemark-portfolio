@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="2" y="2" width="56" height="56" rx="10" fill="url(#codeGrad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.5"/>
+  <!-- Structural Engineering Compass & Standards Seal -->
+  <g transform="translate(10, 10)">
+    <!-- Draftsman Compass / Caliper -->
+    <circle cx="20" cy="20" r="15" fill="rgba(245, 158, 11, 0.15)" stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="20" y1="8" x2="13" y2="30" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="20" y1="8" x2="27" y2="30" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="20" cy="8" r="3" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="15" y1="22" x2="25" y2="22" stroke="#fbbf24" stroke-width="1.2"/>
+  </g>
+  <!-- Typography -->
+  <text x="70" y="26" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="800" fill="#fbbf24" letter-spacing="1.5">STANDARDS</text>
+  <text x="70" y="47" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="16" font-weight="900" fill="#ffffff" letter-spacing="0.5">BS &bull; EN &bull; ACI</text>
+</svg>
