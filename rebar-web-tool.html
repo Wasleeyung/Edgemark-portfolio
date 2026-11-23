@@ -207,6 +207,76 @@
       color: var(--accent-cyan);
     }
 
+    /* Material Standard Toggle (Ideal vs Nigeria Standard) */
+    .standard-toggle-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .toggle-segmented {
+      display: inline-flex;
+      background: rgba(14, 23, 38, 0.9);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .btn-std-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-std-pill:hover {
+      color: #fff;
+    }
+
+    .btn-std-pill.active {
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(16, 185, 129, 0.25) 100%);
+      border-color: #00e5ff;
+      color: #00e5ff;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+    }
+
+    .btn-std-pill.active.nigeria {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(239, 68, 68, 0.2) 100%);
+      border-color: #f59e0b;
+      color: #fbbf24;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .standard-note-highlight {
+      font-size: 11px;
+      line-height: 1.35;
+      padding: 4px 8px;
+      border-radius: 5px;
+      background: rgba(0, 229, 255, 0.05);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      color: #94a3b8;
+      max-width: 540px;
+      text-align: right;
+      transition: all 0.25s ease;
+    }
+
+    .standard-note-highlight.nigeria {
+      color: #fde68a !important;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+    }
+
     /* Studio Workspace Split */
     .studio-workspace {
       display: grid;
@@ -713,17 +783,34 @@
       </p>
     </div>
 
-    <!-- Element Selector Tabs -->
-    <div class="element-tabs">
-      <button class="tab-btn active" id="tabBeam" onclick="setElementType('beam')">
-        <i class="fa-solid fa-shapes"></i> Beam Cross-Section
-      </button>
-      <button class="tab-btn" id="tabSlab" onclick="setElementType('slab')">
-        <i class="fa-solid fa-ruler-horizontal"></i> Slab Meter-Strip (1.0m)
-      </button>
-      <button class="tab-btn" id="tabWall" onclick="setElementType('wall')">
-        <i class="fa-solid fa-border-all"></i> RC Shear Wall (Each Face)
-      </button>
+    <!-- Element Selector Tabs & Material Standard Toggle -->
+    <div class="element-tabs" style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="tab-btn active" id="tabBeam" onclick="setElementType('beam')">
+          <i class="fa-solid fa-shapes"></i> Beam Cross-Section
+        </button>
+        <button class="tab-btn" id="tabSlab" onclick="setElementType('slab')">
+          <i class="fa-solid fa-ruler-horizontal"></i> Slab Meter-Strip (1.0m)
+        </button>
+        <button class="tab-btn" id="tabWall" onclick="setElementType('wall')">
+          <i class="fa-solid fa-border-all"></i> RC Shear Wall (Each Face)
+        </button>
+      </div>
+
+      <!-- Material Standard Switcher (Ideal vs Nigeria Standard) -->
+      <div class="standard-toggle-box">
+        <div class="toggle-segmented">
+          <button type="button" id="btnStdIdeal" class="btn-std-pill active" onclick="setMaterialStandard('ideal')" title="Ideal Code Standard: 100% full nominal bar diameter">
+            <i class="fa-solid fa-circle-check"></i> Ideal (100% &phi;)
+          </button>
+          <button type="button" id="btnStdNigeria" class="btn-std-pill" onclick="setMaterialStandard('nigeria')" title="Nigeria Material Factor: 15% reduction in bar diameter (85% &phi;)">
+            <i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Nigeria Standard (85% &phi;)
+          </button>
+        </div>
+        <div id="standardNote" class="standard-note-highlight">
+          <i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.
+        </div>
+      </div>
     </div>
 
     <!-- Workspace Split: Visualizer on Left, Controls on Right -->
@@ -762,6 +849,7 @@
     // State of the web detailing studio
     const state = {
       type: 'beam', // 'beam', 'slab', 'wall'
+      standard: 'ideal', // 'ideal' (100% dia) or 'nigeria' (85% dia)
       
       // Beam params
       b: 300,
@@ -828,9 +916,38 @@
       render();
     }
 
+    function setMaterialStandard(std) {
+      state.standard = std;
+      const isNigeria = std === 'nigeria';
+      const btnIdeal = document.getElementById('btnStdIdeal');
+      const btnNigeria = document.getElementById('btnStdNigeria');
+      const noteEl = document.getElementById('standardNote');
+      if (btnIdeal && btnNigeria) {
+        btnIdeal.classList.toggle('active', !isNigeria);
+        btnNigeria.classList.toggle('active', isNigeria);
+        btnNigeria.classList.toggle('nigeria', isNigeria);
+      }
+      if (noteEl) {
+        if (isNigeria) {
+          noteEl.className = 'standard-note-highlight nigeria';
+          noteEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <strong>Nigeria Material Factor Active:</strong> Bar diameters reduced by 15% (d<sub>eff</sub> = 0.85d, Area &asymp; 72.3% of nominal) to safeguard against local commercial rolling deficiencies.';
+        } else {
+          noteEl.className = 'standard-note-highlight';
+          noteEl.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.';
+        }
+      }
+      if (state.type === 'beam' && state.linkAsvReq > 0) {
+        calcLinkSpacingFromAsv();
+      } else {
+        renderControls();
+        render();
+      }
+    }
+
     // Mathematical Helpers
     function barArea(dia) {
-      return (Math.PI * dia * dia) / 4.0;
+      const effDia = state.standard === 'nigeria' ? dia * 0.85 : dia;
+      return (Math.PI * effDia * effDia) / 4.0;
     }
 
     function calculateBeamEffectiveDepth(h, b, cover, linkDia, botDia, botCount) {
@@ -1374,9 +1491,12 @@
       ctx.textAlign = 'center';
       ctx.fillText(title, w / 2, 22);
 
+      const isNigeria = state.standard === 'nigeria';
+      const stdBadge = isNigeria ? '  •  [ ⚠️ NIGERIA MATERIAL FACTOR: 85% φ (15% Diameter Reduction) ]' : '  •  [ IDEAL CODE STANDARD: 100% φ ]';
+
       ctx.font = '9px Segoe UI, sans-serif';
-      ctx.fillStyle = '#64748b';
-      ctx.fillText(subtitle, w / 2, 36);
+      ctx.fillStyle = isNigeria ? '#f59e0b' : '#64748b';
+      ctx.fillText(subtitle + stdBadge, w / 2, 36);
 
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
       ctx.lineWidth = 1;
