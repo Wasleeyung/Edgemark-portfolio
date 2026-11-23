@@ -275,7 +275,7 @@
     /* Canvas Wrapper */
     .canvas-wrap {
       width: 100%;
-      height: 480px;
+      height: 560px;
       background: #090e18;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
@@ -1336,14 +1336,35 @@
     }
 
     // Core Canvas Drawing Logic
+    function drawCanvasHeader(title, subtitle, w) {
+      ctx.font = 'bold 11px Montserrat, Segoe UI, sans-serif';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.textAlign = 'center';
+      ctx.fillText(title, w / 2, 22);
+
+      ctx.font = '9px Segoe UI, sans-serif';
+      ctx.fillStyle = '#64748b';
+      ctx.fillText(subtitle, w / 2, 36);
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(30, 46);
+      ctx.lineTo(w - 30, 46);
+      ctx.stroke();
+    }
+
     function render() {
+      // Completely wipe the physical canvas buffer so nothing ever leaks or ghosts between tabs
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0b0f19';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
       const w = canvas.parentElement.clientWidth;
       const h = canvas.parentElement.clientHeight;
-      ctx.clearRect(0, 0, w, h);
-
-      // Background
-      ctx.fillStyle = '#0b0f19';
-      ctx.fillRect(0, 0, w, h);
 
       if (state.type === 'beam') renderBeam(w, h);
       else if (state.type === 'slab') renderSlab(w, h);
@@ -1352,16 +1373,25 @@
 
     // 1. BEAM RENDERING
     function renderBeam(w, h) {
-      const margin = 50;
-      const availW = w - 160;
-      const availH = h - 110;
+      // In-canvas Header
+      drawCanvasHeader(
+        'TRANSVERSE CROSS-SECTION & REINFORCEMENT CONFORMITY',
+        'Detailed element section with full geometry, link legs, cover, bar spacing & effective depth',
+        w
+      );
+
+      // Dedicated Viewport: reserve top for header + dimension, bottom for spacing + badge + metrics
+      const topReserved = 54;
+      const bottomReserved = 114;
+      const availW = Math.max(100, w - 170);
+      const availH = Math.max(100, h - topReserved - bottomReserved);
 
       const scale = Math.min(availW / state.b, availH / state.h);
       const drawW = state.b * scale;
       const drawH = state.h * scale;
 
-      const x0 = 80 + (availW - drawW) / 2.0;
-      const y0 = 40 + (availH - drawH) / 2.0;
+      const x0 = 85 + (availW - drawW) / 2.0;
+      const y0 = topReserved + 24 + (availH - drawH) / 2.0;
 
       // Concrete Body
       ctx.strokeStyle = '#64748b';
@@ -1428,7 +1458,7 @@
         ctx.stroke();
       });
 
-      // Spacing dimensions between EACH distinct adjacent bottom bar in the bottom layer
+      // Spacing dimensions between bottom bars
       const botLayer1 = botPositions.filter(p => Math.abs(p.y - botPositions[0].y) < botDiaPx);
       drawLayerSpacings(botLayer1, botDiaPx, scale, y0 + drawH, +1, '#34d399');
 
@@ -1449,17 +1479,7 @@
         ctx.fillText(`T${beamRes.spacerDia} spacer bar`, lx + 12, spacerY - 6);
       }
 
-
-      // ── In-canvas Header ──────────────────────────────────────────
-      ctx.font = 'bold 11px Montserrat, Segoe UI, sans-serif';
-      ctx.fillStyle = '#e2e8f0';
-      ctx.textAlign = 'center';
-      ctx.fillText('TRANSVERSE CROSS-SECTION & REINFORCEMENT CONFORMITY', x0 + drawW / 2, Math.max(14, y0 - 24));
-      ctx.font = '9px Segoe UI, sans-serif';
-      ctx.fillStyle = '#64748b';
-      ctx.fillText('Detailed element section with full geometry, link legs, cover, bar spacing & effective depth', x0 + drawW / 2, Math.max(24, y0 - 13));
-
-      // ── Side (Skin) Bars when h > 750 mm ──────────────────────────
+      // Side (Skin) Bars when h > 750 mm (BS 8110 deep beam requirement)
       if (state.h > 750) {
         const sideDiaPx = Math.max(5, 12 * scale * 0.85);
         const sideBarY = ly + lh / 2.0;
@@ -1474,14 +1494,14 @@
           ctx.fill();
           ctx.stroke();
         });
-        // label
+        // Neatly placed side bar label outside right face
         ctx.font = 'bold 8px Segoe UI, sans-serif';
         ctx.fillStyle = '#a78bfa';
         ctx.textAlign = 'left';
         ctx.fillText('Skin bars', rightX + sideDiaPx / 2 + 4, sideBarY + 3);
       }
 
-      // ── Vertical Link Label along left vertical leg ───────────────
+      // Vertical Link Label along left vertical leg
       {
         const midLinkY = ly + lh / 2;
         ctx.save();
@@ -1494,49 +1514,47 @@
         ctx.restore();
       }
 
-      // ── Dimensions: b (top), h (left), d (right) ─────────────────
-      drawDimHoriz(x0, x0 + drawW, y0 - 16, `b = ${state.b} mm`);
+      // Dimensions: b (top, comfortably below header line), h (left), d (right)
+      drawDimHoriz(x0, x0 + drawW, y0 - 14, `b = ${state.b} mm`);
       drawDimVert(x0 - 24, y0, y0 + drawH, `h = ${state.h} mm`);
       
       // d = effective depth: from top face (y0) to tension steel centroid
       const centroidY = y0 + beamRes.d * scale;
       drawDimVert(x0 + drawW + 36, y0, centroidY, `d = ${beamRes.d.toFixed(0)} mm`, '#38bdf8');
 
-      // ── Bottom Badge Pill ─────────────────────────────────────────
-      {
-        const maxSvCode = (0.75 * beamRes.d).toFixed(0);
-        const svOk = state.linkSpacing <= 0.75 * beamRes.d;
-        const badgeText = `Shear Links: T${state.linkDia}, ${state.linkLegs}-leg @ ${state.linkSpacing} mm c/c  |  ${svOk ? '✔' : '✘'} s ≤ 0.75d (${maxSvCode} mm)  |  Cover: ${state.cover} mm`;
-        const badgeW = Math.min(drawW + 60, w - 40);
-        const badgeX = x0 + drawW / 2 - badgeW / 2;
-        const badgeY = y0 + drawH + 18;
-        const badgeH = 20;
-        const r = 5;
+      // Bottom Badge Pill (cleanly spaced below section)
+      const maxSvCode = (0.75 * beamRes.d).toFixed(0);
+      const svOk = state.linkSpacing <= 0.75 * beamRes.d;
+      const badgeText = `Shear Links: T${state.linkDia}, ${state.linkLegs}-leg @ ${state.linkSpacing} mm c/c  |  ${svOk ? '✔' : '✘'} s ≤ 0.75d (${maxSvCode} mm)  |  Cover: ${state.cover} mm`;
+      const badgeW = Math.min(drawW + 80, w - 40);
+      const badgeX = x0 + drawW / 2 - badgeW / 2;
+      const badgeY = y0 + drawH + 26;
+      const badgeH = 22;
+      const r = 5;
 
-        ctx.fillStyle = svOk ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)';
-        ctx.strokeStyle = svOk ? '#10b981' : '#ef4444';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(badgeX + r, badgeY);
-        ctx.lineTo(badgeX + badgeW - r, badgeY);
-        ctx.arcTo(badgeX + badgeW, badgeY, badgeX + badgeW, badgeY + r, r);
-        ctx.lineTo(badgeX + badgeW, badgeY + badgeH - r);
-        ctx.arcTo(badgeX + badgeW, badgeY + badgeH, badgeX + badgeW - r, badgeY + badgeH, r);
-        ctx.lineTo(badgeX + r, badgeY + badgeH);
-        ctx.arcTo(badgeX, badgeY + badgeH, badgeX, badgeY + badgeH - r, r);
-        ctx.lineTo(badgeX, badgeY + r);
-        ctx.arcTo(badgeX, badgeY, badgeX + r, badgeY, r);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+      ctx.fillStyle = svOk ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)';
+      ctx.strokeStyle = svOk ? '#10b981' : '#ef4444';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(badgeX + r, badgeY);
+      ctx.lineTo(badgeX + badgeW - r, badgeY);
+      ctx.arcTo(badgeX + badgeW, badgeY, badgeX + badgeW, badgeY + r, r);
+      ctx.lineTo(badgeX + badgeW, badgeY + badgeH - r);
+      ctx.arcTo(badgeX + badgeW, badgeY + badgeH, badgeX + badgeW - r, badgeY + badgeH, r);
+      ctx.lineTo(badgeX + r, badgeY + badgeH);
+      ctx.arcTo(badgeX, badgeY + badgeH, badgeX, badgeY + badgeH - r, r);
+      ctx.lineTo(badgeX, badgeY + r);
+      ctx.arcTo(badgeX, badgeY, badgeX + r, badgeY, r);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
 
-        ctx.font = 'bold 9px Segoe UI, sans-serif';
-        ctx.fillStyle = svOk ? '#6ee7b7' : '#fca5a5';
-        ctx.textAlign = 'center';
-        ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 13);
-      }
+      ctx.font = 'bold 9px Segoe UI, sans-serif';
+      ctx.fillStyle = svOk ? '#6ee7b7' : '#fca5a5';
+      ctx.textAlign = 'center';
+      ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 14);
 
-      // ── In-canvas Metrics Text Block (below badge pill) ──────────
+      // In-canvas Metrics Text Block (comfortably inside canvas footer)
       {
         const topArea   = state.topCount * barArea(state.topDia);
         const botAreaM  = state.botCount * barArea(state.botDia);
@@ -1546,19 +1564,16 @@
         const passStr   = (state.beamAsReq > 0 && botAreaM >= state.beamAsReq) ? '✔ PASS' : '✘ CHECK';
         const codeMin   = (rhoGM >= 0.13) ? 'Code Min ρ ≥ 0.13%' : '⚠ Below min ρ';
 
-        const metricsY  = y0 + drawH + 46;
+        const metricsY  = badgeY + 34;
         const lineH     = 14;
         ctx.font        = '9px Fira Code, Consolas, monospace';
-        ctx.textAlign   = 'left';
 
-        const col1x = x0;
         ctx.fillStyle = '#94a3b8';
-        ctx.fillText(`Top Steel: ${state.topCount}T${state.topDia} (${topArea.toFixed(0)} mm²)`, col1x, metricsY);
-        ctx.fillText(`Bottom Steel: ${state.botCount}T${state.botDia} (${botAreaM.toFixed(0)} mm²)`, col1x, metricsY + lineH);
+        ctx.textAlign = 'center';
+        ctx.fillText(`Top Steel: ${state.topCount}T${state.topDia} (${topArea.toFixed(0)} mm²)   |   Bottom Steel: ${state.botCount}T${state.botDia} (${botAreaM.toFixed(0)} mm²)   |   Total: ${totalArea.toFixed(0)} mm²`, w / 2, metricsY);
 
         ctx.fillStyle = '#38bdf8';
-        ctx.textAlign = 'center';
-        ctx.fillText(`d = ${beamRes.d.toFixed(0)} mm  |  ρg = ${rhoGM.toFixed(2)}%  |  ρd = ${rhoDM.toFixed(2)}%  |  ${codeMin}  |  T${state.linkDia} (${state.linkLegs}-leg @ ${state.linkSpacing} c/c)`, x0 + drawW / 2, metricsY + lineH * 2);
+        ctx.fillText(`d = ${beamRes.d.toFixed(0)} mm  |  ρg = ${rhoGM.toFixed(2)}%  |  ρd = ${rhoDM.toFixed(2)}%  |  ${codeMin}  |  Links: T${state.linkDia} (${state.linkLegs}-leg @ ${state.linkSpacing} c/c)`, w / 2, metricsY + lineH);
       }
       const topArea = state.topCount * barArea(state.topDia);
       const botArea = state.botCount * barArea(state.botDia);
@@ -1597,16 +1612,25 @@
 
     // 2. SLAB RENDERING
     function renderSlab(w, h) {
-      const stripW = 1000;
-      const availW = w - 160;
-      const availH = h - 140;
+      // In-canvas Header
+      drawCanvasHeader(
+        'RC SLAB 1.0M DESIGN STRIP & REINFORCEMENT CONFORMITY',
+        'Transverse 1000 mm design strip: main bottom tension bars (B1), clear cover & bar-to-bar spacing',
+        w
+      );
 
-      const scale = Math.min(availW / stripW, availH / Math.max(150, state.slabH * 1.5));
+      const stripW = 1000;
+      const topReserved = 54;
+      const bottomReserved = 70;
+      const availW = Math.max(100, w - 170);
+      const availH = Math.max(100, h - topReserved - bottomReserved);
+
+      const scale = Math.min(availW / stripW, availH / Math.max(160, state.slabH * 1.5));
       const drawW = stripW * scale;
       const drawH = state.slabH * scale;
 
-      const x0 = 80 + (availW - drawW) / 2.0;
-      const y0 = 60 + (availH - drawH) / 2.0;
+      const x0 = 85 + (availW - drawW) / 2.0;
+      const y0 = topReserved + 24 + (availH - drawH) / 2.0;
 
       // Slab Concrete Body
       ctx.strokeStyle = '#64748b';
@@ -1649,10 +1673,9 @@
       // Bar Spacing Dimensions between EACH distinct bar
       drawLayerSpacings(botPositions, diaPx, scale, y0 + drawH, +1, '#34d399');
 
-
       // Dimensions: 1000mm strip, h, and effective depth d
       const dEff = Math.max(0, state.slabH - state.slabCover - state.slabDia / 2.0);
-      drawDimHoriz(x0, x0 + drawW, y0 - 18, `b = 1000 mm (Design Strip)`);
+      drawDimHoriz(x0, x0 + drawW, y0 - 14, `b = 1000 mm (Design Strip)`);
       drawDimVert(x0 - 24, y0, y0 + drawH, `h = ${state.slabH} mm`);
       drawDimVert(x0 + drawW + 28, y0, botY, `d = ${dEff.toFixed(0)} mm`, '#38bdf8');
 
@@ -1694,19 +1717,28 @@
 
     // 3. WALL RENDERING
     function renderWall(w, h) {
-      const availW = w - 160;
-      const availH = h - 140;
+      // In-canvas Header
+      drawCanvasHeader(
+        'RC SHEAR WALL PLAN SECTION & CURTAIN REINFORCEMENT',
+        'Horizontal plan cross-section: 2 curtains (Each Face) with bar-to-bar spacing & crossties',
+        w
+      );
 
       // Use a readable view length up to 3000mm on canvas so long walls don't bunch into a solid blob
       const viewLw = Math.min(state.wallLw, 3000);
       const isClipped = state.wallLw > viewLw + 1;
 
-      const scale = Math.min(availW / viewLw, availH / Math.max(120, state.wallTw * 1.6));
+      const topReserved = 54;
+      const bottomReserved = 70;
+      const availW = Math.max(100, w - 170);
+      const availH = Math.max(100, h - topReserved - bottomReserved);
+
+      const scale = Math.min(availW / viewLw, availH / Math.max(130, state.wallTw * 1.6));
       const drawW = viewLw * scale;
       const drawH = state.wallTw * scale;
 
-      const x0 = 80 + (availW - drawW) / 2.0;
-      const y0 = 60 + (availH - drawH) / 2.0;
+      const x0 = 85 + (availW - drawW) / 2.0;
+      const y0 = topReserved + 24 + (availH - drawH) / 2.0;
 
       // Concrete Wall Body
       ctx.strokeStyle = '#64748b';
@@ -1766,7 +1798,7 @@
       const lwLabel = isClipped 
         ? `Lw = ${state.wallLw.toLocaleString()} mm (canvas view: ${viewLw.toFixed(0)} mm)`
         : `Lw = ${state.wallLw.toLocaleString()} mm (Plan Length)`;
-      drawDimHoriz(x0, x0 + drawW, y0 - 24, lwLabel);
+      drawDimHoriz(x0, x0 + drawW, y0 - 14, lwLabel);
       drawDimVert(x0 - 24, y0, y0 + drawH, `tw = ${state.wallTw} mm`);
 
       // Core thickness
@@ -2017,11 +2049,11 @@
         <div style="margin-bottom:10px;">
           <label style="display:block; font-size:12px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Feedback Category</label>
           <select id="fbCategory" class="control-select" style="width:100%; box-sizing:border-box;">
-            <option value="Feature Request">✨ New Detailing Feature / Calculation Request</option>
-            <option value="Design Code Expansion">📐 Design Code Expansion (BS 8110, Eurocode 2, ACI 318)</option>
-            <option value="Element Type Addition">🏗️ Element Type Addition (Columns, Foundation Bases, Retaining Walls)</option>
-            <option value="UI & Export Improvement">🎨 UI, Export &amp; DXF / CAD Integration</option>
-            <option value="General Suggestion">💡 General Thoughts &amp; Feedback</option>
+            <option value="Feature Request">New Detailing Feature / Calculation Request</option>
+            <option value="Design Code Expansion">Design Code Expansion (BS 8110, Eurocode 2, ACI 318)</option>
+            <option value="Element Type Addition">Element Type Addition (Columns, Foundation Bases, Retaining Walls)</option>
+            <option value="UI & Export Improvement">UI, Export &amp; DXF / CAD Integration</option>
+            <option value="General Suggestion">General Thoughts &amp; Feedback</option>
           </select>
         </div>
         <div style="margin-bottom:12px;">
