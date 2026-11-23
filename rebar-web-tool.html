@@ -537,6 +537,118 @@
       color: #38bdf8;
       border-color: rgba(56, 189, 248, 0.3);
     }
+
+    /* Convert Chips & Box */
+    .convert-box {
+      margin: 8px 0 12px;
+      padding: 10px;
+      background: rgba(0, 229, 255, 0.04);
+      border: 1px solid rgba(0, 229, 255, 0.18);
+      border-radius: 6px;
+    }
+    .btn-convert-chip {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #e2e8f0;
+      padding: 4px 9px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-convert-chip:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      color: #fff;
+    }
+    .btn-convert-chip.active {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: #00e5ff;
+      color: #00e5ff;
+      font-weight: 700;
+    }
+
+    /* Feedback Button & Modal */
+    .btn-studio-feedback {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      color: #00e5ff;
+      padding: 7px 15px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-studio-feedback:hover {
+      background: #00e5ff;
+      color: #060b14;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
+    }
+
+    .feedback-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 11, 20, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .feedback-modal-content {
+      background: #0f172a;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 540px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feedback-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .feedback-modal-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feedback-close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .feedback-close-btn:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -552,6 +664,9 @@
     </a>
     <div class="studio-nav-actions">
       <span class="badge-live-demo"><span class="dot"></span> Free Web Demo</span>
+      <button type="button" class="btn-studio-feedback" onclick="openFeedbackModal()">
+        <i class="fa-solid fa-comment-dots"></i> Feedback
+      </button>
       <a href="autostruct-capability.html" class="btn-studio-back"><i class="fa-solid fa-layer-group"></i> Capability Page</a>
       <a href="index.html" class="btn-studio-back"><i class="fa-solid fa-arrow-left"></i> Main Site</a>
     </div>
@@ -881,6 +996,62 @@
       render();
     }
 
+    function convertBeamDiameter(newDia) {
+      const currentArea = state.botCount * barArea(state.botDia);
+      const targetArea = Math.max(currentArea, state.beamAsReq);
+      const reqCount = Math.max(1, Math.ceil(targetArea / barArea(newDia)));
+      state.botDia = newDia;
+      state.botCount = reqCount;
+      renderControls();
+      render();
+    }
+
+    function getEquivalentSlabSpacing(dia, targetArea) {
+      const singleArea = barArea(dia);
+      const sTheo = (1000.0 * singleArea) / targetArea;
+      const practicalSteps = [75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 350, 400];
+      let chosen = practicalSteps[0];
+      for (const step of practicalSteps) {
+        if (step <= sTheo + 2) {
+          chosen = step;
+        } else {
+          break;
+        }
+      }
+      return chosen;
+    }
+
+    function convertSlabDiameter(newDia) {
+      const currentArea = (1000.0 / state.slabSpacing) * barArea(state.slabDia);
+      const targetArea = Math.max(currentArea, state.slabAsReq);
+      const s = getEquivalentSlabSpacing(newDia, targetArea);
+      state.slabDia = newDia;
+      state.slabSpacing = s;
+      renderControls();
+      render();
+    }
+
+    function calcLinkSpacingFromAsv() {
+      if (!state.linkAsvReq || state.linkAsvReq <= 0) {
+        state.linkAsvReqCalcNote = '';
+        renderControls();
+        render();
+        return;
+      }
+      const aBar       = barArea(state.linkDia);
+      const asvPerSet  = state.linkLegs * aBar;                      // mm²
+      const svCalc     = asvPerSet / (state.linkAsvReq / 1000.0);    // mm
+      const beamRes    = calculateBeamEffectiveDepth(state.h, state.b, state.cover, state.linkDia, state.botDia, state.botCount);
+      const maxSv      = 0.75 * beamRes.d;
+      const cappedSv   = Math.min(svCalc, maxSv);
+      const svRounded  = Math.max(50, Math.floor(cappedSv / 25) * 25);
+
+      state.linkSpacing = svRounded;
+      state.linkAsvReqCalcNote = `Asv/set = ${state.linkLegs}×T${state.linkDia} = ${asvPerSet.toFixed(1)} mm² | sv,theo = ${svCalc.toFixed(0)} mm → capped to 0.75d = ${maxSv.toFixed(0)} mm → <strong>set ${svRounded} mm c/c</strong>`;
+      renderControls();
+      render();
+    }
+
     // Render Controls Sidebar
     function renderControls() {
       const panel = document.getElementById('controlsPanel');
@@ -944,10 +1115,31 @@
             </div>
             <div class="control-row">
               <span class="control-label">Bottom (Tension):</span>
-              <select class="control-select" onchange="state.botDia=+this.value; renderControls(); render();">
+              <select class="control-select" onchange="convertBeamDiameter(+this.value);">
                 ${[12, 16, 20, 25, 32, 40].map(d => `<option value="${d}" ${state.botDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
               <input type="number" class="control-input" style="width:65px;" value="${state.botCount}" min="1" max="24" onchange="state.botCount=+this.value; renderControls(); render();" />
+            </div>
+            <!-- Equivalent Area Diameter Conversion -->
+            <div class="convert-box">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:11px; font-weight:700; color:#38bdf8;"><i class="fa-solid fa-arrows-rotate"></i> Equivalent Diameter Options:</span>
+                <span style="font-size:10px; color:#94a3b8;">As = ${(state.botCount * barArea(state.botDia)).toFixed(0)} mm²</span>
+              </div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                ${[12, 16, 20, 25, 32].map(d => {
+                  const currArea = state.botCount * barArea(state.botDia);
+                  const targetArea = Math.max(currArea, state.beamAsReq);
+                  const count = Math.max(1, Math.ceil(targetArea / barArea(d)));
+                  const provArea = count * barArea(d);
+                  const isActive = state.botDia === d && state.botCount === count;
+                  return `
+                    <button type="button" class="btn-convert-chip ${isActive ? 'active' : ''}" onclick="applyBeamOption(${d}, ${count});" title="Select ${count}T${d} (${provArea.toFixed(0)} mm²)">
+                      ${count}T${d} <span style="font-size:9px; opacity:0.8;">(${provArea.toFixed(0)})</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
             </div>
             <div class="preset-btns">
               <button class="btn-preset" onclick="state.botCount=4; renderControls(); render();">1 Layer (4T${state.botDia})</button>
@@ -972,6 +1164,19 @@
             <div class="control-row">
               <span class="control-label">Spacing c/c (mm):</span>
               <input type="number" class="control-input" value="${state.linkSpacing}" step="25" min="50" max="450" onchange="state.linkSpacing=+this.value; render();" />
+            </div>
+            <div class="control-row">
+              <span class="control-label">Asv,req (mm²/m):</span>
+              <input type="number" class="control-input" value="${state.linkAsvReq || 0}" step="25" min="0" max="5000"
+                onchange="state.linkAsvReq=+this.value; calcLinkSpacingFromAsv();"
+                placeholder="e.g. 500 — auto-calculates spacing" />
+            </div>
+            ${(state.linkAsvReq > 0 && state.linkAsvReqCalcNote) ? `
+            <div class="code-note" style="color:#fbbf24; border-color:rgba(251,191,36,0.3);">
+              ${state.linkAsvReqCalcNote}
+            </div>` : ''}
+            <div class="code-note">
+              <strong>Shear link check (BS 8110):</strong> s<sub>v</sub> ≤ 0.75d. Enter Asv,req to auto-calculate spacing from required shear link area.
             </div>
           </div>
         `;
@@ -1024,13 +1229,34 @@
             <div class="panel-group-title"><i class="fa-solid fa-bars"></i> Main Bottom Rebar (B1)</div>
             <div class="control-row">
               <span class="control-label">Bar Diameter:</span>
-              <select class="control-select" onchange="state.slabDia=+this.value; renderControls(); render();">
+              <select class="control-select" onchange="convertSlabDiameter(+this.value);">
                 ${[10, 12, 16, 20, 25].map(d => `<option value="${d}" ${state.slabDia===d?'selected':''}>T${d}</option>`).join('')}
               </select>
             </div>
             <div class="control-row">
               <span class="control-label">Spacing s (mm c/c):</span>
               <input type="number" class="control-input" value="${state.slabSpacing}" step="25" min="75" max="400" onchange="state.slabSpacing=+this.value; renderControls(); render();" />
+            </div>
+            <!-- Equivalent Spacing Conversion -->
+            <div class="convert-box">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:11px; font-weight:700; color:#38bdf8;"><i class="fa-solid fa-arrows-rotate"></i> Equivalent Spacing Options:</span>
+                <span style="font-size:10px; color:#94a3b8;">As = ${((1000 / state.slabSpacing) * barArea(state.slabDia)).toFixed(0)} mm²/m</span>
+              </div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                ${[10, 12, 16, 20, 25].map(d => {
+                  const currArea = (1000.0 / state.slabSpacing) * barArea(state.slabDia);
+                  const targetArea = Math.max(currArea, state.slabAsReq);
+                  const s = getEquivalentSlabSpacing(d, targetArea);
+                  const provArea = (1000.0 / s) * barArea(d);
+                  const isActive = state.slabDia === d && state.slabSpacing === s;
+                  return `
+                    <button type="button" class="btn-convert-chip ${isActive ? 'active' : ''}" onclick="applySlabOption(${d}, ${s});" title="Select T${d}@${s}mm (${provArea.toFixed(0)} mm²/m)">
+                      T${d}@${s} <span style="font-size:9px; opacity:0.8;">(${provArea.toFixed(0)})</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
             </div>
             <div class="preset-btns">
               <button class="btn-preset" onclick="state.slabH=300; state.slabDia=20; state.slabSpacing=150; renderControls(); render();">Case 1 (300 / T20@150)</button>
@@ -1223,33 +1449,117 @@
         ctx.fillText(`T${beamRes.spacerDia} spacer bar`, lx + 12, spacerY - 6);
       }
 
-      // Neutral Axis
-      const aBot = state.botCount * barArea(state.botDia);
-      const xNa = (aBot * 500.0) / (1.15 * 0.9 * 0.45 * 30.0 * state.b);
-      const naY = y0 + xNa * scale;
-      if (naY < y0 + drawH) {
-        ctx.strokeStyle = '#f472b6';
-        ctx.setLineDash([5, 5]);
-        ctx.lineWidth = 1.6;
-        ctx.beginPath();
-        ctx.moveTo(x0 + 2, naY);
-        ctx.lineTo(x0 + drawW - 2, naY);
-        ctx.stroke();
-        ctx.setLineDash([]);
 
-        ctx.font = 'bold 9px Segoe UI, sans-serif';
-        ctx.fillStyle = '#f472b6';
-        ctx.fillText(`NA x = ${xNa.toFixed(0)} mm`, x0 + drawW + 6, naY + 3);
+      // ── In-canvas Header ──────────────────────────────────────────
+      ctx.font = 'bold 11px Montserrat, Segoe UI, sans-serif';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.textAlign = 'center';
+      ctx.fillText('TRANSVERSE CROSS-SECTION & REINFORCEMENT CONFORMITY', x0 + drawW / 2, Math.max(14, y0 - 24));
+      ctx.font = '9px Segoe UI, sans-serif';
+      ctx.fillStyle = '#64748b';
+      ctx.fillText('Detailed element section with full geometry, link legs, cover, bar spacing & effective depth', x0 + drawW / 2, Math.max(24, y0 - 13));
+
+      // ── Side (Skin) Bars when h > 750 mm ──────────────────────────
+      if (state.h > 750) {
+        const sideDiaPx = Math.max(5, 12 * scale * 0.85);
+        const sideBarY = ly + lh / 2.0;
+        const leftX  = lx + linkStroke + sideDiaPx / 2 + 2;
+        const rightX = lx + lw - linkStroke - sideDiaPx / 2 - 2;
+        ctx.fillStyle = '#a78bfa';
+        ctx.strokeStyle = '#c4b5fd';
+        ctx.lineWidth = 1;
+        [leftX, rightX].forEach(bx => {
+          ctx.beginPath();
+          ctx.arc(bx, sideBarY, sideDiaPx / 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        });
+        // label
+        ctx.font = 'bold 8px Segoe UI, sans-serif';
+        ctx.fillStyle = '#a78bfa';
+        ctx.textAlign = 'left';
+        ctx.fillText('Skin bars', rightX + sideDiaPx / 2 + 4, sideBarY + 3);
       }
 
-      // Dimensions: b (top), h (left), d (right)
+      // ── Vertical Link Label along left vertical leg ───────────────
+      {
+        const midLinkY = ly + lh / 2;
+        ctx.save();
+        ctx.translate(lx - linkStroke * 2 - 8, midLinkY);
+        ctx.rotate(-Math.PI / 2);
+        ctx.font = 'bold 9px Fira Code, Consolas, monospace';
+        ctx.fillStyle = '#fbbf24';
+        ctx.textAlign = 'center';
+        ctx.fillText(`T${state.linkDia}@${state.linkSpacing}`, 0, 0);
+        ctx.restore();
+      }
+
+      // ── Dimensions: b (top), h (left), d (right) ─────────────────
       drawDimHoriz(x0, x0 + drawW, y0 - 16, `b = ${state.b} mm`);
       drawDimVert(x0 - 24, y0, y0 + drawH, `h = ${state.h} mm`);
       
-      const centroidY = y0 + (state.h - beamRes.d) * scale;
+      // d = effective depth: from top face (y0) to tension steel centroid
+      const centroidY = y0 + beamRes.d * scale;
       drawDimVert(x0 + drawW + 36, y0, centroidY, `d = ${beamRes.d.toFixed(0)} mm`, '#38bdf8');
 
-      // Update metrics strip
+      // ── Bottom Badge Pill ─────────────────────────────────────────
+      {
+        const maxSvCode = (0.75 * beamRes.d).toFixed(0);
+        const svOk = state.linkSpacing <= 0.75 * beamRes.d;
+        const badgeText = `Shear Links: T${state.linkDia}, ${state.linkLegs}-leg @ ${state.linkSpacing} mm c/c  |  ${svOk ? '✔' : '✘'} s ≤ 0.75d (${maxSvCode} mm)  |  Cover: ${state.cover} mm`;
+        const badgeW = Math.min(drawW + 60, w - 40);
+        const badgeX = x0 + drawW / 2 - badgeW / 2;
+        const badgeY = y0 + drawH + 18;
+        const badgeH = 20;
+        const r = 5;
+
+        ctx.fillStyle = svOk ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)';
+        ctx.strokeStyle = svOk ? '#10b981' : '#ef4444';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(badgeX + r, badgeY);
+        ctx.lineTo(badgeX + badgeW - r, badgeY);
+        ctx.arcTo(badgeX + badgeW, badgeY, badgeX + badgeW, badgeY + r, r);
+        ctx.lineTo(badgeX + badgeW, badgeY + badgeH - r);
+        ctx.arcTo(badgeX + badgeW, badgeY + badgeH, badgeX + badgeW - r, badgeY + badgeH, r);
+        ctx.lineTo(badgeX + r, badgeY + badgeH);
+        ctx.arcTo(badgeX, badgeY + badgeH, badgeX, badgeY + badgeH - r, r);
+        ctx.lineTo(badgeX, badgeY + r);
+        ctx.arcTo(badgeX, badgeY, badgeX + r, badgeY, r);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = 'bold 9px Segoe UI, sans-serif';
+        ctx.fillStyle = svOk ? '#6ee7b7' : '#fca5a5';
+        ctx.textAlign = 'center';
+        ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 13);
+      }
+
+      // ── In-canvas Metrics Text Block (below badge pill) ──────────
+      {
+        const topArea   = state.topCount * barArea(state.topDia);
+        const botAreaM  = state.botCount * barArea(state.botDia);
+        const totalArea = topArea + botAreaM;
+        const rhoGM     = ((totalArea) / (state.b * state.h)) * 100;
+        const rhoDM     = (botAreaM   / (state.b * beamRes.d)) * 100;
+        const passStr   = (state.beamAsReq > 0 && botAreaM >= state.beamAsReq) ? '✔ PASS' : '✘ CHECK';
+        const codeMin   = (rhoGM >= 0.13) ? 'Code Min ρ ≥ 0.13%' : '⚠ Below min ρ';
+
+        const metricsY  = y0 + drawH + 46;
+        const lineH     = 14;
+        ctx.font        = '9px Fira Code, Consolas, monospace';
+        ctx.textAlign   = 'left';
+
+        const col1x = x0;
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(`Top Steel: ${state.topCount}T${state.topDia} (${topArea.toFixed(0)} mm²)`, col1x, metricsY);
+        ctx.fillText(`Bottom Steel: ${state.botCount}T${state.botDia} (${botAreaM.toFixed(0)} mm²)`, col1x, metricsY + lineH);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.textAlign = 'center';
+        ctx.fillText(`d = ${beamRes.d.toFixed(0)} mm  |  ρg = ${rhoGM.toFixed(2)}%  |  ρd = ${rhoDM.toFixed(2)}%  |  ${codeMin}  |  T${state.linkDia} (${state.linkLegs}-leg @ ${state.linkSpacing} c/c)`, x0 + drawW / 2, metricsY + lineH * 2);
+      }
       const topArea = state.topCount * barArea(state.topDia);
       const botArea = state.botCount * barArea(state.botDia);
       const rhoG = ((topArea + botArea) / (state.b * state.h)) * 100;
@@ -1339,14 +1649,6 @@
       // Bar Spacing Dimensions between EACH distinct bar
       drawLayerSpacings(botPositions, diaPx, scale, y0 + drawH, +1, '#34d399');
 
-      // Top Bars (T1)
-      const topY = y0 + covPx + rPx;
-      for (let i = 0; i < numBars; i++) {
-        ctx.fillStyle = '#38bdf8';
-        ctx.beginPath();
-        ctx.arc(startX + i * c2cPx, topY, 4, 0, Math.PI * 2);
-        ctx.fill();
-      }
 
       // Dimensions: 1000mm strip, h, and effective depth d
       const dEff = Math.max(0, state.slabH - state.slabCover - state.slabDia / 2.0);
@@ -1639,10 +1941,98 @@
       link.click();
     }
 
+    /* ── FEEDBACK MODAL HANDLERS ── */
+    function openFeedbackModal() {
+      document.getElementById('feedbackModal').style.display = 'flex';
+      document.getElementById('fbSuccessMsg').style.display = 'none';
+      document.getElementById('btnSubmitFeedback').style.display = 'inline-flex';
+    }
+
+    function closeFeedbackModal() {
+      document.getElementById('feedbackModal').style.display = 'none';
+    }
+
+    function submitFeedback() {
+      const name = document.getElementById('fbName').value.trim() || 'Colleague / Structural Engineer';
+      const email = document.getElementById('fbEmail').value.trim() || 'Not specified';
+      const category = document.getElementById('fbCategory').value;
+      const message = document.getElementById('fbMessage').value.trim();
+
+      if (!message) {
+        alert('Please share your thoughts or suggested improvements.');
+        return;
+      }
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('edgemark_rebar_feedback') || '[]');
+        stored.push({ name, email, category, message, timestamp: new Date().toISOString() });
+        localStorage.setItem('edgemark_rebar_feedback', JSON.stringify(stored));
+      } catch (err) {
+        console.warn('Storage fallback:', err);
+      }
+
+      document.getElementById('fbSuccessMsg').style.display = 'block';
+      document.getElementById('btnSubmitFeedback').style.display = 'none';
+
+      const mailSubject = encodeURIComponent(`[AutoStruct Rebar Studio Feedback] - ${category}`);
+      const mailBody = encodeURIComponent(`From: ${name} (${email})\nCategory: ${category}\n\nFeedback / Feature Request:\n${message}\n\nSent from EDGEMARK AutoStruct Rebar Studio`);
+      const mailUrl = `mailto:wasleeyung@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+      setTimeout(() => {
+        window.location.href = mailUrl;
+      }, 700);
+    }
+
     // Initial render
     renderControls();
     setTimeout(resizeCanvas, 50);
   </script>
+
+  <!-- Feedback Modal Overlay -->
+  <div id="feedbackModal" class="feedback-modal-overlay" style="display:none;" onclick="if(event.target===this) closeFeedbackModal();">
+    <div class="feedback-modal-content">
+      <div class="feedback-modal-header">
+        <h3><i class="fa-solid fa-comment-dots" style="color:#00e5ff;"></i> AutoStruct Rebar Studio Feedback</h3>
+        <button class="feedback-close-btn" onclick="closeFeedbackModal()">&times;</button>
+      </div>
+      <div class="feedback-modal-body">
+        <p style="color:#94a3b8; font-size:13px; line-height:1.5; margin-bottom:14px;">
+          Help shape the next release of the EDGEMARK Rebar Detailing Suite. Share your calculation needs, code expansion requests (e.g. Eurocode 2, ACI 318, BS 8110), or custom detailing requirements directly with our engineering team.
+        </p>
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:12px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Your Name &amp; Title (Optional)</label>
+          <input type="text" id="fbName" placeholder="e.g. Engr. Johnson, Senior Structural Engineer" class="control-input" style="width:100%; box-sizing:border-box;" />
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:12px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Email Address (For technical follow-up)</label>
+          <input type="email" id="fbEmail" placeholder="e.g. engineer@consultancy.com" class="control-input" style="width:100%; box-sizing:border-box;" />
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:12px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Feedback Category</label>
+          <select id="fbCategory" class="control-select" style="width:100%; box-sizing:border-box;">
+            <option value="Feature Request">✨ New Detailing Feature / Calculation Request</option>
+            <option value="Design Code Expansion">📐 Design Code Expansion (BS 8110, Eurocode 2, ACI 318)</option>
+            <option value="Element Type Addition">🏗️ Element Type Addition (Columns, Foundation Bases, Retaining Walls)</option>
+            <option value="UI & Export Improvement">🎨 UI, Export &amp; DXF / CAD Integration</option>
+            <option value="General Suggestion">💡 General Thoughts &amp; Feedback</option>
+          </select>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:12px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Your Thoughts &amp; Suggested Improvements</label>
+          <textarea id="fbMessage" rows="4" placeholder="Detail your thoughts, calculations you'd like added, or features that would accelerate your workflow..." class="control-input" style="width:100%; height:90px; resize:vertical; font-family:inherit; box-sizing:border-box;"></textarea>
+        </div>
+        <div id="fbSuccessMsg" style="display:none; margin-top:12px; padding:12px; background:rgba(16, 185, 129, 0.15); border:1px solid #10b981; border-radius:6px; color:#6ee7b7; font-size:13px; line-height:1.4;">
+          <i class="fa-solid fa-circle-check"></i> <strong>Thank you, Engr.!</strong> Your feedback has been received and routed directly to Lawal Wasiu Kayode and the EDGEMARK engineering development team.
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+          <button type="button" class="btn-studio-back" onclick="closeFeedbackModal()">Close</button>
+          <button type="button" class="btn-studio-feedback" id="btnSubmitFeedback" onclick="submitFeedback()" style="background:#00e5ff; color:#060b14; padding:8px 18px;">
+            <i class="fa-solid fa-paper-plane"></i> Transmit Feedback
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 
