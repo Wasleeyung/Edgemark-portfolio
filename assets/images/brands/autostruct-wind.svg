@@ -1,26 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
   <defs>
-    <linearGradient id="windGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0e7490"/>
-      <stop offset="100%" stop-color="#083344"/>
+    <linearGradient id="windBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1728"/>
+      <stop offset="100%" stop-color="#060e1a"/>
+    </linearGradient>
+    <linearGradient id="streamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#00e5ff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.8"/>
     </linearGradient>
   </defs>
-  <!-- Background Badge -->
-  <rect x="2" y="2" width="56" height="56" rx="10" fill="url(#windGrad)" stroke="#00e5ff" stroke-width="1.5" stroke-opacity="0.5"/>
-  <!-- Aerodynamic Streamlines & Building Profile -->
-  <g transform="translate(10, 10)">
-    <!-- Tower Outline -->
-    <rect x="22" y="14" width="12" height="26" rx="2" fill="rgba(0, 229, 255, 0.2)" stroke="#ffffff" stroke-width="1.8"/>
-    <!-- Wind streamlines passing around tower -->
-    <path d="M 4 18 Q 16 18, 20 15 Q 24 12, 36 12" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round"/>
-    <path d="M 2 27 Q 14 27, 20 25 Q 26 23, 38 23" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M 4 36 Q 16 36, 20 38 Q 24 40, 36 40" fill="none" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- Pressure vortex dots -->
-    <circle cx="8" cy="27" r="1.5" fill="#ffffff"/>
-    <circle cx="28" cy="22" r="1.5" fill="#00e5ff"/>
-  </g>
-  <!-- Typography -->
-  <text x="70" y="26" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="800" fill="#00e5ff" letter-spacing="1.5">AUTOSTRUCT</text>
-  <text x="70" y="47" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="18" font-weight="900" fill="#ffffff" letter-spacing="0.5">WIND</text>
-</svg>
 
+  <!-- Technical Engineering Plot Container -->
+  <g transform="translate(6, 6)">
+    <!-- Aerodynamic Wind Velocity Streamlines & High-Rise Tower -->
+    <!-- Tower isometric outline -->
+    <polygon points="30,12 40,6 40,38 30,44" fill="rgba(0, 229, 255, 0.12)" stroke="#00e5ff" stroke-width="1.2"/>
+    <polygon points="20,18 30,12 30,44 20,48" fill="rgba(255, 255, 255, 0.08)" stroke="#ffffff" stroke-width="1.2"/>
+    <polygon points="20,18 30,12 40,6 30,12" fill="rgba(0, 229, 255, 0.25)" stroke="#00e5ff" stroke-width="1"/>
+    
+    <!-- Floor diaphragm levels -->
+    <line x1="20" y1="28" x2="30" y2="22" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.5"/>
+    <line x1="30" y1="22" x2="40" y2="16" stroke="#00e5ff" stroke-width="0.8" stroke-opacity="0.5"/>
+    <line x1="20" y1="38" x2="30" y2="32" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.5"/>
+    <line x1="30" y1="32" x2="40" y2="26" stroke="#00e5ff" stroke-width="0.8" stroke-opacity="0.5"/>
+
+    <!-- Dynamic Wind Pressure Streamlines -->
+    <path d="M 2 12 Q 14 12, 18 15 Q 24 20, 29 13 Q 34 8, 48 10" fill="none" stroke="url(#streamGrad)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 0 24 Q 10 24, 16 22 Q 22 18, 30 22 Q 38 26, 48 24" fill="none" stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M 4 36 Q 12 36, 17 38 Q 23 42, 30 40 Q 38 38, 48 40" fill="none" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"/>
+    
+    <!-- Pressure Vector arrows -->
+    <polygon points="17,20 20,22 17,24" fill="#00e5ff"/>
+    <polygon points="13,10 16,12 13,14" fill="#38bdf8"/>
+    <polygon points="14,34 17,36 14,38" fill="#00e5ff"/>
+  </g>
+
+  <!-- Professional Software Typography -->
+  <text x="64" y="20" font-family="'Montserrat', 'Arial', sans-serif" font-size="8.5" font-weight="800" fill="#00e5ff" letter-spacing="1.5">EDGEMARK</text>
+  <text x="64" y="36" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="15" font-weight="900" fill="#ffffff" letter-spacing="0.5">AutoStruct&#8482;</text>
+  <text x="64" y="49" font-family="'Montserrat', 'Segoe UI', sans-serif" font-size="9" font-weight="800" fill="#38bdf8" letter-spacing="1">WIND DYNAMICS</text>
+</svg>
