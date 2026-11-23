@@ -149,6 +149,11 @@
     /* Studio Header */
     .studio-header {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
     .studio-header h1 {
@@ -207,65 +212,117 @@
       color: var(--accent-cyan);
     }
 
-    /* Material Standard Toggle (Ideal vs Nigeria Standard) */
-    .standard-toggle-box {
+    /* Night-Option Switch: Nigeria Material Factor (85% phi) */
+    .night-toggle-widget {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 5px;
+      gap: 6px;
     }
 
-    .toggle-segmented {
+    .night-switch-row {
       display: inline-flex;
-      background: rgba(14, 23, 38, 0.9);
-      border: 1px solid rgba(0, 229, 255, 0.25);
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 23, 38, 0.95);
+      border: 1px solid rgba(0, 229, 255, 0.28);
       border-radius: 999px;
-      padding: 3px;
-      gap: 4px;
+      padding: 6px 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s ease;
     }
 
-    .btn-std-pill {
-      background: transparent;
-      border: 1px solid transparent;
-      color: #94a3b8;
-      padding: 6px 14px;
-      border-radius: 999px;
+    .night-toggle-widget.nigeria-active .night-switch-row {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: rgba(26, 20, 14, 0.95);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+
+    .night-switch-label {
       font-size: 12px;
       font-weight: 700;
-      cursor: pointer;
+      color: #e2e8f0;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
     }
 
-    .btn-std-pill:hover {
-      color: #fff;
+    .night-switch-flag {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      transition: color 0.2s ease;
     }
 
-    .btn-std-pill.active {
-      background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(16, 185, 129, 0.25) 100%);
-      border-color: #00e5ff;
-      color: #00e5ff;
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
-    }
-
-    .btn-std-pill.active.nigeria {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(239, 68, 68, 0.2) 100%);
-      border-color: #f59e0b;
+    .night-toggle-widget.nigeria-active .night-switch-flag {
       color: #fbbf24;
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+      font-weight: 700;
+    }
+
+    /* Switch Component */
+    .night-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 25px;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .night-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .night-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #1e293b;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 999px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .night-slider .night-knob {
+      position: absolute;
+      content: "";
+      height: 19px;
+      width: 19px;
+      left: 2px;
+      bottom: 2px;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .night-switch input:checked + .night-slider {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .night-switch input:checked + .night-slider .night-knob {
+      transform: translateX(23px);
+      background: #ffffff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
     }
 
     .standard-note-highlight {
       font-size: 11px;
       line-height: 1.35;
-      padding: 4px 8px;
-      border-radius: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
       background: rgba(0, 229, 255, 0.05);
       border: 1px solid rgba(0, 229, 255, 0.15);
       color: #94a3b8;
-      max-width: 540px;
+      max-width: 480px;
       text-align: right;
       transition: all 0.25s ease;
     }
@@ -280,8 +337,8 @@
     /* Studio Workspace Split */
     .studio-workspace {
       display: grid;
-      grid-template-columns: 1fr 390px;
-      gap: 20px;
+      grid-template-columns: 1fr 440px;
+      gap: 24px;
       align-items: start;
     }
 
@@ -413,17 +470,20 @@
       background: var(--card-studio);
       border: 1px solid var(--border-studio);
       border-radius: 12px;
-      padding: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 16px;
       position: sticky;
       top: 80px;
-      max-height: calc(100vh - 100px);
+      height: calc(100vh - 95px);
+      min-height: 740px;
+      max-height: calc(100vh - 80px);
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: thin;
       scrollbar-color: rgba(0, 229, 255, 0.3) rgba(14, 23, 38, 0.6);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
     .controls-panel::-webkit-scrollbar {
@@ -777,40 +837,44 @@
   <!-- Studio Container -->
   <main class="studio-container">
     <div class="studio-header">
-      <h1>RC Reinforcement Detailing &amp; Cross-Section Studio</h1>
-      <p>
-        Perform real-time cross-sectional reinforcement analyses, multi-layer effective depth calculations (d = h &minus; y&#772; with spacer bars &ge; 25 mm), and individual bar-to-bar spacing conformity checks for beams, slabs, and shear walls.
-      </p>
-    </div>
-
-    <!-- Element Selector Tabs & Material Standard Toggle -->
-    <div class="element-tabs" style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="tab-btn active" id="tabBeam" onclick="setElementType('beam')">
-          <i class="fa-solid fa-shapes"></i> Beam Cross-Section
-        </button>
-        <button class="tab-btn" id="tabSlab" onclick="setElementType('slab')">
-          <i class="fa-solid fa-ruler-horizontal"></i> Slab Meter-Strip (1.0m)
-        </button>
-        <button class="tab-btn" id="tabWall" onclick="setElementType('wall')">
-          <i class="fa-solid fa-border-all"></i> RC Shear Wall (Each Face)
-        </button>
+      <div class="header-text-block">
+        <h1>RC Reinforcement Detailing &amp; Cross-Section Studio</h1>
+        <p>
+          Perform real-time cross-sectional reinforcement analyses, multi-layer effective depth calculations (d = h &minus; y&#772; with spacer bars &ge; 25 mm), and individual bar-to-bar spacing conformity checks for beams, slabs, and shear walls.
+        </p>
       </div>
 
-      <!-- Material Standard Switcher (Ideal vs Nigeria Standard) -->
-      <div class="standard-toggle-box">
-        <div class="toggle-segmented">
-          <button type="button" id="btnStdIdeal" class="btn-std-pill active" onclick="setMaterialStandard('ideal')" title="Ideal Code Standard: 100% full nominal bar diameter">
-            <i class="fa-solid fa-circle-check"></i> Ideal (100% &phi;)
-          </button>
-          <button type="button" id="btnStdNigeria" class="btn-std-pill" onclick="setMaterialStandard('nigeria')" title="Nigeria Material Factor: 15% reduction in bar diameter (85% &phi;)">
-            <i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Nigeria Standard (85% &phi;)
-          </button>
+      <!-- Night-Option Switch: Nigeria Material Factor (85% phi) vs Ideal (100% phi) -->
+      <div class="night-toggle-widget" id="nightToggleWidget">
+        <div class="night-switch-row">
+          <span class="night-switch-label" id="nightSwitchLabel">
+            <i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> Ideal Standard
+          </span>
+          <label class="night-switch" title="Switch ON for Nigeria Material Factor (-15% diameter) or OFF for Ideal Code Standard">
+            <input type="checkbox" id="stdToggleSwitch" onchange="onToggleSwitchChange(this.checked)">
+            <span class="night-slider">
+              <span class="night-knob"></span>
+            </span>
+          </label>
+          <span class="night-switch-flag">🇳🇬 Nigeria (85% &phi;)</span>
         </div>
         <div id="standardNote" class="standard-note-highlight">
           <i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.
         </div>
       </div>
+    </div>
+
+    <!-- Element Selector Tabs -->
+    <div class="element-tabs">
+      <button class="tab-btn active" id="tabBeam" onclick="setElementType('beam')">
+        <i class="fa-solid fa-shapes"></i> Beam Cross-Section
+      </button>
+      <button class="tab-btn" id="tabSlab" onclick="setElementType('slab')">
+        <i class="fa-solid fa-ruler-horizontal"></i> Slab Meter-Strip (1.0m)
+      </button>
+      <button class="tab-btn" id="tabWall" onclick="setElementType('wall')">
+        <i class="fa-solid fa-border-all"></i> RC Shear Wall (Each Face)
+      </button>
     </div>
 
     <!-- Workspace Split: Visualizer on Left, Controls on Right -->
@@ -916,26 +980,39 @@
       render();
     }
 
+    function onToggleSwitchChange(checked) {
+      setMaterialStandard(checked ? 'nigeria' : 'ideal');
+    }
+
     function setMaterialStandard(std) {
       state.standard = std;
       const isNigeria = std === 'nigeria';
-      const btnIdeal = document.getElementById('btnStdIdeal');
-      const btnNigeria = document.getElementById('btnStdNigeria');
+      const switchEl = document.getElementById('stdToggleSwitch');
+      const widgetEl = document.getElementById('nightToggleWidget');
+      const labelEl = document.getElementById('nightSwitchLabel');
       const noteEl = document.getElementById('standardNote');
-      if (btnIdeal && btnNigeria) {
-        btnIdeal.classList.toggle('active', !isNigeria);
-        btnNigeria.classList.toggle('active', isNigeria);
-        btnNigeria.classList.toggle('nigeria', isNigeria);
+
+      if (switchEl) switchEl.checked = isNigeria;
+      if (widgetEl) widgetEl.classList.toggle('nigeria-active', isNigeria);
+
+      if (labelEl) {
+        if (isNigeria) {
+          labelEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <span style="color:#fbbf24; font-weight:700;">Nigeria Standard</span>';
+        } else {
+          labelEl.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <span style="color:#e2e8f0;">Ideal Standard</span>';
+        }
       }
+
       if (noteEl) {
         if (isNigeria) {
           noteEl.className = 'standard-note-highlight nigeria';
-          noteEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <strong>Nigeria Material Factor Active:</strong> Bar diameters reduced by 15% (d<sub>eff</sub> = 0.85d, Area &asymp; 72.3% of nominal) to safeguard against local commercial rolling deficiencies.';
+          noteEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <strong>Nigeria Factor Active:</strong> Bar diameters reduced by 15% (d<sub>eff</sub> = 0.85d, Area &asymp; 72.3% of nominal) to safeguard against local commercial rolling deficiencies.';
         } else {
           noteEl.className = 'standard-note-highlight';
           noteEl.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.';
         }
       }
+
       if (state.type === 'beam' && state.linkAsvReq > 0) {
         calcLinkSpacingFromAsv();
       } else {
