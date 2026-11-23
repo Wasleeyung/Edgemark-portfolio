@@ -904,6 +904,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
 
+    'amphitheater': {
+
+      title: 'Design of Amphitheater Steel Canopy',
+
+      location: 'Uyo, Akwa Ibom State, Nigeria',
+
+      tag: 'Long-Span Architectural Steelwork',
+
+      image: 'assets/images/projects/amphitheater-canopy.png',
+
+      extraImages: [
+        'assets/images/projects/amphitheater-3d-model.png',
+        'assets/images/projects/amphitheater-framing-plan.png'
+      ],
+
+      specs: [
+
+        { label: 'Structural System', val: 'Curved Radial Steel Rafters & Trusses' },
+
+        { label: 'Design Code', val: 'BS 5950 / BS 6399 (Wind Uplift)' },
+
+        { label: 'Analysis Model', val: '3D Finite Element Space Frame' },
+
+        { label: 'Foundation Anchorage', val: 'Moment Baseplates on RC Footings' }
+
+      ],
+
+      desc: 'Comprehensive structural design, 3D space-frame analysis, and connection detailing for an expansive curved amphitheater canopy in Uyo, Akwa Ibom State. Engineered to resist extreme tropical wind gust reversals, dynamic aerodynamic suction, and ponding drainage while delivering an elegant column-free sightline for public events.',
+
+      highlights: [
+
+        '3D finite element geometry modeling with radial space trusses maximizing column-free spectator coverage.',
+
+        'Rigorous wind uplift suction analysis under BS 6399 Part 2 to prevent catastrophic tensile anchor pull-out and member buckling.',
+
+        'Precision moment-resisting baseplate design with high-tensile holding down anchor bolts embedded in mass concrete footings.',
+
+        'Complete fabrication detailing, member scheduling, and erection staging ensuring structural integrity during assembly.'
+
+      ],
+
+      tech: ['3D Space Frame', 'Long-Span Steel', 'Curved Rafters', 'Wind Aerodynamics', 'Baseplate Detailing', 'AutoCAD', 'BS 5950']
+
+    },
+
     'portal-warehouses': {
 
       title: 'Structural Integrity Appraisal & Non-Destructive Testing (NDT)',
