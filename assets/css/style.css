@@ -371,6 +371,10 @@ button { cursor: pointer; border: none; background: none; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
 .nav-cta { flex-shrink: 0; }
+.mobile-only { display: none !important; }
+@media (max-width: 1100px) {
+  .mobile-only { display: block !important; }
+}
 
 .nav-hamburger {
 
