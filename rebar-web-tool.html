@@ -219,15 +219,25 @@
       .studio-workspace {
         grid-template-columns: 1fr;
       }
+      .visualizer-card {
+        position: static;
+      }
+      .controls-panel {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
     }
 
-    /* Visualizer Card */
+    /* Visualizer Card (Sticky & Stationary) */
     .visualizer-card {
       background: var(--card-studio);
       border: 1px solid var(--border-studio);
       border-radius: 12px;
       padding: 18px;
-      position: relative;
+      position: sticky;
+      top: 80px;
+      align-self: start;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
@@ -275,7 +285,7 @@
     /* Canvas Wrapper */
     .canvas-wrap {
       width: 100%;
-      height: 560px;
+      height: 520px;
       background: #090e18;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
@@ -328,7 +338,7 @@
       margin-top: 2px;
     }
 
-    /* Controls Sidebar Panel */
+    /* Controls Sidebar Panel (Independently Scrollable) */
     .controls-panel {
       background: var(--card-studio);
       border: 1px solid var(--border-studio);
@@ -337,6 +347,28 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 229, 255, 0.3) rgba(14, 23, 38, 0.6);
+    }
+
+    .controls-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .controls-panel::-webkit-scrollbar-track {
+      background: rgba(14, 23, 38, 0.6);
+      border-radius: 4px;
+    }
+    .controls-panel::-webkit-scrollbar-thumb {
+      background: rgba(0, 229, 255, 0.3);
+      border-radius: 4px;
+    }
+    .controls-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-cyan);
     }
 
     .panel-group {
