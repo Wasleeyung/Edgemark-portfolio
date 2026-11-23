@@ -18,5 +18,5 @@
   </g>
   <!-- Typography -->
   <text x="70" y="26" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="800" fill="#fbbf24" letter-spacing="1.5">STANDARDS</text>
-  <text x="70" y="47" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="16" font-weight="900" fill="#ffffff" letter-spacing="0.5">BS &bull; EN &bull; ACI</text>
+  <text x="70" y="47" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="16" font-weight="900" fill="#ffffff" letter-spacing="0.5">BS &#8226; EN &#8226; ACI</text>
 </svg>
