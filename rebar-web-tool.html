@@ -151,7 +151,7 @@
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 24px;
       flex-wrap: wrap;
     }
@@ -212,51 +212,170 @@
       color: var(--accent-cyan);
     }
 
-    /* Night-Option Switch: Nigeria Material Factor (85% phi) */
+    /* Nigeria Factor Compact Toggle */
     .night-toggle-widget {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      margin-top: 4px;
+      flex-shrink: 0;
     }
 
     .night-switch-row {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: rgba(14, 23, 38, 0.95);
       border: 1px solid rgba(0, 229, 255, 0.28);
       border-radius: 999px;
-      padding: 6px 14px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      padding: 5px 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       transition: all 0.25s ease;
     }
 
     .night-toggle-widget.nigeria-active .night-switch-row {
-      border-color: rgba(245, 158, 11, 0.5);
-      background: rgba(26, 20, 14, 0.95);
-      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
-    }
-
-    .night-switch-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: #e2e8f0;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(24, 20, 16, 0.95);
     }
 
     .night-switch-flag {
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 600;
-      color: #94a3b8;
+      color: #cbd5e1;
+      white-space: nowrap;
+      user-select: none;
       transition: color 0.2s ease;
     }
 
     .night-toggle-widget.nigeria-active .night-switch-flag {
       color: #fbbf24;
       font-weight: 700;
+    }
+
+    /* Compact Switch Component */
+    .night-switch {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 21px;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .night-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .night-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #1e293b;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      transition: all 0.25s ease;
+      border-radius: 999px;
+    }
+
+    .night-slider .night-knob {
+      position: absolute;
+      height: 15px;
+      width: 15px;
+      left: 2px;
+      bottom: 2px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .night-switch input:checked + .night-slider {
+      background: #f59e0b;
+      border-color: #f59e0b;
+    }
+
+    .night-switch input:checked + .night-slider .night-knob {
+      transform: translateX(17px);
+      background: #ffffff;
+    }
+
+    /* ⓘ Info Button & White Notification Tooltip (matching reference image) */
+    .nigeria-info-bubble-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: default;
+    }
+
+    .nigeria-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      user-select: none;
+      opacity: 0.85;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .nigeria-info-bubble-wrap:hover .nigeria-info-icon {
+      opacity: 1;
+    }
+
+    /* White Notification Bubble matching the user's reference image */
+    .nigeria-white-tooltip {
+      position: absolute;
+      bottom: calc(100% + 11px);
+      right: -8px;
+      width: 270px;
+      background: #ffffff;
+      color: #1e293b;
+      border-radius: 9px;
+      padding: 11px 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.12);
+      font-size: 11.5px;
+      line-height: 1.5;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10000;
+      text-align: left;
+    }
+
+    /* Downward pointing arrow */
+    .nigeria-white-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 12px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: #ffffff transparent transparent transparent;
+    }
+
+    .nigeria-white-tooltip strong {
+      color: #0f172a;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .nigeria-white-tooltip p {
+      margin: 0;
+      color: #334155;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .nigeria-info-bubble-wrap:hover .nigeria-white-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     /* Switch Component */
@@ -844,22 +963,23 @@
         </p>
       </div>
 
-      <!-- Night-Option Switch: Nigeria Material Factor (85% phi) vs Ideal (100% phi) -->
+      <!-- Compact Switch: Standard Reduction Factor (85% phi) -->
       <div class="night-toggle-widget" id="nightToggleWidget">
         <div class="night-switch-row">
-          <span class="night-switch-label" id="nightSwitchLabel">
-            <i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> Ideal Standard
-          </span>
-          <label class="night-switch" title="Switch ON for Nigeria Material Factor (-15% diameter) or OFF for Ideal Code Standard">
+          <label class="night-switch" title="Toggle Standard Reduction Factor (-15% diameter)">
             <input type="checkbox" id="stdToggleSwitch" onchange="onToggleSwitchChange(this.checked)">
             <span class="night-slider">
               <span class="night-knob"></span>
             </span>
           </label>
-          <span class="night-switch-flag">🇳🇬 Nigeria (85% &phi;)</span>
-        </div>
-        <div id="standardNote" class="standard-note-highlight">
-          <i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.
+          <span class="night-switch-flag" id="nightSwitchFlag">Standard Reduction Factor (-15% &phi;)</span>
+          <div class="nigeria-info-bubble-wrap">
+            <span class="nigeria-info-icon">ⓘ</span>
+            <div class="nigeria-white-tooltip">
+              <strong>Standard Reduction Factor</strong>
+              <p>Toggle <strong>ON</strong> to apply a <strong>−15% reduction</strong> to all bar diameters (d<sub>eff</sub> = 0.85d), reducing effective bar area to <strong>&asymp; 72.3%</strong> of nominal.<br><br>Accounts for under-rolling tolerances in the Nigerian commercial steel market, adding an inherent safety margin to your design.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -989,28 +1109,12 @@
       const isNigeria = std === 'nigeria';
       const switchEl = document.getElementById('stdToggleSwitch');
       const widgetEl = document.getElementById('nightToggleWidget');
-      const labelEl = document.getElementById('nightSwitchLabel');
-      const noteEl = document.getElementById('standardNote');
+      const flagEl = document.getElementById('nightSwitchFlag');
 
       if (switchEl) switchEl.checked = isNigeria;
       if (widgetEl) widgetEl.classList.toggle('nigeria-active', isNigeria);
-
-      if (labelEl) {
-        if (isNigeria) {
-          labelEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <span style="color:#fbbf24; font-weight:700;">Nigeria Standard</span>';
-        } else {
-          labelEl.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <span style="color:#e2e8f0;">Ideal Standard</span>';
-        }
-      }
-
-      if (noteEl) {
-        if (isNigeria) {
-          noteEl.className = 'standard-note-highlight nigeria';
-          noteEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> <strong>Nigeria Factor Active:</strong> Bar diameters reduced by 15% (d<sub>eff</sub> = 0.85d, Area &asymp; 72.3% of nominal) to safeguard against local commercial rolling deficiencies.';
-        } else {
-          noteEl.className = 'standard-note-highlight';
-          noteEl.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#00e5ff;"></i> <strong>Ideal Code Standard:</strong> 100% nominal bar diameter &amp; area.';
-        }
+      if (flagEl) {
+        flagEl.innerHTML = isNigeria ? 'Standard Reduction Factor (85% &phi;)' : 'Standard Reduction Factor (-15% &phi;)';
       }
 
       if (state.type === 'beam' && state.linkAsvReq > 0) {
@@ -1569,7 +1673,7 @@
       ctx.fillText(title, w / 2, 22);
 
       const isNigeria = state.standard === 'nigeria';
-      const stdBadge = isNigeria ? '  •  [ ⚠️ NIGERIA MATERIAL FACTOR: 85% φ (15% Diameter Reduction) ]' : '  •  [ IDEAL CODE STANDARD: 100% φ ]';
+      const stdBadge = isNigeria ? '  •  [ ⚠️ STANDARD REDUCTION FACTOR: 85% φ (15% Diameter Reduction) ]' : '  •  [ IDEAL CODE STANDARD: 100% φ ]';
 
       ctx.font = '9px Segoe UI, sans-serif';
       ctx.fillStyle = isNigeria ? '#f59e0b' : '#64748b';
