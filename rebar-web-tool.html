@@ -1143,8 +1143,12 @@
     }
 
     // Mathematical Helpers
+    function getEffDia(dia) {
+      return state.standard === 'nigeria' ? dia * 0.85 : dia;
+    }
+
     function barArea(dia) {
-      const effDia = state.standard === 'nigeria' ? dia * 0.85 : dia;
+      const effDia = getEffDia(dia);
       return (Math.PI * effDia * effDia) / 4.0;
     }
 
