@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1280" />
   <title>AutoStruct Rebar Suite | Free Interactive Web Detailing Studio</title>
-  <meta name="description" content="EDGEMARK AutoStruct Solutions — Free interactive 2D reinforced concrete section visualizer for beams, slabs, and shear walls with code-compliant effective depth and spacing checks." />
+  <meta name="description" content="EDGEMARK AutoStruct Solutions Free interactive 2D reinforced concrete section visualizer for beams, slabs, and shear walls with code compliant effective depth and spacing checks." />
   <link rel="icon" type="image/png" href="assets/images/logo-navbar.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,6 +27,7 @@
       background: var(--bg-studio);
       color: var(--text-main);
       font-family: var(--font-body);
+      min-width: 1200px;
       min-height: 100vh;
       margin: 0;
       padding: 0;
@@ -959,25 +960,25 @@
       <div class="header-text-block">
         <h1>RC Reinforcement Detailing &amp; Cross-Section Studio</h1>
         <p>
-          Perform real-time cross-sectional reinforcement analyses, multi-layer effective depth calculations (d = h &minus; y&#772; with spacer bars &ge; 25 mm), and individual bar-to-bar spacing conformity checks for beams, slabs, and shear walls.
+          Perform real time cross sectional reinforcement analyses, multi layer effective depth calculations (d = h &minus; y&#772; with spacer bars &ge; 25 mm), and individual bar-to-bar spacing conformity checks for beams, slabs, and shear walls.
         </p>
       </div>
 
-      <!-- Compact Switch: Standard Reduction Factor (85% phi) -->
+      <!-- Compact Switch: Undersized Bar Sensitivity (85% phi) -->
       <div class="night-toggle-widget" id="nightToggleWidget">
         <div class="night-switch-row">
-          <label class="night-switch" title="Toggle Standard Reduction Factor (-15% diameter)">
+          <label class="night-switch" title="Optional Sensitivity Check: 85% bar diameter (72.3% area)">
             <input type="checkbox" id="stdToggleSwitch" onchange="onToggleSwitchChange(this.checked)">
             <span class="night-slider">
               <span class="night-knob"></span>
             </span>
           </label>
-          <span class="night-switch-flag" id="nightSwitchFlag">Standard Reduction Factor (-15% &phi;)</span>
+          <span class="night-switch-flag" id="nightSwitchFlag">Undersized Bar Check (85% &phi;)</span>
           <div class="nigeria-info-bubble-wrap">
             <span class="nigeria-info-icon">ⓘ</span>
             <div class="nigeria-white-tooltip">
-              <strong>Standard Reduction Factor</strong>
-              <p>Toggle <strong>ON</strong> to apply a <strong>−15% reduction</strong> to all bar diameters (d<sub>eff</sub> = 0.85d), reducing effective bar area to <strong>&asymp; 72.3%</strong> of nominal.<br><br>Accounts for under-rolling tolerances in the Nigerian commercial steel market, adding an inherent safety margin to your design.</p>
+              <strong>Undersized Bar Sensitivity (85% &phi;)</strong>
+              <p>Default uses <strong>100% nominal bar dimensions</strong>. Toggle <strong>ON</strong> for an optional sensitivity check using <strong>0.85&phi;</strong>, which reduces effective bar area to <strong>72.25%</strong> (0.85&sup2;) of nominal.<br><br>Not a universal code factor; intended only when checking verified undersized site bars.</p>
             </div>
           </div>
         </div>
@@ -1018,6 +1019,22 @@
         <!-- Metrics Strip -->
         <div class="metrics-strip" id="metricsStrip">
           <!-- Dynamically filled by JS -->
+        </div>
+
+        <!-- Calculation Trail & Scope Disclaimer -->
+        <div id="calcTrailWrap" style="margin-top:12px; background:rgba(9,18,32,0.75); border:1px solid rgba(56,189,248,0.2); border-radius:10px; padding:10px 14px; font-size:0.78rem; color:#cbd5e1;">
+          <details>
+            <summary style="cursor:pointer; font-weight:700; color:#38bdf8; display:flex; align-items:center; justify-content:space-between; list-style:none;">
+              <span><i class="fa-solid fa-calculator"></i> Calculation Trail, Assumptions &amp; Scope</span>
+              <span style="font-size:0.7rem; color:#94a3b8; font-weight:500;">Click to expand</span>
+            </summary>
+            <div id="calcTrailBody" style="margin-top:10px; line-height:1.6; border-top:1px solid rgba(148,163,184,0.15); padding-top:8px;">
+              <!-- Dynamically filled by JS -->
+            </div>
+            <div style="margin-top:10px; padding:8px 10px; background:rgba(245,158,11,0.08); border-left:3px solid #f59e0b; border-radius:4px; font-size:0.72rem; color:#fde68a; line-height:1.5;">
+              <strong>Engineering Scope &amp; Limitations:</strong> This tool performs <em>geometric cross-section arrangement, bar-to-bar clear spacing (BS 8110 / EC2 geometric rules), effective depth (d = h &minus; &#x0233;), and provided-vs-required steel area checks</em>. It does not constitute a complete flexural, shear, torsion, or anchorage code design. All outputs must be verified by a qualified structural engineer.
+            </div>
+          </details>
         </div>
       </div>
 
@@ -1114,7 +1131,7 @@
       if (switchEl) switchEl.checked = isNigeria;
       if (widgetEl) widgetEl.classList.toggle('nigeria-active', isNigeria);
       if (flagEl) {
-        flagEl.innerHTML = isNigeria ? 'Standard Reduction Factor (85% &phi;)' : 'Standard Reduction Factor (-15% &phi;)';
+        flagEl.innerHTML = isNigeria ? 'Undersized Bar Check (85% &phi; ACTIVE)' : 'Undersized Bar Check (85% &phi;)';
       }
 
       if (state.type === 'beam' && state.linkAsvReq > 0) {
@@ -1499,7 +1516,7 @@
               <span class="control-label">Asv,req (mm²/m):</span>
               <input type="number" class="control-input" value="${state.linkAsvReq || 0}" step="25" min="0" max="5000"
                 onchange="state.linkAsvReq=+this.value; calcLinkSpacingFromAsv();"
-                placeholder="e.g. 500 — auto-calculates spacing" />
+                placeholder="e.g. 500 auto-calculates spacing" />
             </div>
             ${(state.linkAsvReq > 0 && state.linkAsvReqCalcNote) ? `
             <div class="code-note" style="color:#fbbf24; border-color:rgba(251,191,36,0.3);">
@@ -1658,7 +1675,7 @@
             </div>
             <div class="code-note">
               <strong>Curtain Detailing:</strong> 2 faces of reinforcement with transverse crossties connecting through the wall thickness.
-              As,req/face = Total As,req ÷ 2 (double curtain — each face carries 50%).
+              As,req/face = Total As,req ÷ 2 (double curtain each face carries 50%).
             </div>
           </div>
         `;
@@ -1673,7 +1690,7 @@
       ctx.fillText(title, w / 2, 22);
 
       const isNigeria = state.standard === 'nigeria';
-      const stdBadge = isNigeria ? '  •  [ ⚠️ STANDARD REDUCTION FACTOR: 85% φ (15% Diameter Reduction) ]' : '  •  [ IDEAL CODE STANDARD: 100% φ ]';
+      const stdBadge = isNigeria ? '  •  [ ⚠️ UNDERSIZED BAR CHECK: 85% φ (Area = 72.3% nominal) ]' : '  •  [ NOMINAL BAR DIMENSIONS: 100% φ ]';
 
       ctx.font = '9px Segoe UI, sans-serif';
       ctx.fillStyle = isNigeria ? '#f59e0b' : '#64748b';
@@ -1795,7 +1812,7 @@
       const botLayer1 = botPositions.filter(p => Math.abs(p.y - botPositions[0].y) < botDiaPx);
       drawLayerSpacings(botLayer1, botDiaPx, scale, y0 + drawH, +1, '#34d399');
 
-      // Physical Spacer Bar if multi-layer
+      // Physical Spacer Bar if multi layer
       if (beamRes.layers.length > 1) {
         const spacerY = (botPositions[0].y + botPositions[beamRes.layers[0]].y) / 2.0;
         ctx.strokeStyle = '#fbbf24';
@@ -1941,6 +1958,23 @@
           <div class="metric-pill-sub">As / (b × d)</div>
         </div>
       `;
+
+      const trailEl = document.getElementById('calcTrailBody');
+      if (trailEl) {
+        const effDia = getEffDia(state.botDia);
+        const yBar = state.h - beamRes.d;
+        const layerRows = beamRes.layers.map((lay, idx) => {
+          const layArea = lay.count * barArea(state.botDia);
+          const yFromBot = state.h - lay.yMm;
+          return `<div>&bull; <strong>Layer ${idx + 1}:</strong> ${lay.count}T${state.botDia} (eff. &phi;=${effDia.toFixed(1)} mm) &rarr; A<sub>s,${idx + 1}</sub> = ${layArea.toFixed(1)} mm&sup2;, y<sub>${idx + 1}</sub> = ${yFromBot.toFixed(1)} mm from soffit</div>`;
+        }).join('');
+        trailEl.innerHTML = `
+          <div><strong>Section:</strong> b = ${state.b} mm, h = ${state.h} mm, cover = ${state.cover} mm, link = T${state.linkDia} (${state.standard === 'nigeria' ? '85% &phi; check' : '100% nominal &phi;'})</div>
+          ${layerRows}
+          <div><strong>Centroid &amp; Effective Depth:</strong> &#x0233; = &Sigma;(A<sub>s,i</sub> &middot; y<sub>i</sub>) / &Sigma;A<sub>s,i</sub> = <strong>${yBar.toFixed(1)} mm</strong> &rarr; d<sub>eff</sub> = ${state.h} &minus; ${yBar.toFixed(1)} = <strong>${beamRes.d.toFixed(1)} mm</strong></div>
+          <div><strong>Area Check:</strong> A<sub>s,prov</sub> = ${botArea.toFixed(1)} mm&sup2; vs A<sub>s,req</sub> = ${state.beamAsReq} mm&sup2; (D/C = ${dcRatio.toFixed(3)})</div>
+        `;
+      }
     }
 
     // 2. SLAB RENDERING
@@ -2046,6 +2080,17 @@
           <div class="metric-pill-sub">As / (1000 × d)</div>
         </div>
       `;
+
+      const trailEl = document.getElementById('calcTrailBody');
+      if (trailEl) {
+        const effDia = getEffDia(state.slabDia);
+        const aBar = barArea(state.slabDia);
+        trailEl.innerHTML = `
+          <div><strong>1.0m Slab Strip:</strong> h = ${state.slabH} mm, cover = ${state.slabCover} mm, T${state.slabDia} @ ${state.slabSpacing} mm c/c (eff. &phi; = ${effDia.toFixed(1)} mm)</div>
+          <div><strong>Effective Depth:</strong> d = h &minus; c &minus; &phi;/2 = ${state.slabH} &minus; ${state.slabCover} &minus; ${(effDia/2).toFixed(1)} = <strong>${dEff.toFixed(1)} mm</strong></div>
+          <div><strong>Provided Steel:</strong> A<sub>s,prov</sub> = (1000 / ${state.slabSpacing}) &times; ${aBar.toFixed(1)} = <strong>${asProv.toFixed(1)} mm&sup2;/m</strong> vs A<sub>s,req</sub> = ${state.slabAsReq} mm&sup2;/m (D/C = ${dcRatio.toFixed(3)})</div>
+        `;
+      }
     }
 
     // 3. WALL RENDERING
@@ -2175,6 +2220,17 @@
           <div class="metric-pill-sub">${dcRatio<=1.0?'✅ PASS (Safe)':'❌ EXCEEDS DEMAND'}</div>
         </div>
       `;
+
+      const trailEl = document.getElementById('calcTrailBody');
+      if (trailEl) {
+        const effDia = getEffDia(state.wallDia);
+        const aBar = barArea(state.wallDia);
+        trailEl.innerHTML = `
+          <div><strong>RC Shear Wall:</strong> L<sub>w</sub> = ${state.wallLw} mm, t<sub>w</sub> = ${state.wallTw} mm, cover = ${state.wallCover} mm, 2 &times; T${state.wallDia} @ ${state.wallSpacing} mm c/c (eff. &phi; = ${effDia.toFixed(1)} mm)</div>
+          <div><strong>Effective Thickness &amp; Demand/Face:</strong> t<sub>eff</sub> = <strong>${tEff.toFixed(1)} mm</strong> | A<sub>s,req/face</sub> = 0.5 &times; ${state.wallAsReq.toFixed(0)} = <strong>${asReqPerFace.toFixed(1)} mm&sup2;</strong></div>
+          <div><strong>Theoretical Spacing &amp; Provided Area:</strong> s<sub>theo</sub> = (${aBar.toFixed(1)} &times; ${state.wallLw}) / ${asReqPerFace.toFixed(1)} = <strong>${sTheo.toFixed(0)} mm</strong> | Total A<sub>s,prov</sub> = <strong>${totalAsProv.toFixed(0)} mm&sup2;</strong> (D/C = ${dcRatio.toFixed(3)})</div>
+        `;
+      }
     }
 
     // Helper: Position Bars in Layers
@@ -2324,7 +2380,7 @@
       document.getElementById('feedbackModal').style.display = 'none';
     }
 
-    function submitFeedback() {
+    async function submitFeedback() {
       const name = document.getElementById('fbName').value.trim() || 'Colleague / Structural Engineer';
       const email = document.getElementById('fbEmail').value.trim() || 'Not specified';
       const category = document.getElementById('fbCategory').value;
@@ -2335,6 +2391,11 @@
         return;
       }
 
+      const btn = document.getElementById('btnSubmitFeedback');
+      const origHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Transmitting...';
+      btn.disabled = true;
+
       try {
         const stored = JSON.parse(localStorage.getItem('edgemark_rebar_feedback') || '[]');
         stored.push({ name, email, category, message, timestamp: new Date().toISOString() });
@@ -2343,16 +2404,33 @@
         console.warn('Storage fallback:', err);
       }
 
-      document.getElementById('fbSuccessMsg').style.display = 'block';
-      document.getElementById('btnSubmitFeedback').style.display = 'none';
-
-      const mailSubject = encodeURIComponent(`[AutoStruct Rebar Studio Feedback] - ${category}`);
-      const mailBody = encodeURIComponent(`From: ${name} (${email})\nCategory: ${category}\n\nFeedback / Feature Request:\n${message}\n\nSent from EDGEMARK AutoStruct Rebar Studio`);
-      const mailUrl = `mailto:wasleeyung@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-
-      setTimeout(() => {
-        window.location.href = mailUrl;
-      }, 700);
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@edgemarkconsult.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            category,
+            message,
+            _subject: `[AutoStruct Rebar Studio Feedback] - ${category}`,
+            _template: 'table'
+          })
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        document.getElementById('fbSuccessMsg').style.display = 'block';
+        btn.style.display = 'none';
+      } catch (err) {
+        console.error('Feedback transmit error:', err);
+        btn.innerHTML = origHtml;
+        btn.disabled = false;
+        const mailSubject = encodeURIComponent(`[AutoStruct Rebar Studio Feedback] - ${category}`);
+        const mailBody = encodeURIComponent(`From: ${name} (${email})\nCategory: ${category}\n\nFeedback / Feature Request:\n${message}\n\nSent from EDGEMARK AutoStruct Rebar Studio`);
+        window.location.href = `mailto:info@edgemarkconsult.com?subject=${mailSubject}&body=${mailBody}`;
+      }
     }
 
     // Initial render
