@@ -311,21 +311,86 @@ button { cursor: pointer; border: none; background: none; }
 }
 
 .nav-links {
-
   display: flex;
-
-  gap: 14px;
-
+  gap: 24px;
   flex: 1;
-
   justify-content: center;
-
   align-items: center;
-
   white-space: nowrap;
-
   flex-wrap: nowrap;
+}
 
+/* Navbar Dropdown for AutoStruct Tools */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.nav-dropdown-trigger i.fa-chevron-down {
+  font-size: 0.65rem;
+  transition: transform 0.2s ease;
+}
+.nav-dropdown:hover .nav-dropdown-trigger i.fa-chevron-down,
+.nav-dropdown:focus-within .nav-dropdown-trigger i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 240px;
+  background: rgba(11, 19, 32, 0.97);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1200;
+  list-style: none;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+.nav-dropdown-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav-dropdown-menu li a:hover {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+}
+.nav-dropdown-menu li a i {
+  width: 16px;
+  text-align: center;
+  color: #00e5ff;
 }
 
 .nav-link {

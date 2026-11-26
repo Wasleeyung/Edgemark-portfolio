@@ -2,21 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1280" />
   <title>EDGEMARK Engineering Consulting Ltd. | Structural Engineering Excellence</title>
-  <meta name="description" content="EDGEMARK Engineering Consulting Ltd. — Highrise structural engineering, performance-based design, and intelligent AEC automation tools." />
+  <meta name="description" content="EDGEMARK Engineering Consulting Ltd. Expert structural engineering consultancy specialising in highrise design, post tensioned systems, and AEC software automation." />
   <link rel="icon" type="image/png" href="assets/images/logo-final.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* -- Public page overrides -- */
+    .pub-hero-subtitle { max-width: 680px; }
+    .pub-about { padding: 80px 0; background: #0d0f14; }
+    .pub-about .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .pub-about h2 { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 18px; }
+    .pub-about h2 span { color: #ff5722; }
+    .pub-about p  { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.8; margin-bottom: 14px; }
+    .pub-pillars  { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; padding: 60px 0; background: #111318; }
+    .pub-pillars .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .pillar-card  { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 28px 22px; }
+    .pillar-card i { color: #ff5722; font-size: 1.6rem; margin-bottom: 12px; }
+    .pillar-card h4 { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .pillar-card p  { color: rgba(255,255,255,0.6); font-size: 0.88rem; line-height: 1.6; margin: 0; }
+    .pub-tools { padding: 60px 0; background: #0d0f14; text-align: center; }
+    .pub-tools .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .pub-tools h2 { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .pub-tools h2 span { color: #00e5ff; }
+    .pub-tools p  { color: rgba(255,255,255,0.65); margin-bottom: 32px; font-size: 0.95rem; }
+    .tool-cards   { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .tool-card    { background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 28px 32px; min-width: 220px; text-align: center; text-decoration: none; transition: transform .2s, border-color .2s; }
+    .tool-card:hover { transform: translateY(-4px); border-color: rgba(0,229,255,0.5); }
+    .tool-card i  { color: #00e5ff; font-size: 1.8rem; margin-bottom: 10px; }
+    .tool-card h4 { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .tool-card p  { color: rgba(255,255,255,0.55); font-size: 0.82rem; margin: 0; }
+    .pub-contact  { padding: 70px 0 80px; background: #111318; }
+    .pub-contact .container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+    .pub-contact h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .pub-contact h2 span { color: #ff5722; }
+    .pub-contact p  { color: rgba(255,255,255,0.65); margin-bottom: 32px; font-size: 0.95rem; }
+    .contact-info-row { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .contact-info-row a, .contact-info-row span {
+      color: rgba(255,255,255,0.75); font-size: 0.95rem; display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .contact-info-row a:hover { color: #ff5722; }
+    .contact-info-row i { color: #ff5722; width: 18px; }
+    .pub-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .pub-form input, .pub-form textarea, .pub-form select {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 12px 14px; color: #fff; font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem; outline: none; box-sizing: border-box;
+    }
+    .pub-form input::placeholder, .pub-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .pub-form input:focus, .pub-form textarea:focus { border-color: #ff5722; }
+    .pub-form textarea { resize: vertical; min-height: 120px; margin-bottom: 14px; }
+    .pub-form .btn-submit { background: #ff5722; color: #fff; border: none; border-radius: 8px; padding: 13px 32px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background .2s; }
+    .pub-form .btn-submit:hover { background: #e64a19; }
+    #pub-form-msg { margin-top: 12px; font-size: 0.9rem; }
+    @media (max-width: 600px) { .pub-form .form-row { grid-template-columns: 1fr; } }
+    .pub-footer   { background: #0a0c10; padding: 28px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.07); }
+    .pub-footer p { color: rgba(255,255,255,0.4); font-size: 0.82rem; margin: 0; }
+    .pub-footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .pub-footer a:hover { color: #ff5722; }
+    /* Nav tweaks for public page */
+    .nav-links .pub-nav-hide { display: none !important; }
+  </style>
+  <style>html, body { min-width: 1200px; }</style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════
+  <!-- ======================================
        NAVIGATION
-  ══════════════════════════════════════ -->
+  ====================================== -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#home" class="nav-logo">
@@ -25,14 +82,19 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="#home" class="nav-link active">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#specializations" class="nav-link">Specializations</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#expertise" class="nav-link">Flagship 49</a></li>
-        <li><a href="#projects" class="nav-link">Our Projects</a></li>
-        <li><a href="#tech" class="nav-link">Tech</a></li>
-        <li><a href="etabs-suite.html" class="nav-link" style="color:#00e5ff; font-weight:700;"><i class="fa-solid fa-layer-group"></i> ETABS Suite</a></li>
-        <li><a href="rebar-web-tool.html" class="nav-link" style="color:#00e5ff; font-weight:700;"><i class="fa-solid fa-shapes"></i> Rebar Tool</a></li>
-        <li class="mobile-only" style="margin-top: 6px;"><a href="#contact" class="btn btn-primary" style="display:block; text-align:center; padding:10px 16px;">Consult With Us</a></li>
+        <li><a href="#specializations" class="nav-link">Specialisations</a></li>
+        <li class="nav-dropdown">
+          <a href="autostruct-capability.html" class="nav-link nav-dropdown-trigger" style="color:#00e5ff; font-weight:700;">
+            <i class="fa-solid fa-microchip"></i> AutoStruct <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="etabs-suite.html"><i class="fa-solid fa-layer-group"></i> ETABS Automation Suite</a></li>
+            <li><a href="rebar-web-tool.html"><i class="fa-solid fa-shapes"></i> Rebar Design Tool (Free)</a></li>
+            <li><a href="autostruct-capability.html"><i class="fa-solid fa-file-lines"></i> Capability Statement</a></li>
+          </ul>
+        </li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="mobile-only" style="margin-top:6px;"><a href="#contact" class="btn btn-primary" style="display:block; text-align:center; padding:10px 16px;">Consult With Us</a></li>
       </ul>
       <div class="nav-cta">
         <a href="#contact" class="btn btn-primary">Consult With Us</a>
@@ -43,18 +105,17 @@
     </div>
   </nav>
 
-  <!-- ══════════════════════════════════════
+  <!-- ======================================
        HERO SECTION
-  ══════════════════════════════════════ -->
+  ====================================== -->
   <section class="hero" id="home">
-    <!-- Live Construction Site Background Slider -->
     <div class="hero-slider">
       <div class="hero-slide active" style="background-image: url('assets/images/hero/hero-slide-1.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-2.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-3.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-4.png');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/hero/hero-slide-5.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('assets/images/construction-site-1.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('assets/images/construction site-1.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/pt-site-rebar.jpg');"></div>
       <div class="hero-slide" style="background-image: url('assets/images/pt-tendon-stressing-1.jpg');"></div>
     </div>
@@ -63,41 +124,20 @@
     <div class="hero-container">
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
-        <span>Highrise Structural Engineering &amp; Computational Innovation</span>
+        <span>Structural Engineering Consultancy &amp; Computational Automation</span>
       </div>
       <h1 class="hero-title">
-        <span class="hero-title-line">Defining Strength</span>
-        <span class="hero-title-line accent">With Precision.</span>
+        <span class="hero-title-line">Engineering Complex Structures.</span>
+        <span class="hero-title-line accent">Defining Strength With Precision.</span>
       </h1>
-      <p class="hero-subtitle">
-        EDGEMARK Engineering Consulting Ltd. delivers world-class structural solutions — 
-        from the landmark <strong>49-storey skyscraper at Eko Atlantic City</strong> to specialized 
-        deep foundations, post-tensioned floors, steel spans, and custom software automation for the AEC sector.
+      <p class="hero-subtitle pub-hero-subtitle">
+        EDGEMARK Engineering Consulting Ltd. provides structural engineering and specialist design solutions for
+        high-rise buildings, deep foundations, post-tensioned slabs, and steel structures, supported by practical
+        computational tools that improve engineering workflows.
       </p>
       <div class="hero-actions">
-        <a href="#expertise" class="btn btn-primary btn-lg"><i class="fa-solid fa-building"></i> 49-Storey Showcase</a>
-        <a href="#projects" class="btn btn-outline btn-lg"><i class="fa-solid fa-building-columns"></i> Explore Our Projects</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-number" data-target="49">49</span><span class="stat-unit">+</span>
-          <span class="stat-label">Storeys — Africa's Tallest Residential</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="200">200</span><span class="stat-unit">m</span>
-          <span class="stat-label">Tower Elevation Profile</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="30">30</span><span class="stat-unit">+</span>
-          <span class="stat-label">Complex Highrises &amp; Industrial Assets</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="100">100</span><span class="stat-unit">%</span>
-          <span class="stat-label">Code &amp; Performance Verification</span>
-        </div>
+        <a href="#specializations" class="btn btn-primary btn-lg"><i class="fa-solid fa-building"></i> Our Specialisations</a>
+        <a href="etabs-suite.html" class="btn btn-outline btn-lg"><i class="fa-solid fa-layer-group"></i> AutoStruct Software Tools</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -105,1163 +145,268 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
+  <!-- ======================================
        MARQUEE STRIP
-  ══════════════════════════════════════ -->
+  ====================================== -->
   <div class="marquee-strip">
     <div class="marquee-track">
-      <span>Structural Highrise Design</span><span class="dot">●</span>
-      <span>49-Storey Eko Atlantic Tower</span><span class="dot">●</span>
-      <span>Post-Tensioned (PT) Slabs</span><span class="dot">●</span>
-      <span>Wind Tunnel &amp; Dynamic Response</span><span class="dot">●</span>
-      <span>Performance-Based Engineering</span><span class="dot">●</span>
-      <span>ETABS &amp; CSI SAFE API Automation</span><span class="dot">●</span>
-      <span>Pile-Raft Foundation Systems</span><span class="dot">●</span>
-      <span>Rebar Scheduling Algorithms</span><span class="dot">●</span>
-      <span>Structural Highrise Design</span><span class="dot">●</span>
-      <span>49-Storey Eko Atlantic Tower</span><span class="dot">●</span>
-      <span>Post-Tensioned (PT) Slabs</span><span class="dot">●</span>
-      <span>Wind Tunnel &amp; Dynamic Response</span><span class="dot">●</span>
-      <span>Performance-Based Engineering</span><span class="dot">●</span>
-      <span>ETABS &amp; CSI SAFE API Automation</span><span class="dot">●</span>
-      <span>Pile-Raft Foundation Systems</span><span class="dot">●</span>
-      <span>Rebar Scheduling Algorithms</span><span class="dot">●</span>
+      <span>Structural High-Rise Design</span><span class="dot">|</span>
+      <span>Post-Tensioned (PT) Slabs</span><span class="dot">|</span>
+      <span>Wind Tunnel &amp; Dynamic Response</span><span class="dot">|</span>
+      <span>Performance-Based Engineering</span><span class="dot">|</span>
+      <span>ETABS &amp; CSI SAFE API Automation</span><span class="dot">|</span>
+      <span>Pile-Raft Foundation Systems</span><span class="dot">|</span>
+      <span>Rebar Scheduling Algorithms</span><span class="dot">|</span>
+      <span>BS 8110 / Eurocode / ASCE 7</span><span class="dot">|</span>
+      <span>Structural High-Rise Design</span><span class="dot">|</span>
+      <span>Post-Tensioned (PT) Slabs</span><span class="dot">|</span>
+      <span>Wind Tunnel &amp; Dynamic Response</span><span class="dot">|</span>
+      <span>Performance-Based Engineering</span><span class="dot">|</span>
+      <span>ETABS &amp; CSI SAFE API Automation</span><span class="dot">|</span>
+      <span>Pile-Raft Foundation Systems</span><span class="dot">|</span>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════
+  <!-- ======================================
        ABOUT SECTION
-  ══════════════════════════════════════ -->
-  <section class="about section" id="about">
+  ====================================== -->
+  <section class="pub-about" id="about">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-visual" data-aos="fade-right">
-          <div class="about-logo-block">
-            <img src="assets/images/lawal-wasiu-my-picture.jpg" alt="Lawal Wasiu Kayode — Principal Structural Engineer" class="about-logo-img about-portrait-img" />
-            <div class="about-logo-accent"></div>
-          </div>
-          <div class="about-cards">
-            <div class="mini-card">
-              <i class="fa-solid fa-building"></i>
-              <span>Highrise Towers</span>
-            </div>
-            <div class="mini-card">
-              <i class="fa-solid fa-code"></i>
-              <span>AEC Automation</span>
-            </div>
-            <div class="mini-card">
-              <i class="fa-solid fa-compass-drafting"></i>
-              <span>Forensic &amp; Review</span>
-            </div>
-          </div>
-        </div>
-        <div class="about-content" data-aos="fade-left">
-          <div class="section-label">Who We Are</div>
-          <h2 class="section-title">Engineering at the <span class="accent">Cutting Edge</span></h2>
-          <p class="about-lead">
-            EDGEMARK Engineering Consulting Ltd. is a structural engineering consultancy firm that bridges 
-            deep mathematical mechanics with bespoke software automation.
-          </p>
-          <p class="about-body">
-            Founded and directed by <strong>Lawal Wasiu Kayode</strong>, EDGEMARK has contributed to pioneering engineering 
-            undertakings across Nigeria — notably the core-wall and lateral stability analysis of the 
-            <strong>49-storey (200m tall) supertall residential tower at Eko Atlantic City</strong>, 
-            along with mid-rises in Victoria Island, 16-storey towers on Bourdillon Road, steel portal frames, and industrial infrastructure.
-          </p>
-          <p class="about-body">
-            Beyond conventional finite element methods, we build <strong>proprietary computational software tools</strong> 
-            interfacing with ETABS, SAFE, and Tekla — automating rebar detailing, load imports, wind shear profiling, 
-            and data pipelines for organizations across the AEC sector.
-          </p>
-          <div class="about-tagline">
-            <i class="fa-solid fa-quote-left"></i>
-            <blockquote>Providing Cutting-Edge Solutions and Defining Strength with Precision.</blockquote>
-          </div>
-          <div class="about-actions" style="margin-top:24px; display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
-            <a href="https://www.linkedin.com/in/lawalwasiu" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display:inline-flex; align-items:center; gap:8px;">
-              <i class="fa-brands fa-linkedin" style="color:#0a66c2; font-size:1.15rem;"></i>
-              <span>Connect on LinkedIn</span>
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem; opacity:0.7;"></i>
-            </a>
-            <a href="#contact" class="btn btn-primary">Start a Consultation</a>
-          </div>
-        </div>
-      </div>
+      <div class="section-label" style="color:#ff5722; font-family:'Montserrat',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:12px;">Who We Are</div>
+      <h2>Engineering at the <span>Cutting Edge</span></h2>
+      <p>
+        EDGEMARK Engineering Consulting Ltd. is a Lagos based structural engineering firm with deep expertise in
+        the analysis and design of complex, tall, and long span structures. We combine first principles structural
+        mechanics with advanced computational tools to deliver solutions that are safe, efficient, and constructible.
+      </p>
+      <p>
+        Our team brings together experience across highrise residential towers, industrial facilities, deep foundation
+        systems, and post tensioned slab design, underpinned by a commitment to code compliant, performance verified
+        engineering at every stage.
+      </p>
+      <p>
+        We also develop bespoke software tools that automate repetitive engineering workflows: from ETABS model
+        manipulation and rebar scheduling to wind response post processing, helping engineering teams deliver faster
+        and with greater confidence.
+      </p>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       CORE SPECIALIZATIONS SEGMENT
-  ══════════════════════════════════════ -->
-  <section class="specializations section section-dark" id="specializations">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Core Engineering Pillars</div>
-        <h2 class="section-title light">Signature <span class="accent">Specializations</span></h2>
-        <p class="section-desc">
-          Pioneering capabilities that distinguish EDGEMARK across tall structures, advanced prestressing, computational tool authoring, and construction stage verification.
-        </p>
-      </div>
+  <!-- ======================================
+       SPECIALISATIONS SECTION
+  ====================================== -->
+  <section id="specializations">
+    <div class="pub-pillars">
+      <div class="container">
+        <div class="section-label" style="color:#ff5722; font-family:'Montserrat',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:10px;">Core Engineering Pillars</div>
+        <h2 style="font-family:'Montserrat',sans-serif; font-size:1.9rem; font-weight:800; color:#fff; margin-bottom:36px;">Signature <span style="color:#ff5722;">Specialisations</span></h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:20px;">
 
-      <div class="specs-quad-grid">
-
-        <!-- Spec 01: Highrise -->
-        <div class="spec-quad-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="spec-card-top">
-            <div class="spec-quad-icon"><i class="fa-solid fa-city"></i></div>
-            <span class="spec-tag-accent">Supertall &bull; Lateral Stability</span>
-          </div>
-          <h3>Highrise Structural Engineering</h3>
-          <p class="spec-lead">
-            Mastery of lateral force-resisting systems for supertall towers where wind aerodynamics, seismic acceleration, and overturning moments govern global stability.
-          </p>
-          <ul class="spec-bullets">
-            <li><i class="fa-solid fa-check"></i> Concrete core-wall &amp; dual frame configuration for towers up to 49 storeys (200m).</li>
-            <li><i class="fa-solid fa-check"></i> Wind tunnel aerodynamic pressure mapping &amp; dynamic modal response spectrum calibration.</li>
-            <li><i class="fa-solid fa-check"></i> Second-order P-Delta effects, vortex shedding, and lateral drift optimization within H/500.</li>
-            <li><i class="fa-solid fa-check"></i> Staged construction and differential shortening between core walls and columns.</li>
-          </ul>
-          <div class="spec-footer-badge">
-            <i class="fa-solid fa-trophy"></i> 49-Storey Eko Atlantic City Skyscraper Experience
-          </div>
-        </div>
-
-        <!-- Spec 02: Post-Tensioned Design -->
-        <div class="spec-quad-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="spec-card-top">
-            <div class="spec-quad-icon"><i class="fa-solid fa-layer-group"></i></div>
-            <span class="spec-tag-accent">Prestressed &bull; Long Spans</span>
-          </div>
-          <h3>Post-Tensioned (PT) Design</h3>
-          <p class="spec-lead">
-            Advanced design of bonded and unbonded post-tensioned floor systems, delivering thin structural depths, crack-free durability, and expansive column-free spaces.
-          </p>
-
-          <!-- Interactive PT Media Showcase Strip -->
-          <div class="spec-pt-media-strip">
-            <div class="spec-pt-thumb" title="Live On-Site Tendon Laying">
-              <img src="assets/images/pt-site-rebar.jpg" alt="Post Tension Tendon Laying On Site" />
-              <span class="pt-thumb-label"><i class="fa-solid fa-camera"></i> Site Laying</span>
-            </div>
-            <div class="spec-pt-thumb" title="Hydraulic Multi-Strand Jack Stressing">
-              <img src="assets/images/pt-tendon-stressing-1.jpg" alt="Post Tension Stressing Operation" />
-              <span class="pt-thumb-label"><i class="fa-solid fa-bolt"></i> Jack Stressing</span>
-            </div>
-            <div class="spec-pt-thumb" title="Anchorage Zone Burst Detailing">
-              <img src="assets/images/pt-tendon-stressing-2.jpg" alt="Anchorage Zone Reinforcement" />
-              <span class="pt-thumb-label"><i class="fa-solid fa-shield"></i> Anchorage</span>
-            </div>
+          <div class="pillar-card">
+            <i class="fa-solid fa-building"></i>
+            <h4>High-Rise Structural Design</h4>
+            <p>Lateral system design, core wall analysis, floor plate optimisation, and multi-storey stability for tall and slender towers.</p>
           </div>
 
-          <ul class="spec-bullets">
-            <li><i class="fa-solid fa-check"></i> CSI SAFE 3D tendon profile modeling, balancing 65–85% of sustained dead loads.</li>
-            <li><i class="fa-solid fa-check"></i> Significant reduction in structural self-weight, cutting foundation pile counts and floor-to-floor heights.</li>
-            <li><i class="fa-solid fa-check"></i> Thorough punching shear stress calculations and stud rail reinforcement layout at column perimeters.</li>
-            <li><i class="fa-solid fa-check"></i> Rigorous tendon elongation verification, anchorage burst zone detailing, and prestress loss tracking.</li>
-          </ul>
-          <div class="spec-footer-badge">
-            <i class="fa-solid fa-gem"></i> Bourdillon Road Ikoyi &amp; 49-Storey PT Slabs
-          </div>
-        </div>
-
-        <!-- Spec 03: Automation Tool Creation -->
-        <div class="spec-quad-card spec-card-matrix" data-aos="fade-up" data-aos-delay="300">
-          <canvas class="card-matrix-canvas" id="spec-matrix-canvas"></canvas>
-          <div class="spec-card-top" style="position:relative; z-index:2;">
-            <div class="spec-quad-icon" style="background:#00e5ff; color:#0b1320;"><i class="fa-solid fa-terminal"></i></div>
-            <span class="spec-tag-accent" style="border-color:#00e5ff; color:#a8f7ff;">COM API &bull; Algorithms</span>
-          </div>
-          <h3 style="position:relative; z-index:2;">AEC Automation Tool Creation</h3>
-          <p class="spec-lead" style="position:relative; z-index:2;">
-            Authoring custom Python engineering applications, desktop software, and direct COM API pipelines that eliminate manual modeling bottlenecks across the structural design lifecycle.
-          </p>
-          <ul class="spec-bullets" style="position:relative; z-index:2;">
-            <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Direct programmatic controllers for CSI ETABS &amp; CSI SAFE via OAPI interfaces.</li>
-            <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Proprietary wind dynamics engines (BS 6399 &amp; NBC 2005) generating full analytical loads.</li>
-            <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Automated Rebar Detailing algorithms outputting code-compliant bar bending schedules.</li>
-            <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Zero-Error Reaction Forces and Moments Extraction from Tekla Structural Designer Directly into CSI SAFE.</li>
-            <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Fix corrupt ETABS models in minutes eliminating days of manual remodeling.</li>
-          </ul>
-          <div style="position:relative; z-index:2; display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px;">
-            <div class="spec-footer-badge" style="border-color:rgba(0,229,255,0.3); color:#a8f7ff; margin:0;">
-              <i class="fa-solid fa-bolt" style="color:#00e5ff;"></i> AutoStruct Suite &bull; Rebar Visualization Tool
-            </div>
-            <a href="rebar-web-tool.html" style="background:rgba(0,229,255,0.15); border:1px solid #00e5ff; color:#00e5ff; font-size:12px; font-weight:700; padding:6px 14px; border-radius:999px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s ease;">
-              <i class="fa-solid fa-play"></i> Try Free Web Tool
-            </a>
-          </div>
-        </div>
-
-        <!-- Spec 04: Construction Sequence -->
-        <div class="spec-quad-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="spec-card-top">
-            <div class="spec-quad-icon"><i class="fa-solid fa-stairs"></i></div>
-            <span class="spec-tag-accent">Time-Dependent &bull; Phased FEA</span>
-          </div>
-          <h3>Construction Sequence Consideration</h3>
-          <p class="spec-lead">
-            Integrating staged construction mechanics into primary analysis, recognizing that structures do not receive their entire design load in a single instant.
-          </p>
-          <!-- Stage-by-Stage Construction Video Clip -->
-          <div class="spec-video-wrap">
-            <video class="spec-video-player" autoplay loop muted playsinline>
-              <source src="assets/videos/construction-stage-sequence.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div class="spec-video-badge">
-              <i class="fa-solid fa-play"></i> Staged Construction Sequence
-            </div>
-          </div>
-          <ul class="spec-bullets">
-            <li><i class="fa-solid fa-check"></i> Phased finite-element modeling simulating floor-by-floor concrete casting, curing, and shoring removal.</li>
-            <li><i class="fa-solid fa-check"></i> Differential vertical shortening calculations between highly stressed columns and stiff RC shear cores.</li>
-            <li><i class="fa-solid fa-check"></i> Temporary stage stability audits for deep hydraulic excavations, Olympic pools, and cantilevers.</li>
-            <li><i class="fa-solid fa-check"></i> Accurate prediction of locked-in moments, camber requirements, and long-term creep redistributions.</li>
-          </ul>
-          <div class="spec-footer-badge">
-            <i class="fa-solid fa-check-double"></i> Non-Linear Staged Construction Verification
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       DESIGN PRINCIPLES & PHILOSOPHY
-  ══════════════════════════════════════ -->
-  <section class="philosophy section section-dark" id="philosophy">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Core Philosophy</div>
-        <h2 class="section-title light">Design Principles &amp; <span class="accent">Engineering Mindset</span></h2>
-        <p class="section-desc">
-          Balancing classical mechanics with forward-thinking performance design — safe, economical, and code-transcending.
-        </p>
-      </div>
-
-      <div class="philosophy-quote-card" data-aos="fade-up">
-        <div class="quote-icon"><i class="fa-solid fa-compass-drafting"></i></div>
-        <div class="quote-text">
-          <p>
-            "My design approach is primarily grounded in conventional structural principles. However, when the situation calls for it, 
-            I am not afraid to think beyond standard boundaries of codes, by employing <strong>performance-based design strategies</strong> 
-            to address unique challenges. Throughout, I maintain a strong focus on <strong>safety, economy, and sustainability</strong>, 
-            ensuring that every solution aligns with sound engineering judgment and contextual needs."
-          </p>
-          <span class="quote-author">— Lawal Wasiu Kayode, Principal Structural Engineer</span>
-        </div>
-      </div>
-
-      <div class="principles-grid">
-        <div class="principle-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="principle-number">01</div>
-          <div class="principle-icon"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3>Safety First &amp; Robust Redundancy</h3>
-          <p>
-            Ensuring primary load paths, ductile failure mechanisms, progressive collapse resistance, 
-            and strict serviceability limit states across all gravity and lateral loading scenarios.
-          </p>
-        </div>
-
-        <div class="principle-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="principle-number">02</div>
-          <div class="principle-icon"><i class="fa-solid fa-chart-line"></i></div>
-          <h3>Performance-Based &amp; Demand Design</h3>
-          <p>
-            For supertall highrises and non-standard geometries, we look beyond prescriptive rules by performing 
-            staged construction, wind tunnel integration, P-Delta dynamics, and nonlinear demand-to-capacity verification.
-          </p>
-        </div>
-
-        <div class="principle-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="principle-number">03</div>
-          <div class="principle-icon"><i class="fa-solid fa-coins"></i></div>
-          <h3>Economy &amp; Value Engineering</h3>
-          <p>
-            Smart material optimization: utilizing Post-Tensioned (PT) slabs for large spans, reducing self-weight, 
-            optimizing pile group configurations, and pruning reinforcement without compromising structural integrity.
-          </p>
-        </div>
-
-        <div class="principle-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="principle-number">04</div>
-          <div class="principle-icon"><i class="fa-solid fa-terminal"></i></div>
-          <h3>Computational Automation</h3>
-          <p>
-            Eliminating human transcription error by scripting direct COM API pipelines into ETABS, SAFE, and detailing platforms — 
-            turning hours of manual modeling into minutes of precision execution.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SERVICES SECTION
-  ══════════════════════════════════════ -->
-  <section class="services section section-dark" id="services">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">What We Do</div>
-        <h2 class="section-title light">Comprehensive <span class="accent">Engineering Services</span></h2>
-        <p class="section-desc">
-          From concept modeling to deep foundation design, dynamic wind analysis, and bespoke automation software.
-        </p>
-      </div>
-      <div class="services-grid">
-
-        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-icon">
-            <i class="fa-solid fa-building-columns"></i>
-          </div>
-          <h3>Structural Design (RC &amp; Steel)</h3>
-          <p>
-            End-to-end structural design for commercial towers, residential developments, and industrial facilities. 
-            Rigorous analysis per BS 8110, Eurocode 2/3, and international building codes.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> Post-Tensioned (PT) Flat Slabs</li>
-            <li><i class="fa-solid fa-check"></i> Concrete Core-Wall Frame Systems</li>
-            <li><i class="fa-solid fa-check"></i> Long-Span Steel Trusses &amp; Space Frames</li>
-            <li><i class="fa-solid fa-check"></i> Heavy Industrial Canopies &amp; Pipe Racks</li>
-          </ul>
-        </div>
-
-        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="service-icon">
-            <i class="fa-solid fa-magnifying-glass-chart"></i>
-          </div>
-          <h3>Structural Reviews, Appraisals &amp; NDT</h3>
-          <p>
-            Independent structural integrity evaluations, forensic crack investigations, on-site Non-Destructive Testing (NDT), 
-            and vibration analysis for long-span floors prone to dynamic footfall resonance.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> On-Site Non-Destructive Testing (NDT Hammer &amp; Crack Audits)</li>
-            <li><i class="fa-solid fa-check"></i> Long-Span Floor Vibration Analysis &amp; Acceleration Checks</li>
-            <li><i class="fa-solid fa-check"></i> Structural Integrity Assessments &amp; Load Capacity Audits</li>
-            <li><i class="fa-solid fa-check"></i> Retrofitting, Crack Remediation &amp; Underpinning Schemes</li>
-          </ul>
-        </div>
-
-        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-icon">
+          <div class="pillar-card">
             <i class="fa-solid fa-layer-group"></i>
+            <h4>Post-Tensioned Slab Systems</h4>
+            <p>Unbonded and bonded PT design to BS 8110, Eurocode 2, and ACI 318, including punching shear, long-term deflection, and tendon layout.</p>
           </div>
-          <h3>Deep Foundations &amp; Special RC</h3>
-          <p>
-            Specialist geotechnical and structural design for deep piles, pile-raft interaction, 
-            underground water-retaining structures, and hydraulic facilities.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> Pile-Raft Foundation Engineering</li>
-            <li><i class="fa-solid fa-check"></i> 6m Deep Olympic-Size Swimming Pools</li>
-            <li><i class="fa-solid fa-check"></i> Multi-Level Basements &amp; Earth Retaining</li>
-            <li><i class="fa-solid fa-check"></i> Suspended High-Level Pools &amp; Hydrostatic Loads</li>
-          </ul>
-        </div>
 
-        <div class="service-card service-card-automation" data-aos="fade-up" data-aos-delay="400">
-          <canvas class="card-matrix-canvas" id="service-matrix-canvas"></canvas>
-          <div class="service-icon">
+          <div class="pillar-card">
+            <i class="fa-solid fa-wind"></i>
+            <h4>Wind &amp; Dynamic Response</h4>
+            <p>Spectral analysis, modal mass participation, wind tunnel correlation, and codified dynamic response per BS 6399 &amp; NBC 2005.</p>
+          </div>
+
+          <div class="pillar-card">
+            <i class="fa-solid fa-circle-nodes"></i>
+            <h4>Pile-Raft Foundation Systems</h4>
+            <p>Deep foundation interaction analysis, group pile settlement, spring stiffness derivation, and geotechnical-structural integration.</p>
+          </div>
+
+          <div class="pillar-card">
             <i class="fa-solid fa-code"></i>
+            <h4>AEC Software Automation</h4>
+            <p>Custom structural engineering tools, rebar scheduling engines, and AI-assisted design workflows for the AEC sector.</p>
           </div>
-          <div class="service-subbranch-badge">
-            <i class="fa-solid fa-microchip"></i> EDGEMARK AutoStruct Solutions
+
+          <div class="pillar-card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h4>Performance-Based Engineering</h4>
+            <p>Nonlinear analysis, P-Delta effects, staged construction simulation, and performance-level verification against international codes.</p>
           </div>
-          <h3>Building Automation &amp; AI Software Tools</h3>
-          <p>
-            Operating through our specialized computational division, <strong>EDGEMARK AutoStruct Solutions</strong> develops custom software applications, API pipelines, and trained AI MCP servers for AEC organizations — automating finite-element modeling, parametric rebar detailing, and computational structural design.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> Rebar Visualization &amp; Scheduling Tools</li>
-            <li><i class="fa-solid fa-check"></i> Revit Reinforcement Automation Tools</li>
-            <li><i class="fa-solid fa-check"></i> Trained Structural Engineering AI MCP Server</li>
-            <li><i class="fa-solid fa-check"></i> Tekla Structural Designer to CSI SAFE Reaction Forces &amp; Moments Extraction</li>
-            <li><i class="fa-solid fa-check"></i> Fix corrupt ETABS models in minutes saving days of manual remodeling</li>
-          </ul>
-          <div style="margin-top: 16px;">
-            <a href="autostruct-capability.html" class="btn btn-outline" style="font-size: 0.78rem; padding: 8px 16px; border-color: rgba(0, 229, 255, 0.4); color: #00e5ff;">
-              <i class="fa-solid fa-file-lines"></i> View AutoStruct Capability Statement
-            </a>
-          </div>
+
         </div>
 
-        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-          <div class="service-icon">
-            <i class="fa-solid fa-city"></i>
-          </div>
-          <h3>Supertall &amp; Highrise Engineering</h3>
-          <p>
-            Design and dynamic verification for tall structures where lateral wind and seismic effects govern global stability, 
-            inter-storey drift, and foundation reactions.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> 49-Storey (200m) Supertall Core Walls</li>
-            <li><i class="fa-solid fa-check"></i> Wind Tunnel Boundary Data Integration</li>
-            <li><i class="fa-solid fa-check"></i> Second-Order P-Delta &amp; Staged Construction</li>
-            <li><i class="fa-solid fa-check"></i> Modal Analysis &amp; Mass Participation (&gt; 90%)</li>
-          </ul>
-        </div>
+        <!-- Featured Automation & Construction Sequence Cards -->
+        <div class="specs-quad-grid" style="margin-top:32px;">
 
-        <div class="service-card" data-aos="fade-up" data-aos-delay="600">
-          <div class="service-icon">
-            <i class="fa-solid fa-scale-balanced"></i>
-          </div>
-          <h3>Value Engineering &amp; Advisory</h3>
-          <p>
-            Partnering with developers, builders, and architects during concept stages to optimize structural layouts, 
-            minimize tonnage, and accelerate construction timelines.
-          </p>
-          <ul class="service-list">
-            <li><i class="fa-solid fa-check"></i> Member Size &amp; Column Grid Optimization</li>
-            <li><i class="fa-solid fa-check"></i> Constructability &amp; Sloped Ramp Feasibility</li>
-            <li><i class="fa-solid fa-check"></i> Material Quantity Reduction Audits</li>
-            <li><i class="fa-solid fa-check"></i> Technical Advisory for Complex Façades</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       FLAGSHIP PROJECT — 49-STOREY EKO ATLANTIC TOWER
-  ══════════════════════════════════════ -->
-  <section class="expertise section section-dark" id="expertise">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Landmark Achievement</div>
-        <h2 class="section-title light">Africa's Tallest <span class="accent">Residential Tower</span></h2>
-        <p class="section-desc">
-          Structural design, lateral stability, and wind-tunnel integration for a 49-storey (200m) skyscraper at Eko Atlantic City, Lagos.
-        </p>
-      </div>
-
-      <div class="flagship-hero-banner" data-aos="fade-up">
-        <div class="flagship-images-duo">
-          <div class="flagship-img-card">
-            <div class="flagship-img-label"><i class="fa-solid fa-image"></i> Architectural Vision</div>
-            <img src="assets/images/projects/tower-49-render.png" alt="49 Storey Eko Atlantic City Tower Architectural Render" class="flagship-full-img" />
-          </div>
-          <div class="flagship-img-card">
-            <div class="flagship-img-label"><i class="fa-solid fa-cube"></i> ETABS Core-Wall &amp; Frame Model</div>
-            <img src="assets/images/projects/tower-49-etabs.png" alt="49 Storey Tower ETABS 3D Analytical Model" class="flagship-full-img" />
-          </div>
-        </div>
-
-        <div class="flagship-narrative">
-          <div class="flagship-header-row">
-            <div class="flagship-badge-main">
-              <span class="badge-accent">49 STOREYS</span>
-              <span class="badge-sub">200m Height &bull; Eko Atlantic City</span>
+          <!-- Spec 03: Automation Tool Creation -->
+          <div class="spec-quad-card spec-card-matrix" data-aos="fade-up" data-aos-delay="300">
+            <canvas class="card-matrix-canvas" id="spec-matrix-canvas"></canvas>
+            <div class="spec-card-top" style="position:relative; z-index:2;">
+              <div class="spec-quad-icon" style="background:#00e5ff; color:#0b1320;"><i class="fa-solid fa-layer-group"></i></div>
+              <span class="spec-tag-accent" style="border-color:#00e5ff; color:#a8f7ff;">Engineering Software</span>
             </div>
-            <div class="flagship-award">
-              <i class="fa-solid fa-award"></i>
-              <span>Projected Tallest Residential in Africa</span>
-            </div>
-          </div>
-
-          <h3 class="flagship-subtitle-text">
-            Structural Design of a 49-Storey (200m Tall) Residential High-Rise featuring Two Basement Parking Levels, 
-            a Suspended Swimming Pool, and Complex Organic Façade Geometry.
-          </h3>
-
-          <p class="flagship-p">
-            The concrete core-wall frame system was modeled and analyzed for gravity and lateral (wind) loads using 
-            <strong>CSI ETABS</strong>, going further to conduct a <strong>rigorous wind tunnel analysis</strong> to obtain 
-            precise aerodynamic coefficients and compare against numerical software results.
-          </p>
-
-          <div class="flagship-engineering-focus">
-            <h4><i class="fa-solid fa-microscope accent"></i> Critical Engineering Focus &amp; Solutions:</h4>
-            <div class="focus-grid">
-              <div class="focus-item">
-                <i class="fa-solid fa-wind"></i>
-                <div>
-                  <strong>Lateral Wind Governing Stability</strong>
-                  <p>Wind governs global overturning and deep foundation sizing; verified with wind tunnel aerodynamic data.</p>
-                </div>
-              </div>
-              <div class="focus-item">
-                <i class="fa-solid fa-water"></i>
-                <div>
-                  <strong>Suspended Swimming Pool</strong>
-                  <p>Hydrostatic load modeling, vibration control, and liquid retaining wall rebar under dynamic water sloshing.</p>
-                </div>
-              </div>
-              <div class="focus-item">
-                <i class="fa-solid fa-layer-group"></i>
-                <div>
-                  <strong>Post-Tensioned (PT) Slabs</strong>
-                  <p>Lightweight floor system enabling architectural flexibility, crack control, and long column-free spans.</p>
-                </div>
-              </div>
-              <div class="focus-item">
-                <i class="fa-solid fa-arrows-down-to-line"></i>
-                <div>
-                  <strong>Punching Shear Demand/Capacity</strong>
-                  <p>Thorough D/C checks and internal shear reinforcement detailing around critical column connections.</p>
-                </div>
-              </div>
-              <div class="focus-item">
-                <i class="fa-solid fa-road"></i>
-                <div>
-                  <strong>Ramp Slope Stability &amp; Load Transfer</strong>
-                  <p>Basement parking ramp geometry analyzed for torsional action and robust thrust transfer into core frames.</p>
-                </div>
-              </div>
-              <div class="focus-item">
-                <i class="fa-solid fa-ruler-combined"></i>
-                <div>
-                  <strong>Long-Term Slab Deflection</strong>
-                  <p>Nonlinear creep, shrinkage, and cracked section stiffness checked against strict aesthetic tolerances.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flagship-meta-tags">
-            <span>ETABS 3D Analytical Model</span>
-            <span>Wind Tunnel Data Calibration</span>
-            <span>Post-Tensioned (PT) Slabs</span>
-            <span>Deep Foundation / Pile-Raft</span>
-            <span>P-Delta &amp; Staged Construction</span>
-            <span>Suspended Pool Hydrodynamics</span>
-            <span>BS 8110 &amp; Eurocode Standards</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Highrise Repertoire Band -->
-      <div class="highrise-band" data-aos="fade-up">
-        <h3>Extensive Highrise &amp; Complex Frame Repertoire</h3>
-        <p>
-          Beyond the 49-storey flagship, our engineering leadership encompasses dozens of multi-storey towers across Nigeria — 
-          from 16-storey post-tensioned residential towers on Bourdillon Road, Ikoyi, to mid-rise luxury complexes in Victoria Island 
-          and piled institutional structures in Uyo.
-        </p>
-        <div class="highrise-tags">
-          <span><i class="fa-solid fa-building"></i> 16-Storey Bourdillon Tower (PT Floors)</span>
-          <span><i class="fa-solid fa-city"></i> Mid-Rise Mixed-Use VI Lagos</span>
-          <span><i class="fa-solid fa-hotel"></i> Hotel X Complex, Uyo (Piled)</span>
-          <span><i class="fa-solid fa-warehouse"></i> Industrial Portals &amp; Pipe Racks</span>
-          <span><i class="fa-solid fa-code-merge"></i> Algorithmic Analysis Automation</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       OUR PROJECTS / SELECTED COMMISSIONS
-  ══════════════════════════════════════ -->
-  <section class="projects section section-dark" id="projects">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Track Record &amp; Commissions</div>
-        <h2 class="section-title light">Our <span class="accent">Projects</span></h2>
-        <p class="section-desc">
-          Concrete highrises, heavy steel spans, specialized hydraulic structures, forensic engineering audits, and proprietary automation software.
-        </p>
-      </div>
-
-      <div class="project-filter" data-aos="fade-up">
-        <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="highrise">Highrises &amp; Towers</button>
-        <button class="filter-btn" data-filter="concrete">Concrete Structures</button>
-        <button class="filter-btn" data-filter="steel">Steel &amp; Bridges</button>
-        <button class="filter-btn" data-filter="automation">Automation Software</button>
-      </div>
-
-      <div class="projects-grid">
-
-        <!-- 01: 49 Storey Highrise -->
-        <div class="project-card" data-category="highrise concrete" data-aos="fade-up" data-aos-delay="100">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/tower-49-render.png" alt="49-Storey Eko Atlantic Tower" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-trophy"></i> 49 Storeys &bull; 200m</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>49-Storey Residential Tower</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Eko Atlantic City, Lagos</p>
-            <p>Full core-wall modeling in ETABS, wind tunnel calibration, post-tensioned floor systems, suspended pool, and pile-raft foundation.</p>
-            <div class="project-tech">
-              <span>ETABS</span><span>Wind Tunnel</span><span>PT Floors</span><span>Pile-Raft</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('tower-49')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 02: 16 Storey Bourdillon -->
-        <div class="project-card" data-category="highrise concrete" data-aos="fade-up" data-aos-delay="150">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/bourdillon-etabs-1.png" alt="16-Storey Bourdillon Tower with Piled Foundation Model" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-layer-group"></i> 16 Storeys &bull; Piled Substructure</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>16-Storey Residential Tower</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Bourdillon Road, Ikoyi, Lagos</p>
-            <p>Full 3D finite element model incorporating Post-Tensioned (PT) floor systems, elevator core shear walls, and deep bored pile foundation substructure.</p>
-            <div class="project-tech">
-              <span>ETABS 3D Model</span><span>PT Slabs</span><span>Deep Piles</span><span>CSI SAFE</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('bourdillon')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 03: Mid-Rise VI -->
-        <div class="project-card" data-category="highrise concrete" data-aos="fade-up" data-aos-delay="200">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/midrise-vi-render.png" alt="Mid-Rise RC Design Victoria Island" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag">Mid-Rise RC</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Mid-Rise Mixed-Use Development</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Victoria Island, Lagos</p>
-            <p>3D concrete frame modeling, dual core system, lateral stiffness analysis, and reinforced concrete detailing for premier urban parcel.</p>
-            <div class="project-tech">
-              <span>ETABS</span><span>RC Frame</span><span>AutoCAD</span><span>VI Lagos</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('midrise-vi')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 04: Multi-Level Luxury Villa -->
-        <div class="project-card" data-category="concrete" data-aos="fade-up" data-aos-delay="250">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/villa-render.png" alt="Multi-level Villa with Spiral Core" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag">Villa &bull; Spiral Core</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Multi-Level Luxury Villa &amp; Pool</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Lekki Peninsula, Lagos</p>
-            <p>Basement parking accessed via sloped ramp, cast-in-place swimming pool, curved stairs with torsional restraint, and punching shear design in CSI SAFE.</p>
-            <div class="project-tech">
-              <span>ETABS</span><span>CSI SAFE</span><span>Spiral Core</span><span>Pool Design</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('luxury-villa')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 05: 6m Deep Olympic Swimming Pool -->
-        <div class="project-card" data-category="concrete" data-aos="fade-up" data-aos-delay="300">
-          <div class="project-card-image-wrap duo-preview">
-            <img src="assets/images/projects/olympic-pool-fea.png" alt="6m Deep Olympic Pool 3D FEA Model" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-water"></i> 6m Deep Hydraulic &bull; FEA Model</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>6m Deep Olympic-Size Swimming Pool</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Sports Complex, Nigeria</p>
-            <p>16 load cases &amp; combinations computed manually and in FEA shell models — cross-sectional architectural detailing, hydrostatic water head, saturated soil pressure, and crack-width control.</p>
-            <div class="project-tech">
-              <span>Water Retaining</span><span>BS 8007</span><span>16 Load Cases</span><span>FEA Shell Model</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('olympic-pool')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 06: Hotel X Mixed-Use -->
-        <div class="project-card" data-category="highrise concrete" data-aos="fade-up" data-aos-delay="350">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/hotel-x-render.png" alt="Hotel X Mid-Rise Piled Mixed Use" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag">Pile Foundation</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Hotel X Mixed-Use Complex</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Uyo, Akwa Ibom State</p>
-            <p>Mid-rise hotel and commercial structure engineered over cast-in-situ bored piles, accommodating large ballrooms and transfer beams.</p>
-            <div class="project-tech">
-              <span>Pile Caps</span><span>Bored Piles</span><span>ETABS</span><span>Hospitality</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('hotel-x')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 07: 18m Span Link Bridge -->
-        <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="400">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/link-bridge-model.png" alt="18m Span Link Bridge Design" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag">18m Bridge Span</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>18m Span Link Bridge Design</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Coastal Link, Nigeria</p>
-            <p>Detailed structural design and full rebar markups for an 18m link bridge with deep pile foundations, composite RC deck, and Tekla/AutoCAD layouts.</p>
-            <div class="project-tech">
-              <span>Tekla</span><span>ETABS</span><span>Deep Piles</span><span>Bridge Deck</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('link-bridge')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 08: Steel Canopies Lekki & Kano -->
-        <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="450">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/canopy-lekki.png" alt="Filling Station Steel Canopy Lekki" class="project-card-photo" />
-            <div class="project-overlay">
-              <span class="project-tag">Commercial Steel</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Steel Canopies (Lekki &amp; Kano)</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Lekki, Lagos &amp; Kano State</p>
-            <p>Structural steel framing, cantilever analysis, connection detailing, and foundation baseplate checks under gust wind loads.</p>
-            <div class="project-tech">
-              <span>Structural Steel</span><span>Wind Uplift</span><span>Connections</span><span>Canopy</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('steel-canopies')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 09: Amphitheater Steel Canopy, Uyo -->
-        <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="480">
-          <div class="project-card-image-wrap">
-            <img src="assets/images/projects/amphitheater-canopy.png" alt="Amphitheater Steel Canopy Uyo" class="project-card-photo" loading="lazy" />
-            <div class="project-overlay">
-              <span class="project-tag">Long-Span Steel</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Amphitheater Steel Canopy</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Uyo, Akwa Ibom State</p>
-            <p>Architectural long-span curved steel canopy structure for an outdoor amphitheater. 3D space framing, curved radial steel rafters, wind suction analysis, and heavy-duty anchorage detailing.</p>
-            <div class="project-tech">
-              <span>Long-Span Steel</span><span>Curved Space Frame</span><span>Wind Uplift</span><span>3D FEA</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('amphitheater')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-        <div class="project-card" data-category="steel" data-aos="fade-up" data-aos-delay="500">
-          <div class="project-card-image-wrap ndt-card-slider-wrap">
-            <div class="ndt-slider-track" id="ndtSliderTrack">
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-1.jpg" alt="NDT Rebound Hammer Testing on RC Column" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-2.jpg" alt="NDT Digital Testing Meter" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-3.jpg" alt="Concrete Rebound Hardness Test" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-4.jpg" alt="Structural Audit Field Measurement" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-5.jpg" alt="Column Defect Non-Destructive Survey" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-slide-6.jpg" alt="NDT Surface Grid Preparation" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-1.jpg" alt="Structural Integrity Audit Report Photo" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-2.jpg" alt="Structural Defect Inspection" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-3.jpg" alt="Forensic Crack Pattern Mapping" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-4.jpg" alt="Structural Integrity Assessment Audit" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-5.jpg" alt="Structural Defect Mapping" class="project-card-photo" loading="lazy" /></div>
-              <div class="ndt-slider-slide"><img src="assets/images/ndt/ndt-report-6.jpg" alt="NDT Audit Condition Survey" class="project-card-photo" loading="lazy" /></div>
-            </div>
-            <div class="ndt-slider-controls">
-              <button class="ndt-nav-btn ndt-prev" aria-label="Previous Slide" onclick="event.stopPropagation(); slideNdt(-1);"><i class="fa-solid fa-chevron-left"></i></button>
-              <button class="ndt-nav-btn ndt-next" aria-label="Next Slide" onclick="event.stopPropagation(); slideNdt(1);"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-            <div class="ndt-slide-badge">
-              <span class="ndt-live-dot"></span>
-              <span id="ndtSlideCounter">1 / 12</span>
-            </div>
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-microscope"></i> Forensic NDT &amp; Defect Audit</span>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h3>Structural Integrity Audit &amp; NDT Testing</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> Ilupeju Industrial Area, Lagos</p>
-            <p>On-site Non-Destructive Testing (NDT Schmidt hammer testing, ultrasonic pulse velocity, crack survey, and vibration audit) assessing distressed concrete &amp; steel frames.</p>
-            <div class="project-tech">
-              <span>NDT Testing</span><span>Crack Mapping</span><span>Forensic Audit</span><span>Vibration Analysis</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('portal-warehouses')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 10: AutoStruct ETABS Automation -->
-        <div class="project-card project-card-automation" data-category="automation" data-aos="fade-up" data-aos-delay="550">
-          <div class="project-card-visual automation-bg">
-            <canvas class="card-matrix-canvas" id="proj-matrix-canvas-1"></canvas>
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-code"></i> AutoStruct &bull; 7 Master Modules</span>
-            </div>
-            <div class="project-icon-large"><i class="fa-solid fa-robot"></i></div>
-          </div>
-          <div class="project-card-body">
-            <h3>AutoStruct — ETABS Automation Suite</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
-            <p>Unified Python control hub with 7 master modules: Dynamic Modal &amp; ISO 10137 Comfort, BS Load Combos, 15m Pile Modeling, Pier Label Automation, Nonlinear P-Delta &amp; Staged Construction, STRUCTMOD, and Rigid Link Engine.</p>
-            <div class="project-tech">
-              <span>Python Desktop Hub</span><span>ETABS COM OAPI</span><span>7 Modules</span><span>Modal &amp; Comfort</span>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
-              <button class="project-card-btn" style="flex:1; min-width:130px;" onclick="openProjectModal('autostruct-suite')">
-                <span>View Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <a href="etabs-suite.html" class="project-card-btn" style="flex:1; min-width:140px; background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; text-decoration:none; justify-content:center; display:inline-flex; align-items:center; gap:8px;">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>Explore 7 Modules</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 11: Automated Reinforcement Detailing & Revit Extension -->
-        <div class="project-card project-card-automation" data-category="automation" data-aos="fade-up" data-aos-delay="600">
-          <div class="project-card-visual rebar-bg">
-            <canvas class="card-matrix-canvas" id="proj-matrix-canvas-2"></canvas>
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-compass-drafting"></i> Rebar &bull; Revit Automation</span>
-            </div>
-            <div class="project-icon-large"><i class="fa-solid fa-layer-group"></i></div>
-          </div>
-          <div class="project-card-body">
-            <h3>Automated Reinforcement &amp; Revit Detailing</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
-            <p>Intelligent algorithm translating structural analysis moments and shear into optimized rebar schedules, curtailment lengths, and automated 3D Revit reinforcement.</p>
-            <div class="project-tech">
-              <span>Revit Add-In</span><span>RC Design</span><span>Rebar Visualization Tool</span><span>AutoCAD DXF</span>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
-              <button class="project-card-btn" style="flex:1; min-width:130px;" onclick="openProjectModal('rebar-detailing')">
-                <span>View Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <a href="rebar-web-tool.html" class="project-card-btn" style="flex:1; min-width:140px; background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; text-decoration:none; justify-content:center; display:inline-flex; align-items:center; gap:8px;">
-                <i class="fa-solid fa-play"></i>
-                <span>Free Web Demo</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 12: SAFE Foundation Load Bridge -->
-        <div class="project-card project-card-automation" data-category="automation" data-aos="fade-up" data-aos-delay="650">
-          <div class="project-card-visual safe-bg">
-            <canvas class="card-matrix-canvas" id="proj-matrix-canvas-3"></canvas>
-            <div class="project-overlay">
-              <span class="project-tag"><i class="fa-solid fa-database"></i> SAFE &bull; Foundation Bridge</span>
-            </div>
-            <div class="project-icon-large"><i class="fa-solid fa-server"></i></div>
-          </div>
-          <div class="project-card-body">
-            <h3>Tekla to CSI SAFE Foundation Load Automation</h3>
-            <p class="project-loc"><i class="fa-solid fa-location-dot"></i> EDGEMARK AutoStruct Solutions</p>
-            <p>Direct Python pipeline importing hundreds of axial, shear, and moment load combinations from Tekla Structural Designer support points into CSI SAFE for foundation design with zero manual transfer error.</p>
-            <div class="project-tech">
-              <span>Python Engine</span><span>CSI SAFE API</span><span>Tekla TSD Open API</span><span>Zero Transcription Fault</span>
-            </div>
-            <button class="project-card-btn" onclick="openProjectModal('safe-automation')">
-              <span>View Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-            <!-- Tekla Floors coming-soon inline ticker -->
-            <div class="tekla-inline-badge" title="Coming Next: Tekla Structural Designer Floor to CSI SAFE">
-              <span class="tekla-badge-dot"></span>
-              <span class="tekla-badge-label"><i class="fa-solid fa-bolt" style="color:#00e5ff; font-size:0.65em;"></i>&nbsp;Tekla Floors &rarr; CSI SAFE &nbsp;<em>coming soon</em></span>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       TECHNOLOGY STACK
-  ══════════════════════════════════════ -->
-  <section class="tech section section-dark" id="tech">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label light">Our Toolkit</div>
-        <h2 class="section-title light">Engineering &amp; <span class="accent">Computational Stack</span></h2>
-        <p class="section-desc">
-          Combining industry-gold-standard FEA software with custom Python automation algorithms.
-        </p>
-      </div>
-      <div class="tech-grid">
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="100">
-          <div class="brand-logo-wrap">
-            <img src="assets/images/brands/etabs.svg" alt="CSI ETABS Official Logo" class="brand-software-logo" style="max-height: 48px; object-fit: contain;" />
-          </div>
-          <h4>CSI ETABS</h4>
-          <p>3D building structural analysis, dynamic modal response, P-Delta, core walls, and direct COM API programmatic automation.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="150">
-          <div class="brand-logo-wrap">
-            <img src="assets/images/brands/csisafe.svg" alt="CSI SAFE Official Logo" class="brand-software-logo" style="max-height: 48px; object-fit: contain;" />
-          </div>
-          <h4>CSI SAFE</h4>
-          <p>Slab and foundation FEA. Post-tensioned (PT) tendons, punching shear ratios, soil subgrade springs, and pile cap design.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="200">
-          <div class="brand-logo-wrap">
-            <img src="assets/images/brands/python.svg" alt="Python Language Official Logo" class="brand-software-logo" style="max-height: 44px;" />
-          </div>
-          <h4>Python Engineering Automation</h4>
-          <p>Core programming backbone for OAPI COM pipelines, data extraction, algorithm development, and custom graphical dashboards.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="250">
-          <div class="brand-logo-wrap duo-logos">
-            <img src="assets/images/brands/revit-logo.png" alt="Autodesk Revit Official Logo" class="brand-software-logo" title="Autodesk Revit" style="max-height: 38px;" />
-            <img src="assets/images/brands/autocad.svg" alt="Autodesk AutoCAD Official Logo" class="brand-software-logo" title="Autodesk AutoCAD" style="max-height: 36px;" />
-          </div>
-          <h4>Autodesk Revit &amp; AutoCAD</h4>
-          <p>3D BIM coordination, structural drawings, reinforcement detailing, and multidisciplinary clash detection.</p>
-        </div>
-
-        <div class="tech-card tech-card-highlight tech-card-mcp" data-aos="zoom-in" data-aos-delay="300" style="border-color: rgba(0, 229, 255, 0.4); background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(13, 23, 38, 0.95) 100%);">
-          <div class="mcp-card-graphic" style="width: 100%; height: 110px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.35); background: #08111e; margin-bottom: 14px; position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.45);">
-            <img src="assets/images/brands/mcp-logo.jpg" alt="Model Context Protocol (MCP) Standard Architecture" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; background: #0b1728; padding: 4px;" />
-            <span style="position: absolute; bottom: 6px; right: 8px; background: rgba(9, 18, 32, 0.88); backdrop-filter: blur(6px); border: 1px solid rgba(0, 229, 255, 0.4); color: #00e5ff; font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 12px; letter-spacing: 0.04em;">MCP Standard</span>
-          </div>
-          <h4>Model Context Protocol (MCP)</h4>
-          <p>Next-generation protocol connecting advanced AI agents directly to engineering calculations, ETABS APIs, and structural brain memory.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="350">
-          <div class="brand-logo-wrap">
-            <img src="assets/images/brands/tekla.svg" alt="Trimble Tekla Official Corporate Logo" class="brand-software-logo" style="max-height: 38px; width: auto; object-fit: contain;" />
-          </div>
-          <h4>Tekla Structures</h4>
-          <p>Bespoke 3D modeling for industrial steel structures, pipe racks, link bridges, and fabrication connection detailing.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="400">
-          <div class="brand-logo-wrap" style="background: rgba(0, 229, 255, 0.08); border-color: rgba(0, 229, 255, 0.35); min-width: 80px;">
-            <i class="fa-solid fa-wind" style="font-size: 32px; color: #00e5ff; filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.5));"></i>
-          </div>
-          <h4>AutoStruct Wind Dynamics</h4>
-          <p>Proprietary wind load engine built on BS 6399 and NBC 2005, automating highrise pressure distribution in ETABS models.</p>
-        </div>
-
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="450">
-          <div class="brand-logo-wrap" style="background: rgba(255, 107, 53, 0.08); border-color: rgba(255, 107, 53, 0.35); min-width: 80px;">
-            <i class="fa-solid fa-book-open" style="font-size: 30px; color: #ff6b35; filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.5));"></i>
-          </div>
-          <h4>International Codes</h4>
-          <p>BS 8110, BS 6399, BS 8007, Eurocode 2/3, EN 1990/1991, NBC 2005, and ACI performance-based requirements.</p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       CALL TO ACTION BAND
-  ══════════════════════════════════════ -->
-  <section class="cta-band">
-    <div class="cta-band-bg"></div>
-    <div class="container cta-band-inner" data-aos="fade-up">
-      <div class="cta-band-logo">
-        <img src="assets/images/logo-final.png" alt="EDGEMARK" />
-      </div>
-      <div class="cta-band-text">
-        <h2>Ready to Engineer Something <span class="accent">Extraordinary?</span></h2>
-        <p>From highrise skyscrapers and deep foundations to custom AEC automation software — let us define strength with precision for your next project.</p>
-      </div>
-      <a href="#contact" class="btn btn-primary btn-lg">Engage EDGEMARK</a>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       CONTACT SECTION
-  ══════════════════════════════════════ -->
-  <section class="contact section" id="contact">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <div class="section-label">Get in Touch</div>
-        <h2 class="section-title">Work With <span class="accent">EDGEMARK</span></h2>
-        <p class="section-desc">
-          Ready to discuss your upcoming highrise, foundation, peer review, or software automation challenge?
-        </p>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-info" data-aos="fade-right">
-          <div class="contact-card">
-            <i class="fa-solid fa-user-tie"></i>
-            <div>
-              <h4>Principal Consultant</h4>
-              <span style="font-weight:700; color:var(--navy);">Lawal Wasiu Kayode</span>
-              <span style="font-size:0.82rem; color:var(--gray-600); display:block;">Structural Engineer &bull; EDGEMARK Consulting Ltd.</span>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fa-solid fa-envelope"></i>
-            <div>
-              <h4>Email</h4>
-              <a href="mailto:wasleeyung@gmail.com">wasleeyung@gmail.com</a>
-              <span style="display:block; font-size:0.8rem; color:var(--gray-400);">Official: info@edgemarkconsulting.com</span>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fa-solid fa-phone"></i>
-            <div>
-              <h4>Direct Telephone</h4>
-              <a href="tel:+2348095311040">(+234) 809 5311 040</a> &bull; <a href="tel:+2347055021329">(+234) 705 5021 329</a>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fa-brands fa-linkedin" style="color:#0a66c2;"></i>
-            <div>
-              <h4>LinkedIn Network</h4>
-              <a href="https://www.linkedin.com/in/lawalwasiu" target="_blank" rel="noopener noreferrer" style="font-weight:600;">
-                linkedin.com/in/lawalwasiu <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i>
-              </a>
-              <span style="display:block; font-size:0.8rem; color:var(--gray-600);">Principal Consultant &bull; Lawal Wasiu Kayode</span>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fa-solid fa-location-dot"></i>
-            <div>
-              <h4>Headquarters</h4>
-              <span>Lagos State, Nigeria (Deploying Worldwide)</span>
-            </div>
-          </div>
-          <div class="contact-services">
-            <h4>Available Engagement Scope</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Highrise &amp; Supertall Structural Design</li>
-              <li><i class="fa-solid fa-circle-check"></i> Post-Tensioned (PT) Slabs &amp; Dynamic Wind Analysis</li>
-              <li><i class="fa-solid fa-circle-check"></i> Deep Piles &amp; Underground Retaining Facilities</li>
-              <li><i class="fa-solid fa-circle-check"></i> Peer Reviews &amp; Forensic Integrity Audits</li>
-              <li><i class="fa-solid fa-circle-check"></i> AEC Software &amp; ETABS API Automation</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="contact-form-wrap" data-aos="fade-left">
-          <form class="contact-form" id="contact-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Your full name" required />
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="your@email.com" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="project-type">Project Scope / Service</label>
-              <select id="project-type" name="project-type">
-                <option value="">Select a service category...</option>
-                <option>Supertall &amp; Highrise Structural Design</option>
-                <option>Structural Review / Forensic Appraisal</option>
-                <option>Deep Foundations &amp; Pile-Raft Systems</option>
-                <option>Hydraulic &amp; Deep Pool Structures</option>
-                <option>Building Automation Software / API Tool</option>
-                <option>General Engineering Consultancy &amp; Value Engineering</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="message">Project Brief &amp; Specifications</label>
-              <textarea id="message" name="message" rows="5" placeholder="Outline your project scope, location, floor count, site conditions, or software automation needs..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">
-              <i class="fa-solid fa-paper-plane"></i> Transmit Project Inquiry
-            </button>
-            <p class="form-note">
-              <i class="fa-solid fa-shield-halved"></i> All technical materials &amp; design briefs are held under strict confidentiality.
+            <h3 style="position:relative; z-index:2;">AEC Automation Tool Creation</h3>
+            <p class="spec-lead" style="position:relative; z-index:2;">
+              Developing custom structural engineering applications and workflow automation tools that reduce manual modeling bottlenecks across the design lifecycle.
             </p>
-          </form>
+            <ul class="spec-bullets" style="position:relative; z-index:2;">
+              <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Automated design and analysis workflows for CSI ETABS and CSI SAFE.</li>
+              <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Proprietary wind dynamics engines (BS 6399 &amp; NBC 2005) generating analytical loads.</li>
+              <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Automated reaction-force and moment extraction from Tekla Structural Designer into CSI SAFE, reducing manual transcription errors.</li>
+              <li><i class="fa-solid fa-check" style="color:#00e5ff;"></i> Diagnostic utilities to repair selected ETABS model issues and streamline Tekla-to-ETABS model transfer.</li>
+            </ul>
+            <div style="position:relative; z-index:2; display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px;">
+              <div class="spec-footer-badge" style="border-color:rgba(0,229,255,0.3); color:#a8f7ff; margin:0;">
+                <i class="fa-solid fa-bolt" style="color:#00e5ff;"></i> AutoStruct Suite &bull; Rebar Visualization Tool
+              </div>
+              <a href="rebar-web-tool.html" style="background:rgba(0,229,255,0.15); border:1px solid #00e5ff; color:#00e5ff; font-size:12px; font-weight:700; padding:6px 14px; border-radius:999px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s ease;">
+                <i class="fa-solid fa-play"></i> Try Free Web Tool
+              </a>
+            </div>
+          </div>
+
+          <!-- Spec 02: Post Tensioned (PT) Design -->
+          <div class="spec-quad-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="spec-card-top">
+              <div class="spec-quad-icon"><i class="fa-solid fa-layer-group"></i></div>
+              <span class="spec-tag-accent">Prestressed &bull; Long Spans</span>
+            </div>
+            <h3>Post-Tensioned (PT) Design</h3>
+            <p class="spec-lead">
+              Advanced design of bonded and unbonded post-tensioned floor systems, delivering thin structural depths, improved crack control, and expansive column-free spaces.
+            </p>
+
+            <!-- Interactive PT Media Showcase Strip -->
+            <div class="spec-pt-media-strip">
+              <div class="spec-pt-thumb" title="Live On Site Tendon Laying">
+                <img src="assets/images/pt-site-rebar.jpg" alt="Post Tension Tendon Laying On Site" />
+                <span class="pt-thumb-label"><i class="fa-solid fa-camera"></i> Site Laying</span>
+              </div>
+              <div class="spec-pt-thumb" title="Hydraulic Multi Strand Jack Stressing">
+                <img src="assets/images/pt-tendon-stressing-1.jpg" alt="Post Tension Stressing Operation" />
+                <span class="pt-thumb-label"><i class="fa-solid fa-bolt"></i> Jack Stressing</span>
+              </div>
+              <div class="spec-pt-thumb" title="Anchorage Zone Burst Detailing">
+                <img src="assets/images/pt-tendon-stressing-2.jpg" alt="Anchorage Zone Reinforcement" />
+                <span class="pt-thumb-label"><i class="fa-solid fa-shield"></i> Anchorage</span>
+              </div>
+            </div>
+
+            <ul class="spec-bullets">
+              <li><i class="fa-solid fa-check"></i> CSI SAFE 3D tendon profile modeling, balancing 65 to 85% of sustained dead loads.</li>
+              <li><i class="fa-solid fa-check"></i> Significant reduction in structural self weight, cutting foundation pile counts and floor to floor heights.</li>
+              <li><i class="fa-solid fa-check"></i> Thorough punching shear stress calculations and stud rail reinforcement layout at column perimeters.</li>
+              <li><i class="fa-solid fa-check"></i> Rigorous tendon elongation verification, anchorage burst zone detailing, and prestress loss tracking.</li>
+            </ul>
+            <div class="spec-footer-badge">
+              <i class="fa-solid fa-gem"></i> Bourdillon Road Ikoyi
+            </div>
+          </div>
+
+          <!-- Spec 04: Construction Sequence -->
+          <div class="spec-quad-card" data-aos="fade-up" data-aos-delay="400" style="grid-column: 1 / -1;">
+            <div class="spec-card-top">
+              <div class="spec-quad-icon"><i class="fa-solid fa-stairs"></i></div>
+              <span class="spec-tag-accent">Time Dependent &bull; Phased FEA</span>
+            </div>
+            <h3>Construction Sequence Consideration</h3>
+            <p class="spec-lead">
+              Integrating staged construction mechanics into primary analysis, recognizing that structures do not receive their entire design load in a single instant.
+            </p>
+            <div style="display:grid; grid-template-columns: 1fr 1.15fr; gap: 28px; align-items: center; margin-top: 14px;">
+              <div class="spec-video-wrap" style="margin: 0;">
+                <video class="spec-video-player" autoplay loop muted playsinline>
+                  <source src="assets/videos/construction-stage-sequence.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="spec-video-badge">
+                  <i class="fa-solid fa-play"></i> Staged Construction Sequence
+                </div>
+              </div>
+              <ul class="spec-bullets" style="margin: 0;">
+                <li><i class="fa-solid fa-check"></i> Phased finite element modeling simulating floor by floor concrete casting, curing, and shoring removal.</li>
+                <li><i class="fa-solid fa-check"></i> Differential vertical shortening calculations between highly stressed columns and stiff RC shear cores.</li>
+                <li><i class="fa-solid fa-check"></i> Temporary stage stability audits for deep hydraulic excavations, Olympic pools, and cantilevers.</li>
+                <li><i class="fa-solid fa-check"></i> Accurate prediction of locked in moments, camber requirements, and long term creep redistributions.</li>
+              </ul>
+            </div>
+            <div class="spec-footer-badge">
+              <i class="fa-solid fa-check-double"></i> Nonlinear Staged Construction Verification
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
+  <!-- ======================================
+       TOOLS / TECH SECTION
+  ====================================== -->
+  <div class="pub-tools">
+    <div class="container">
+      <div class="section-label" style="color:#00e5ff; font-family:'Montserrat',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:10px;">Engineering Software</div>
+      <h2>Our <span>Engineering Tools</span></h2>
+      <p>Explore the specialised software tools developed and used by EDGEMARK for structural analysis and design.</p>
+      <div class="tool-cards">
+        <a href="etabs-suite.html" class="tool-card">
+          <i class="fa-solid fa-layer-group"></i>
+          <h4>ETABS Automation Suite</h4>
+          <p>Automated workflows for structural model setup, load assignment, staging, and result extraction in ETABS.</p>
+        </a>
+        <a href="rebar-web-tool.html" class="tool-card">
+          <i class="fa-solid fa-shapes"></i>
+          <h4>Rebar Design Tool</h4>
+          <p>Online reinforced concrete section design and rebar scheduling utility, free to use.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       CONTACT SECTION
+  ====================================== -->
+  <section class="pub-contact" id="contact">
+    <div class="container">
+      <div class="section-label" style="color:#ff5722; font-family:'Montserrat',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:10px;">Get In Touch</div>
+      <h2>Let's Work <span>Together</span></h2>
+      <p>Have a structural engineering challenge or want to discuss how our tools can support your project? Reach out and we'll get back to you.</p>
+
+      <div class="contact-info-row">
+        <span><i class="fa-solid fa-location-dot" style="color:#ffffff;"></i> Lagos State, Nigeria</span>
+        <span><i class="fa-solid fa-phone" style="color:#22c55e;"></i> <a href="tel:+2348095311040" style="display:inline;">(+234) 809 5311 040</a> / <a href="tel:+2347055021329" style="display:inline;">(+234) 705 5021 329</a></span>
+        <a href="mailto:info@edgemarkconsult.com"><i class="fa-solid fa-envelope" style="color:#38bdf8;"></i> info@edgemarkconsult.com</a>
+        <a href="https://www.linkedin.com/in/lawalwasiu" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in" style="background:#0a66c2; color:#ffffff; width:18px; height:18px; border-radius:3px; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;"></i> LinkedIn Profile</a>
+      </div>
+
+      <form class="pub-form" id="pub-contact-form" novalidate>
+        <div class="form-row">
+          <input type="text"  name="name"    placeholder="Your Name *"    required />
+          <input type="email" name="email"   placeholder="Email Address *" required />
+        </div>
+        <input type="text" name="subject" placeholder="Subject" style="width:100%; margin-bottom:14px; box-sizing:border-box; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:12px 14px; color:#fff; font-family:'Open Sans',sans-serif; font-size:0.9rem; outline:none;" />
+        <textarea name="message" placeholder="Your message *" required></textarea>
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_subject" value="New Enquiry: EDGEMARK Website" />
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+        <p id="pub-form-msg"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ======================================
        FOOTER
-  ══════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="assets/images/logo-final.png" alt="EDGEMARK Engineering Consulting Ltd." class="footer-logo" />
-        <p class="footer-tagline">Providing Cutting-Edge Solutions<br/>and Defining Strength with Precision.</p>
-        <p class="footer-principal" style="margin-top:12px; font-size:0.8rem; color:rgba(255,255,255,0.6);">
-          Principal: <strong>Lawal Wasiu Kayode</strong>
-        </p>
-      </div>
-      <div class="footer-col">
-        <h5>Key Capabilities</h5>
-        <ul>
-          <li><a href="#expertise">49-Storey Eko Atlantic Tower</a></li>
-          <li><a href="#services">Post-Tensioned (PT) Floors</a></li>
-          <li><a href="#services">Deep Pile-Raft Foundations</a></li>
-          <li><a href="#services">Wind Tunnel Data Integration</a></li>
-          <li><a href="#projects">Forensic Warehouse Audits</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>AEC Automation</h5>
-        <ul>
-          <li><a href="#projects">AutoStruct ETABS Suite</a></li>
-          <li><a href="#projects">SAFE Foundation Load Bridge</a></li>
-          <li><a href="#projects">Automated Rebar Pro</a></li>
-          <li><a href="#tech">Python OAPI Scripts</a></li>
-          <li><a href="#tech">BS 6399 Dynamic Solvers</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Contact &amp; Region</h5>
-        <ul>
-          <li><span style="color:#fff;"><i class="fa-solid fa-location-dot accent"></i> Lagos State, Nigeria</span></li>
-          <li><span style="color:rgba(255,255,255,0.7);"><i class="fa-solid fa-phone accent"></i> (+234) 809 5311 040</span></li>
-          <li><span style="color:rgba(255,255,255,0.7);"><i class="fa-solid fa-phone accent"></i> (+234) 705 5021 329</span></li>
-          <li><span style="color:rgba(255,255,255,0.7);"><i class="fa-solid fa-envelope accent"></i> wasleeyung@gmail.com</span></li>
-          <li><a href="https://www.linkedin.com/in/lawalwasiu" target="_blank" rel="noopener noreferrer" style="color:#00e5ff; display:inline-flex; align-items:center; gap:8px;"><i class="fa-brands fa-linkedin accent"></i> LinkedIn Profile <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <p>&copy; 2026 EDGEMARK Engineering Consulting Ltd. All rights reserved.</p>
-      </div>
-    </div>
+  ====================================== -->
+  <footer class="pub-footer">
+    <p>
+      &copy; 2026 EDGEMARK Engineering Consulting Ltd. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:info@edgemarkconsult.com">info@edgemarkconsult.com</a>
+    </p>
   </footer>
 
   <!-- Back to top -->
@@ -1269,56 +414,7 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- ══════════════════════════════════════
-       PROJECT DETAIL MODAL (PAGE-LEVEL ACCESS)
-  ══════════════════════════════════════ -->
-  <div class="project-modal-backdrop" id="project-modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="project-modal-window" id="project-modal-window">
-      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close Case Study">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <div class="modal-hero-img-wrap" id="modal-img-wrap">
-        <img src="" alt="" id="modal-hero-image" class="modal-hero-img" />
-        <div class="modal-gallery-strip" id="modal-gallery-strip" style="display:none;"></div>
-      </div>
-      <div class="modal-content-inner">
-        <span class="modal-tag" id="modal-tag">Case Study</span>
-        <h2 class="modal-title" id="modal-title">Project Title</h2>
-        <div class="modal-loc" id="modal-loc"><i class="fa-solid fa-location-dot"></i> <span>Location</span></div>
-        
-        <div class="modal-specs-grid" id="modal-specs">
-          <!-- Dynamic specs injected here -->
-        </div>
-
-        <div class="modal-body-text" id="modal-desc">
-          <!-- Description injected here -->
-        </div>
-
-        <div class="modal-highlights" id="modal-highlights-box">
-          <h4><i class="fa-solid fa-layer-group accent"></i> Key Engineering Milestones:</h4>
-          <ul id="modal-highlights-list">
-            <!-- Dynamic highlights injected here -->
-          </ul>
-        </div>
-
-        <div class="modal-tech-pills" id="modal-tech">
-          <!-- Tech pills injected here -->
-        </div>
-
-        <div class="modal-cta-row">
-          <a href="#contact" class="btn btn-primary" onclick="closeProjectModal()"><i class="fa-solid fa-paper-plane"></i> Discuss Similar Project</a>
-          <button class="btn btn-outline" onclick="closeProjectModal()" style="color:#ffffff; border-color:rgba(255,255,255,0.3);">Close Overview</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- --------------------------------------
-       FLASHY SIDE PILL: COMING SOON
-       (Dynamically scoped to show only when viewing Automation software segment)
-  -------------------------------------- -->
+  <!-- FLASHY SIDE PILL: COMING SOON -->
   <aside class="side-pill-ticker" id="sidePillTicker" title="Next-Gen Feature Coming Soon">
     <div class="pill-pulse-ring"></div>
     <div class="pill-badge">
@@ -1333,8 +429,92 @@
   </aside>
 
   <script src="assets/js/main.js"></script>
+  <script>
+    // -- Lightweight public contact form (FormSubmit AJAX) --
+    document.getElementById('pub-contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.btn-submit');
+      const msg = document.getElementById('pub-form-msg');
+      const nameVal = (this.querySelector('[name="name"]')?.value || '').trim();
+      const emailVal = (this.querySelector('[name="email"]')?.value || '').trim();
+      const subjectVal = (this.querySelector('[name="subject"]')?.value || '').trim();
+      const messageVal = (this.querySelector('[name="message"]')?.value || '').trim();
+
+      if (!nameVal || !emailVal || !messageVal) {
+        msg.style.color = '#ff5722';
+        msg.textContent = 'Please fill in your name, email, and message.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      msg.textContent = '';
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@edgemarkconsult.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            subject: subjectVal || 'Website Enquiry',
+            message: messageVal,
+            _subject: subjectVal ? `EDGEMARK Enquiry: ${subjectVal}` : 'New Enquiry: EDGEMARK Website',
+            _captcha: 'false',
+            _template: 'table'
+          })
+        });
+        const json = await res.json();
+        if (json.success === 'true' || json.success === true) {
+          msg.style.color = '#4caf50';
+          msg.innerHTML = '&#10004; Message sent! We\'ll be in touch soon.';
+          this.reset();
+        } else {
+          msg.style.color = '#ff9800';
+          msg.textContent = json.message || 'Please check info@edgemarkconsult.com to activate FormSubmit.';
+        }
+      } catch {
+        msg.style.color = '#ff5722';
+        msg.innerHTML = 'Something went wrong. Email us directly at <a href="mailto:info@edgemarkconsult.com" style="color:#ff5722;">info@edgemarkconsult.com</a>';
+      }
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+    });
+
+    // -- Navbar scroll behaviour --
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
+      const btn = document.getElementById('back-to-top');
+      if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    document.getElementById('back-to-top')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // -- Hamburger menu --
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active');
+      });
+    }
+
+    // -- Hero slider --
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      let cur = 0;
+      if (!slides.length) return;
+      setInterval(() => {
+        slides[cur].classList.remove('active');
+        cur = (cur + 1) % slides.length;
+        slides[cur].classList.add('active');
+      }, 5000);
+    })();
+  </script>
 </body>
 </html>
-
-
 
