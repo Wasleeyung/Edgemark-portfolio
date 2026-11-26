@@ -1704,6 +1704,28 @@
       ctx.stroke();
     }
 
+    let isExportingPng = false;
+    const watermarkLogo = new Image();
+    watermarkLogo.src = 'assets/images/logo-transparent-cropped.png';
+
+    function drawExportWatermark(w, h) {
+      if (!isExportingPng) return;
+      ctx.save();
+      ctx.globalAlpha = 0.085;
+      if (watermarkLogo.complete && watermarkLogo.naturalWidth > 0) {
+        const targetW = Math.min(w * 0.56, 460);
+        const ratio = watermarkLogo.naturalHeight / watermarkLogo.naturalWidth;
+        const targetH = targetW * ratio;
+        ctx.drawImage(watermarkLogo, (w - targetW) / 2, (h - targetH) / 2, targetW, targetH);
+      } else {
+        ctx.font = '900 34px Montserrat, Segoe UI, sans-serif';
+        ctx.fillStyle = '#38bdf8';
+        ctx.textAlign = 'center';
+        ctx.fillText('EDGEMARK AUTOSTRUCT', w / 2, h / 2);
+      }
+      ctx.restore();
+    }
+
     function render() {
       // Completely wipe the physical canvas buffer so nothing ever leaks or ghosts between tabs
       ctx.save();
@@ -1715,6 +1737,8 @@
 
       const w = canvas.parentElement.clientWidth;
       const h = canvas.parentElement.clientHeight;
+
+      drawExportWatermark(w, h);
 
       if (state.type === 'beam') renderBeam(w, h);
       else if (state.type === 'slab') renderSlab(w, h);
@@ -1808,11 +1832,11 @@
         ctx.stroke();
       });
 
-      // Spacing dimensions between bottom bars
+      // Spacing dimensions between bottom bars (placed cleanly below soffit, out-to-out clear distance)
       const botLayer1 = botPositions.filter(p => Math.abs(p.y - botPositions[0].y) < botDiaPx);
-      drawLayerSpacings(botLayer1, botDiaPx, scale, y0 + drawH, +1, '#34d399');
+      drawLayerSpacings(botLayer1, botDiaPx, getEffDia(state.botDia), scale, y0 + drawH, +1, '#34d399');
 
-      // Physical Spacer Bar if multi layer
+      // Physical Spacer Bar if multi layer (label placed outside right face to prevent bar cluster congestion)
       if (beamRes.layers.length > 1) {
         const spacerY = (botPositions[0].y + botPositions[beamRes.layers[0]].y) / 2.0;
         ctx.strokeStyle = '#fbbf24';
@@ -1824,9 +1848,18 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        ctx.font = 'bold 9px Segoe UI, sans-serif';
+        // Leader tick to right margin
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.55)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(lx + lw - 4, spacerY);
+        ctx.lineTo(x0 + drawW + 6, spacerY);
+        ctx.stroke();
+
+        ctx.font = 'bold 8px Segoe UI, sans-serif';
         ctx.fillStyle = '#fde68a';
-        ctx.fillText(`T${beamRes.spacerDia} spacer bar`, lx + 12, spacerY - 6);
+        ctx.textAlign = 'left';
+        ctx.fillText(`T${beamRes.spacerDia} spacer`, x0 + drawW + 9, spacerY + 3);
       }
 
       // Side (Skin) Bars when h > 750 mm (BS 8110 deep beam requirement)
@@ -1868,17 +1901,17 @@
       drawDimHoriz(x0, x0 + drawW, y0 - 14, `b = ${state.b} mm`);
       drawDimVert(x0 - 24, y0, y0 + drawH, `h = ${state.h} mm`);
       
-      // d = effective depth: from top face (y0) to tension steel centroid
+      // d = effective depth: from top face (y0) to tension steel centroid (offset right of Skin bars / spacer labels)
       const centroidY = y0 + beamRes.d * scale;
-      drawDimVert(x0 + drawW + 36, y0, centroidY, `d = ${beamRes.d.toFixed(0)} mm`, '#38bdf8');
+      drawDimVert(x0 + drawW + 64, y0, centroidY, `d = ${beamRes.d.toFixed(0)} mm`, '#38bdf8');
 
-      // Bottom Badge Pill (cleanly spaced below section)
+      // Bottom Badge Pill (cleanly spaced below clear-spacing dimension line)
       const maxSvCode = (0.75 * beamRes.d).toFixed(0);
       const svOk = state.linkSpacing <= 0.75 * beamRes.d;
       const badgeText = `Shear Links: T${state.linkDia}, ${state.linkLegs}-leg @ ${state.linkSpacing} mm c/c  |  ${svOk ? '✔' : '✘'} s ≤ 0.75d (${maxSvCode} mm)  |  Cover: ${state.cover} mm`;
       const badgeW = Math.min(drawW + 80, w - 40);
       const badgeX = x0 + drawW / 2 - badgeW / 2;
-      const badgeY = y0 + drawH + 26;
+      const badgeY = y0 + drawH + 34;
       const badgeH = 22;
       const r = 5;
 
@@ -2038,7 +2071,7 @@
       });
 
       // Bar Spacing Dimensions between EACH distinct bar
-      drawLayerSpacings(botPositions, diaPx, scale, y0 + drawH, +1, '#34d399');
+      drawLayerSpacings(botPositions, diaPx, getEffDia(state.slabDia), scale, y0 + drawH, +1, '#34d399');
 
       // Dimensions: 1000mm strip, h, and effective depth d
       const dEff = Math.max(0, state.slabH - state.slabCover - state.slabDia / 2.0);
@@ -2170,7 +2203,7 @@
       });
 
       // Spacing dimensions between EACH distinct vertical bar
-      drawLayerSpacings(topPositions, diaPx, scale, y0, -1, '#34d399');
+      drawLayerSpacings(topPositions, diaPx, getEffDia(state.wallDia), scale, y0, -1, '#34d399');
 
       // Dimensions: Lw and tw
       const lwLabel = isClipped 
@@ -2320,53 +2353,61 @@
       ctx.fill();
     }
 
-    function drawLayerSpacings(positions, diaPx, scale, boundY, yOffsetSign, color) {
+    function drawLayerSpacings(positions, diaPx, barDiaMm, scale, boundY, yOffsetSign, color) {
       if (positions.length < 2) return;
       const r = diaPx / 2.0;
-      const dimY = positions[0].y + yOffsetSign * (r + 14);
+      // Place bottom clear-spacing dimension cleanly outside concrete soffit (boundY + 14) to prevent congestion
+      const dimY = yOffsetSign > 0 ? boundY + 14 : positions[0].y - (r + 14);
 
       for (let i = 0; i < positions.length - 1; i++) {
         const p1 = positions[i];
         const p2 = positions[i + 1];
-        const dxPx = p2.x - p1.x;
-        const c2cMm = dxPx / scale;
-        const clearMm = Math.max(0, c2cMm - (diaPx / scale));
+        // Out-to-out (face-to-face) clear edge coordinates between adjacent bars
+        const x1 = p1.x + r;
+        const x2 = p2.x - r;
+        const c2cMm = (p2.x - p1.x) / scale;
+        const clearMm = Math.max(0, c2cMm - barDiaMm);
 
-        // Leader lines
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
+        // Leader lines from outer bar faces (out-to-out)
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.45)';
         ctx.setLineDash([2, 2]);
         ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y + yOffsetSign * r);
-        ctx.lineTo(p1.x, dimY);
-        ctx.moveTo(p2.x, p2.y + yOffsetSign * r);
-        ctx.lineTo(p2.x, dimY);
+        ctx.moveTo(x1, p1.y);
+        ctx.lineTo(x1, dimY);
+        ctx.moveTo(x2, p2.y);
+        ctx.lineTo(x2, dimY);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Dimension line with ticks
+        // Dimension line with out-to-out face ticks
         ctx.strokeStyle = color;
         ctx.beginPath();
-        ctx.moveTo(p1.x, dimY);
-        ctx.lineTo(p2.x, dimY);
-        ctx.moveTo(p1.x, dimY - 3);
-        ctx.lineTo(p1.x, dimY + 3);
-        ctx.moveTo(p2.x, dimY - 3);
-        ctx.lineTo(p2.x, dimY + 3);
+        ctx.moveTo(x1, dimY);
+        ctx.lineTo(x2, dimY);
+        ctx.moveTo(x1, dimY - 3);
+        ctx.lineTo(x1, dimY + 3);
+        ctx.moveTo(x2, dimY - 3);
+        ctx.lineTo(x2, dimY + 3);
         ctx.stroke();
 
         ctx.font = 'bold 8px Segoe UI, sans-serif';
         ctx.fillStyle = color;
         ctx.textAlign = 'center';
-        const label = dxPx >= 30 ? `${clearMm.toFixed(0)}clr` : `${clearMm.toFixed(0)}`;
-        ctx.fillText(label, (p1.x + p2.x) / 2, dimY - 4);
+        const gapPx = x2 - x1;
+        const label = gapPx >= 28 ? `${clearMm.toFixed(0)} clr` : `${clearMm.toFixed(0)}`;
+        ctx.fillText(label, (x1 + x2) / 2, dimY - 4);
       }
     }
 
     function exportCanvasPNG() {
+      isExportingPng = true;
+      render();
       const link = document.createElement('a');
       link.download = `rebar_section_${state.type}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
+      isExportingPng = false;
+      render();
     }
 
     /* ── FEEDBACK MODAL HANDLERS ── */
