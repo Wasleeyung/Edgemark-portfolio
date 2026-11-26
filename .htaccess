@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Force HTTPS + www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.edgemarkconsult.com/$1 [L,R=301]
+
+# Redirect /index or /index.html to /
+RewriteCond %{THE_REQUEST} \s/+index(?:\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L,NE]
+
+# Redirect .html URLs to clean URLs (e.g. /rebar-web-tool.html -> /rebar-web-tool)
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# Internally serve the .html file for clean URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+

@@ -379,49 +379,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── CONTACT FORM ───────────────────────── */
-
   const contactForm = document.getElementById('contact-form');
-
   if (contactForm) {
-
-    contactForm.addEventListener('submit', function(e) {
-
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-
       const btn = this.querySelector('button[type="submit"]');
-
       const originalText = btn.innerHTML;
-
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-
       btn.disabled = true;
 
+      const nameVal = (document.getElementById('name')?.value || '').trim();
+      const emailVal = (document.getElementById('email')?.value || '').trim();
+      const scopeVal = (document.getElementById('project-type')?.value || 'General Inquiry').trim();
+      const msgVal = (document.getElementById('message')?.value || '').trim();
 
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@edgemarkconsult.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            project_scope: scopeVal,
+            message: msgVal,
+            _subject: `[EDGEMARK Website Inquiry] - ${scopeVal || 'New Inquiry'}`,
+            _template: 'table'
+          })
+        });
 
-      // Simulate sending (replace with real backend/EmailJS when ready)
-
-      setTimeout(() => {
-
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Message Sent!';
-
         btn.style.background = '#28a745';
-
         contactForm.reset();
-
+      } catch (err) {
+        console.error('FormSubmit error:', err);
+        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Failed — Email info@edgemarkconsult.com';
+        btn.style.background = '#dc2626';
+      } finally {
         setTimeout(() => {
-
           btn.innerHTML = originalText;
-
           btn.disabled = false;
-
           btn.style.background = '';
-
-        }, 4000);
-
-      }, 1800);
-
+        }, 4500);
+      }
     });
-
   }
 
 
@@ -991,11 +995,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     'autostruct-suite': {
 
-      title: 'AutoStruct — Computational ETABS Engineering Suite (7 Modules)',
+      title: 'AutoStruct ETABS Engineering Suite',
 
       location: 'EDGEMARK AutoStruct Solutions',
 
-      tag: 'AEC Desktop Suite & COM API',
+      tag: 'AEC Engineering Suite',
 
       image: 'assets/images/app-wind-dynamics-gui.png',
 
@@ -1003,33 +1007,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
       specs: [
 
-        { label: 'Platform', val: 'Python 3.10+ / Tkinter GUI' },
+        { label: 'Target', val: 'CSI ETABS Workflows' },
 
-        { label: 'API Target', val: 'CSI ETABS COM OAPI' },
+        { label: 'Standards', val: 'BS 8110, Eurocode, ISO 10137' },
 
-        { label: 'Modules', val: '7 Master Engineering Engines' }
+        { label: 'Scope', val: 'Analysis, Foundations & Stiffness' }
 
       ],
 
-      desc: 'Master engineering control hub communicating directly with ETABS via COM API. Unifies 7 specialized modules: Dynamic Modal Analysis & ISO 10137/BS 6472 Human Comfort, BS 8110/BS 6399/BS 8004 Load Combinations Generator, Automated 15m Pile-Raft Modeler, Wall Pier Label Automation, Nonlinear P-Delta & Staged Construction Sequencer, STRUCTMOD Stiffness Modifier Manager, and Rigid Link Engine with Null Frame Load Correction.',
+      desc: 'Integrated structural engineering automation suite developed by EDGEMARK for CSI ETABS. Streamlines modal comfort evaluation, code compliant load combination generation, deep foundation modeling, wall pier assignment, nonlinear P Delta and staged construction setup, and stiffness management.',
 
       highlights: [
 
-        'Modal & Human Comfort Suite: Extracts periods, frequencies, mass participation, torsional irregularity (flags >1.2), and evaluates ISO 10137 / BS 6472 acceleration benchmarks.',
+        'Modal & Human Comfort Evaluation: Extracts dynamic modal properties and evaluates ISO 10137 and BS 6472 acceleration benchmarks.',
 
-        'BS Load Combos Generator: Auto-creates complete ULS & SLS combinations (gravity, wind ± reversals, soil, water, surcharge) with zero manual data entry.',
+        'BS Load Combinations: Generates complete ULS and SLS load combinations across gravity, wind, soil, and water cases.',
 
-        '15m Distributed Pile Modeling: Reads reaction forces (F3), sizes 600mm piles, enforces >=1.5D anti-clash spacing, and assigns tip point springs automatically.',
+        'Foundation & Pile Modeling: Automates piled raft layout generation and spring stiffness assignment.',
 
-        'Wall Pier Bottom-Up Labeling: Scans vertical wall stacks by plan coordinate (X,Y) and assigns continuous P1..Pn pier labels across all stories.',
+        'Wall Pier & Staged Construction: Streamlines shear wall labeling, nonlinear P Delta cases, and floor by floor construction sequences.',
 
-        'Nonlinear P-Delta & Staged Construction: GUI for gravity P-Delta cases, wind lateral continuations, and floor-by-floor concrete curing/shrinkage sequences.',
-
-        'STRUCTMOD & Rigid Link Engine: SLS/ULS stiffness schedules with rollback protection, 6-DOF in-plane rigid links, and Null Frame load correction with auto .EDB backups.'
+        'Stiffness & Load Management: Manages SLS and ULS stiffness schedules and verifies gravity load assignments.'
 
       ],
 
-      tech: ['Python Desktop App', 'ETABS COM OAPI', 'Tkinter UI', 'Modal Analysis', 'Piled-Raft', 'P-Delta', 'Staged Construction']
+      tech: ['ETABS Automation', 'Modal Analysis', 'Piled Raft', 'P Delta', 'Staged Construction']
 
     },
 
@@ -1050,7 +1052,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       specs: [
 
-        { label: 'Platform', val: 'Autodesk Revit & Python' },
+        { label: 'Platform', val: 'Autodesk Revit Integration' },
 
         { label: 'RC Standard', val: 'BS 8110 & Eurocode 2' },
 
@@ -1058,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ],
 
-      desc: 'Proprietary Revit automation extension and Python detailing engine. Converts finite-element design moments and shear demands into code-compliant rebar placement, lap curtailments, 3D parametric rebar models in Revit, and bar bending schedules.',
+      desc: 'Proprietary Revit automation extension and detailing engine. Converts finite element design moments and shear demands into code compliant rebar placement, lap curtailments, 3D parametric rebar models in Revit, and bar bending schedules.',
 
       highlights: [
 
@@ -1070,7 +1072,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ],
 
-      tech: ['Autodesk Revit API', 'Python Engine', 'Rebar Visualization Tool', 'BBS Generation']
+      tech: ['Autodesk Revit', 'Rebar Visualization Tool', 'BBS Generation', 'Workflow Automation']
 
     },
 
@@ -1096,21 +1098,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ],
 
-      desc: 'Seamless computational pipeline that automatically harvests reaction vectors (Fz, Fx, Fy, Mx, My, Mz) across all load combinations from Tekla Structural Designer support nodes and programmatically generates support points and loads inside CSI SAFE for foundation design.',
+      desc: 'Seamless computational workflow that transfers reaction forces and moments across all load combinations from Tekla Structural Designer support nodes into CSI SAFE for foundation design.',
 
       highlights: [
 
-        'Eliminates manual entry of hundreds of column and wall base reactions for multi-storey foundation designs.',
+        'Eliminates manual entry of hundreds of column and wall base reactions for multi storey foundation designs.',
 
-        'Direct extraction from Tekla Structural Designer (TSD Open API) into CSI SAFE with zero transcription error.',
+        'Direct transfer from Tekla Structural Designer into CSI SAFE with zero transcription error.',
 
-        'Auto-verifies equilibrium between Tekla base reactions and CSI SAFE foundation applied loads.',
+        'Verifies equilibrium between Tekla base reactions and CSI SAFE foundation applied loads.',
 
-        'Accelerates pile-cap and raft footing design turnaround from days to minutes.'
+        'Accelerates pile cap and raft footing design turnaround from days to minutes.'
 
       ],
 
-      tech: ['Python', 'Tekla TSD Open API', 'CSI SAFE API', 'Foundation Engineering', 'Workflow Automation']
+      tech: ['Tekla TSD', 'CSI SAFE', 'Foundation Engineering', 'Workflow Automation']
 
     }
 
